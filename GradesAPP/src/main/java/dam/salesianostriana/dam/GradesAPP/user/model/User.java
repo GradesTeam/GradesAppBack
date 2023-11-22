@@ -1,7 +1,10 @@
 package dam.salesianostriana.dam.GradesAPP.user.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Parameter;
@@ -11,6 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Inheritance(strategy  = InheritanceType.JOINED)
 @Entity
+@Getter
 public abstract class User {
     @Id
     @GeneratedValue(generator = "UUID")
