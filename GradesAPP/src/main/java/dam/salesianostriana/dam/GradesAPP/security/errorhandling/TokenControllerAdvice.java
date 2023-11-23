@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @RestControllerAdvice
 public class TokenControllerAdvice {
 
-    @ExceptionHandler({AuthenticationException.class})
+    @ExceptionHandler({ AuthenticationException.class })
     public ResponseEntity<?> handleAuthenticationException(AuthenticationException ex, HttpServletRequest request) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .header("WWW-Authenticate", "Bearer")

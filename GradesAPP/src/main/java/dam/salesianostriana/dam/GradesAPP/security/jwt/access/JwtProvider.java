@@ -2,6 +2,8 @@ package dam.salesianostriana.dam.GradesAPP.security.jwt.access;
 
 import dam.salesianostriana.dam.GradesAPP.security.errorhandling.JwtTokenException;
 import dam.salesianostriana.dam.GradesAPP.user.model.User;
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,7 +30,6 @@ public class JwtProvider {
 
     @Value("${jwt.duration}")
     private int jwtLifeInDays;
-    //private int jwtLifeInMinutes;
 
     private JwtParser jwtParser;
 
@@ -39,9 +40,7 @@ public class JwtProvider {
 
         secretKey = Keys.hmacShaKeyFor(jwtSecret.getBytes());
 
-        //jwtParser = Jwts.parserBuilder()
         jwtParser = Jwts.parser()
-                //.setSigningKey(secretKey)
                 .verifyWith(secretKey)
                 .build();
     }
@@ -61,7 +60,6 @@ public class JwtProvider {
                         LocalDateTime
                                 .now()
                                 .plusDays(jwtLifeInDays)
-                                //.plusMinutes(jwtLifeInMinutes)
                                 .atZone(ZoneId.systemDefault())
                                 .toInstant()
                 );
@@ -74,22 +72,13 @@ public class JwtProvider {
                 .expiration(tokenExpirationDateTime)
                 .signWith(secretKey)
                 .compact();
-                /*.setHeaderParam("typ", TOKEN_TYPE)
-                .setSubject(user.getId().toString())
-                .setIssuedAt(new Date())
-                .setExpiration(tokenExpirationDateTime)
-                .signWith(secretKey)
-                .compact();*/
 
     }
 
 
     public UUID getUserIdFromJwtToken(String token) {
 
-
-
         return UUID.fromString(
-                //jwtParser.parseClaimsJws(token).getBody().getSubject()
                 jwtParser.parseSignedClaims(token).getPayload().getSubject()
         );
     }
@@ -98,14 +87,12 @@ public class JwtProvider {
     public boolean validateToken(String token) {
 
         try {
-            //jwtParser.parseClaimsJws(token);
             jwtParser.parse(token);
             return true;
-        } catch (SignatureException | MalformedJwtException | ExpiredJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
+        } catch (MalformedJwtException | ExpiredJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
             log.info("Error con el token: " + ex.getMessage());
             throw new JwtTokenException(ex.getMessage());
         }
-        //return false;
 
     }
 }
