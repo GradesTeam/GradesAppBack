@@ -1,6 +1,6 @@
-package dam.salesianostriana.dam.GradesAPP.Instrumento;
+package dam.salesianostriana.dam.GradesAPP.instrumento.dto;
 
-import dam.salesianostriana.dam.GradesAPP.Instrumento.model.Instrumento;
+import dam.salesianostriana.dam.GradesAPP.instrumento.model.Instrumento;
 import lombok.Builder;
 
 import java.time.LocalDateTime;

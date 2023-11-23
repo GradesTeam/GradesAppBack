@@ -1,5 +1,6 @@
 package dam.salesianostriana.dam.GradesAPP.instrumento.controller;
 
+import dam.salesianostriana.dam.GradesAPP.instrumento.dto.GETInstrumentoDTO;
 import dam.salesianostriana.dam.GradesAPP.instrumento.service.InstrumentoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
