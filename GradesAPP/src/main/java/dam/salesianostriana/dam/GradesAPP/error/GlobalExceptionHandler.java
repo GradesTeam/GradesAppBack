@@ -18,11 +18,7 @@ import java.util.List;
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
-<<<<<<< HEAD
-    public ErrorResponse handleMethodArgumentNotValid(MethodArgumentNotValidException exception, HttpHeaders httpHeaders, HttpStatus httpStatus, WebRequest webRequest){
-=======
     public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception, HttpHeaders headers, HttpStatusCode status, WebRequest request){
->>>>>>> main
         List<ApiValidationSubError> validationErrors = exception.getBindingResult().getAllErrors().stream()
                 .map(ApiValidationSubError::fromObjectError)
                 .toList();
