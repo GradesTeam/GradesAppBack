@@ -8,25 +8,27 @@ import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.net.URI;
 import java.time.Instant;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ErrorResponse handleMethodArgumentNotValid(MethodArgumentNotValidException exception){
+    @Override
+    public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException exception, HttpHeaders headers, HttpStatusCode status, WebRequest request){
         List<ApiValidationSubError> validationErrors = exception.getBindingResult().getAllErrors().stream()
                 .map(ApiValidationSubError::fromObjectError)
                 .toList();
-        return ErrorResponse.builder(exception, HttpStatus.BAD_REQUEST, exception.getMessage())
+        ErrorResponse er = ErrorResponse.builder(exception, HttpStatus.BAD_REQUEST, exception.getMessage())
                 .title("Invalid data error")
                 .type(URI.create("https://api.grades-team.com/errors/not-found"))
                 .property("Fields errors", validationErrors)
                 .build();
+        return ResponseEntity.status(status)
+                .body(er);
     }
     @ExceptionHandler(NotFoundException.class)
     public ErrorResponse handleNotFoundGeneral(EntityNotFoundException exception){
