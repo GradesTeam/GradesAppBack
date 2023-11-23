@@ -16,7 +16,7 @@ public class InstrumentoService {
     private final InstrumentoRepository repo;
 
     public List<GETInstrumentoDTO> getAllInstrumentosFromAsignatura(UUID id){
-        List<Instrumento> result = repo.getAllInstrumentosByAsignaturaId(id);
+        List<Instrumento> result = repo.findAllByAsignatura_id(id);
         if(result.isEmpty())
             throw new NotFoundException("Instrumento");
         return result.stream().map(GETInstrumentoDTO::of).toList();
