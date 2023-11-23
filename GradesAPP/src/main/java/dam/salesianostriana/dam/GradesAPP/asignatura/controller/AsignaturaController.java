@@ -1,6 +1,15 @@
-package dam.salesianostriana.dam.GradesAPP.asignatura.controller;
+package dam.salesianostriana.dam.GradesAPP. Asignatura.controller;
 
+import dam.salesianostriana.dam.GradesAPP.Asignatura.service.AsignaturaService;
 import dam.salesianostriana.dam.GradesAPP.asignatura.service.AsignaturaService;
+import dam.salesianostriana.dam.GradesAPP.asignatura.model.Asignatura;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
