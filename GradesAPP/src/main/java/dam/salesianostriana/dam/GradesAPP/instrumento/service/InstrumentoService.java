@@ -5,9 +5,10 @@ import dam.salesianostriana.dam.GradesAPP.instrumento.dto.GETInstrumentoDTO;
 import dam.salesianostriana.dam.GradesAPP.instrumento.model.Instrumento;
 import dam.salesianostriana.dam.GradesAPP.instrumento.repository.InstrumentoRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -15,10 +16,10 @@ import java.util.UUID;
 public class InstrumentoService {
     private final InstrumentoRepository repo;
 
-    public List<GETInstrumentoDTO> getAllInstrumentosFromAsignatura(UUID id){
-        List<Instrumento> result = repo.findAllByAsignatura_id(id);
+    public Page<GETInstrumentoDTO> getAllInstrumentosFromAsignatura(UUID id, Pageable pageable){
+        Page<Instrumento> result = repo.findAllByAsignatura_Id(id, pageable);
         if(result.isEmpty())
             throw new NotFoundException("Instrumento");
-        return result.stream().map(GETInstrumentoDTO::of).toList();
+        return result.map(GETInstrumentoDTO::of);
     }
 }
