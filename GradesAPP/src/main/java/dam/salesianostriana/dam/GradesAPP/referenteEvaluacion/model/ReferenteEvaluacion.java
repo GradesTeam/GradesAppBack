@@ -20,18 +20,7 @@ import java.util.UUID;
 public class ReferenteEvaluacion {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator",
-            parameters = {
-                    @Parameter(
-                            name = "uuid_gen_strategy_clas",
-                            value = "org.hibernate.id.uuid.CurstomVersionOneStrategy"
-                    )
-            }
-    )
-    private UUID codReferente;
+    private String codReferente;
 
     @Id
     @ManyToOne
