@@ -25,4 +25,7 @@ public class UserService {
         return repo.findFirstByUsername(name);
     }
 
+    public Optional<User> save (User u){
+        return Optional.of(repo.save(u));
+    }
 }

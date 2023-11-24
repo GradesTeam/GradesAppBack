@@ -1,4 +1,4 @@
-/*package dam.salesianostriana.dam.GradesAPP;
+package dam.salesianostriana.dam.GradesAPP;
 
 import dam.salesianostriana.dam.GradesAPP.alumno.model.Alumno;
 import dam.salesianostriana.dam.GradesAPP.user.model.User;
@@ -31,12 +31,12 @@ public class InitData {
                 .apellidos("Jimenez")
                 .roles(Set.of(UserRole.USER))
                 .password("1234")
+                .username("jimenez.feale23")
                 .build();
 
 
-
+        userService.save(u);
 
 
     }
 }
-*/
