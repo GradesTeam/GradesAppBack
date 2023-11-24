@@ -1,7 +1,8 @@
 package dam.salesianostriana.dam.GradesAPP.Asignatura.service;
 
-import dam.salesianostriana.dam.GradesAPP.Asignatura.exception.EmptySubjectListException;
+
 import dam.salesianostriana.dam.GradesAPP.asignatura.repository.AsignaturaRepository;
+import dam.salesianostriana.dam.GradesAPP.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import dam.salesianostriana.dam.GradesAPP.asignatura.model.Asignatura;
@@ -17,7 +18,7 @@ public class AsignaturaService {
         List<Asignatura> subjectList= repo.findAll();
 
         if(subjectList.isEmpty()){
-            throw new EmptySubjectListException();
+            throw new NotFoundException("Subject");
         }
         return subjectList;
     }
