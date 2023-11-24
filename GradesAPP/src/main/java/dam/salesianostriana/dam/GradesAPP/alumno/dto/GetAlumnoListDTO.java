@@ -8,7 +8,7 @@ public record GetAlumnoListDTO(
         String nombreApellidos,
         LocalDate fechaNacimiento
 ) {
-    public GetAlumnoListDTO of(Alumno a){
+    public static GetAlumnoListDTO of(Alumno a){
         return new GetAlumnoListDTO(
                 a.getNombre() + " " + a.getApellidos(),
                 a.getFechaNacimiento().toLocalDate()
