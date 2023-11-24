@@ -1,4 +1,4 @@
-package dam.salesianostriana.dam.GradesAPP;
+/*package dam.salesianostriana.dam.GradesAPP;
 
 import dam.salesianostriana.dam.GradesAPP.asignatura.model.Asignatura;
 import dam.salesianostriana.dam.GradesAPP.asignatura.repository.AsignaturaRepository;
@@ -51,4 +51,4 @@ public class InitData {
                 .build();
         repoIns.save(is1);
     }
-}
+}*/
