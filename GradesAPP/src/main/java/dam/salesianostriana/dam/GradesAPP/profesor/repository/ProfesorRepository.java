@@ -11,10 +11,9 @@ import java.util.UUID;
 
 public interface ProfesorRepository extends JpaRepository<Profesor, UUID> {
     @Query("""
-            SELECT DISTINCT a FROM Alumno a
-            JOIN a.asignatura asi
-            JOIN asi.profesor p
-            WHERE p.id = :profesorId
-            """)
+        SELECT DISTINCT a FROM Alumno a
+        JOIN a.asignaturas asignatura
+        WHERE asignatura.profesor.id = :profesorId
+    """)
     List<Alumno> findAlumnosByProfesor(@Param("profesorId") UUID profesorId);
 }
