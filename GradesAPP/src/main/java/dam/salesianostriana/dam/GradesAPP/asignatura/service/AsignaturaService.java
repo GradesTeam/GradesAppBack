@@ -1,4 +1,4 @@
-package dam.salesianostriana.dam.GradesAPP.Asignatura.service;
+package dam.salesianostriana.dam.GradesAPP.asignatura.service;
 
 
 import dam.salesianostriana.dam.GradesAPP.asignatura.repository.AsignaturaRepository;
