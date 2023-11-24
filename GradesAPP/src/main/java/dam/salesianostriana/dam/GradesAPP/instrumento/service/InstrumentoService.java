@@ -1,5 +1,7 @@
 package dam.salesianostriana.dam.GradesAPP.instrumento.service;
 
+
+import dam.salesianostriana.dam.GradesAPP.MyPage;
 import dam.salesianostriana.dam.GradesAPP.exception.NotFoundException;
 import dam.salesianostriana.dam.GradesAPP.instrumento.dto.GETInstrumentoDTO;
 import dam.salesianostriana.dam.GradesAPP.instrumento.model.Instrumento;
@@ -16,10 +18,14 @@ import java.util.UUID;
 public class InstrumentoService {
     private final InstrumentoRepository repo;
 
-    public Page<GETInstrumentoDTO> getAllInstrumentosFromAsignatura(UUID id, Pageable pageable){
+    public MyPage<GETInstrumentoDTO> getAllInstrumentosFromAsignatura(UUID id, Pageable pageable){
         Page<Instrumento> result = repo.findAllByAsignatura_Id(id, pageable);
         if(result.isEmpty())
             throw new NotFoundException("Instrumento");
-        return result.map(GETInstrumentoDTO::of);
+        Page<GETInstrumentoDTO> res = result.map(GETInstrumentoDTO::of);
+
+
+
+        return MyPage.of(res);
     }
 }
