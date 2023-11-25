@@ -13,7 +13,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -70,7 +69,7 @@ public class InstrumentoController {
                     )
                     }))
     })
-    @Operation(summary = "Buscar todas los Instrumentos de una Asigantura", description = "It returns the list of all the Alumnos")
+    @Operation(summary = "Buscar todas los Instrumentos de una Asigantura", description = "Devuelve una lista de Instrumentos paginados")
     @GetMapping("/asignatura/{id}/instrumentos")
     public MyPage<GETInstrumentoDTO> getAllInstrumentosFromAsignatura(@PathVariable UUID id, @PageableDefault(page = 0, size = 10)Pageable pageable){
         return service.getAllInstrumentosFromAsignatura(id, pageable);
