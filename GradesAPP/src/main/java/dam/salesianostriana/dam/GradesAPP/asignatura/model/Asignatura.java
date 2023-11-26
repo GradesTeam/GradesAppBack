@@ -50,7 +50,7 @@ public class Asignatura {
     private List<ReferenteEvaluacion> referentes = new ArrayList<>();
 
     public void addReferente(ReferenteEvaluacion referenteEvaluacion) {
-        referentes.add(referenteEvaluacion);
+        this.referentes.add(referenteEvaluacion);
         referenteEvaluacion.setAsignatura(this);
     }
 
