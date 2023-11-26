@@ -44,5 +44,7 @@ public class Instrumento {
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @ElementCollection(fetch = FetchType.EAGER)
+    @Builder.Default
     private Set<ReferenteEvaluacion> referentes = new HashSet<>();
+
 }

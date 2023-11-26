@@ -26,6 +26,7 @@ public class Alumno extends User {
             joinColumns = @JoinColumn(name = "alumno_id"),
             inverseJoinColumns = @JoinColumn(name = "asignaturas_id"))
     @ElementCollection(fetch = FetchType.LAZY)
+    @Builder.Default
     private Set<Asignatura> asignaturas = new LinkedHashSet<>();
 
     @Override
