@@ -11,7 +11,7 @@ import java.util.UUID;
 public class ReferenteEvaluacionPK {
     private Asignatura asignatura;
 
-    private UUID codReferente;
+    private String codReferente;
 
     private ReferenteEvaluacionPK() {}
 }
