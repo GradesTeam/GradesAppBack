@@ -53,14 +53,10 @@ public class ProfesorController {
                     content = @Content),
     })
     @GetMapping("/{id}/alumnos")
-    public ResponseEntity<MyPage<GetAlumnoListDTO>> obtenerAlumnosPorProfesor(
+    public MyPage<GetAlumnoListDTO> obtenerAlumnosPorProfesor(
             @PathVariable UUID id,
             @PageableDefault(page = 0, size = 10)Pageable pageable
     ){
-        MyPage<GetAlumnoListDTO> data = service.obtenerAlumnosPorProfesor(id, pageable);
-
-
-
-        return ResponseEntity.ok(data);
+        return service.obtenerAlumnosPorProfesor(id, pageable);
     }
 }
