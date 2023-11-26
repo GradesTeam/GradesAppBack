@@ -6,6 +6,7 @@ import dam.salesianostriana.dam.GradesAPP.instrumento.model.Instrumento;
 import dam.salesianostriana.dam.GradesAPP.instrumento.repository.InstrumentoRepository;
 import dam.salesianostriana.dam.GradesAPP.profesor.model.Profesor;
 import dam.salesianostriana.dam.GradesAPP.profesor.repository.ProfesorRepository;
+import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.model.ReferenteEvaluacion;
 import dam.salesianostriana.dam.GradesAPP.user.model.UserRole;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -29,10 +30,18 @@ public class InitData {
                 .password("1")
                 .username("Juanito")
                 .build();
+
         Asignatura as = Asignatura.builder()
                 .descripcion("Hola")
                 .nombre("Diseño Interfaces")
                 .build();
+        ReferenteEvaluacion ref1 = ReferenteEvaluacion.builder()
+                .codReferente("Ad.2")
+                .descripcion("Hola mundo")
+                .asignatura(as)
+                .build();
+        ref1.setId(ref1.getId());
+        as.addReferente(ref1);
         as.addProfesor(pr);
         repoPrf.save(pr);
         repoAs.save(as);
@@ -50,5 +59,7 @@ public class InitData {
                 .fecha(LocalDateTime.of(2023, 12, 9, 12, 30))
                 .build();
         repoIns.save(is1);
+
+
     }
 }*/
