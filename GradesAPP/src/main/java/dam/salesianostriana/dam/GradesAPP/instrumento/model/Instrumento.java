@@ -48,4 +48,11 @@ public class Instrumento {
     @Builder.Default
     private Set<ReferenteEvaluacion> referentes = new HashSet<>();
 
+    public void addReferente(ReferenteEvaluacion ref){
+        this.referentes.add(ref);
+    }
+    public void deleteReferente(ReferenteEvaluacion ref){
+        this.referentes.remove(ref);
+    }
+
 }
