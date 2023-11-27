@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -78,7 +79,7 @@ public class InstrumentoController {
     }
 
     @PostMapping("/teacher/asignatura/{id}/instrumento")
-    public ResponseEntity<GETInstrumentoDTO> createInstrumento(@PathVariable UUID id, @RequestBody POSTInstrumentoDTO newIns){
+    public ResponseEntity<GETInstrumentoDTO> createInstrumento(@PathVariable UUID id,@Valid @RequestBody POSTInstrumentoDTO newIns){
         GETInstrumentoDTO created = service.createInstrumento(id, newIns);
         URI createdURI = ServletUriComponentsBuilder
                 .fromCurrentRequest()

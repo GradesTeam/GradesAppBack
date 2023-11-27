@@ -43,7 +43,6 @@ public class InitData {
         ReferenteEvaluacion ref1 = ReferenteEvaluacion.builder()
                 .codReferente("Ad.2")
                 .descripcion("Hola mundo")
-                .asignatura(as)
                 .build();
         ref1.setId(ref1.getId());
         as.addReferente(ref1);

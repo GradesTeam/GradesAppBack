@@ -45,12 +45,13 @@ public class InstrumentoService {
         Optional<Asignatura> selectedAs = repoAs.findById(id);
         if (selectedAs.isEmpty())
             throw new NotFoundException("Asignatura");
-        Set<ReferenteEvaluacion> toSave = new HashSet<>(Set.of());
+        Instrumento created = repo.save(POSTInstrumentoDTO.from(newIns, selectedAs.get()));
         repoAs.getAllReferentes().forEach(ref -> {
             if (newIns.referentes().contains(ref.getCodReferente()))
-                toSave.add(ref);
+                created.getReferentes().add(ref);
         });
-        Instrumento created = repo.save(POSTInstrumentoDTO.from(newIns, selectedAs.get(), toSave));
+
+
         return GETInstrumentoDTO.of(created);
     }
 

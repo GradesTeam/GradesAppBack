@@ -19,7 +19,7 @@ public record POSTInstrumentoDTO(
         @NotNull(message = "El nombre no puede ser nulo")
         @UniqueInstrument
         String nombre,
-        @NotBlank(message = "La fecha no puede estar vacía") @NotNull(message = "La fecha no puede ser nula")
+        @NotNull(message = "La fecha no puede ser nula")
         @FutureOrPresent(message = "La fecha no puede ser anterior a la fecha actual")
         LocalDate fecha,
         @NotBlank(message = "Los contenidos no pueden estar vacíos")
@@ -30,13 +30,12 @@ public record POSTInstrumentoDTO(
         List<String> referentes
 
 ) {
-    public static Instrumento from(POSTInstrumentoDTO newIns, Asignatura as, Set<ReferenteEvaluacion> referentes){
+    public static Instrumento from(POSTInstrumentoDTO newIns, Asignatura as){
         return  Instrumento.builder()
                 .nombre(newIns.nombre())
                 .contenidos(newIns.contenidos())
                 .asignatura(as)
                 .fecha(newIns.fecha)
-                .referentes(referentes)
                 .build();
     }
 
