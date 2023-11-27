@@ -5,6 +5,7 @@ import dam.salesianostriana.dam.GradesAPP.instrumento.dto.GETInstrumentoDTO;
 import dam.salesianostriana.dam.GradesAPP.instrumento.dto.POSTInstrumentoDTO;
 import dam.salesianostriana.dam.GradesAPP.instrumento.model.Instrumento;
 import dam.salesianostriana.dam.GradesAPP.instrumento.service.InstrumentoService;
+import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.model.ReferenteEvaluacion;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -78,6 +79,37 @@ public class InstrumentoController {
         return service.getAllInstrumentosFromAsignatura(id, pageable);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "El Instrumento se ha creado de forma correcta", content = {
+                    @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Instrumento.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                                {
+                                                            "id": "1724fc40-512a-42d1-8495-f8eae0967e9e",
+                                                            "nombre": "Examen T1",
+                                                            "fecha": "2023-11-03T12:30:00"
+                                                        }
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado la Asignatura",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Instrumento.class)),
+                            examples = {@ExampleObject(
+                                    """
+                                        {
+                                            "error": "The Asignatura or the list of it could not be found" 
+                                        }       
+                                    """
+                            )
+                            })),
+            @ApiResponse(responseCode = "400",
+                    description = "La información dada no es correcta con respecto a lo que se requiere",
+                    content = @Content)
+    })
+    @Operation(summary = "Crear un Nuevo Instrumento", description = "Crea un nuevo Instrumento en una asignatura designada")
     @PostMapping("/teacher/asignatura/{id}/instrumento")
     public ResponseEntity<GETInstrumentoDTO> createInstrumento(@PathVariable UUID id,@Valid @RequestBody POSTInstrumentoDTO newIns){
         GETInstrumentoDTO created = service.createInstrumento(id, newIns);

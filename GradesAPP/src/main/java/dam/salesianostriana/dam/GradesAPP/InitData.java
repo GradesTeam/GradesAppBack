@@ -4,6 +4,8 @@ import dam.salesianostriana.dam.GradesAPP.alumno.model.Alumno;
 import dam.salesianostriana.dam.GradesAPP.alumno.repository.AlumnoRepository;
 import dam.salesianostriana.dam.GradesAPP.asignatura.model.Asignatura;
 import dam.salesianostriana.dam.GradesAPP.asignatura.repository.AsignaturaRepository;
+import dam.salesianostriana.dam.GradesAPP.calificacion.model.Calificacion;
+import dam.salesianostriana.dam.GradesAPP.calificacion.repository.CalificacionRepository;
 import dam.salesianostriana.dam.GradesAPP.instrumento.model.Instrumento;
 import dam.salesianostriana.dam.GradesAPP.instrumento.repository.InstrumentoRepository;
 import dam.salesianostriana.dam.GradesAPP.profesor.model.Profesor;
@@ -23,6 +25,7 @@ public class InitData {
     private final InstrumentoRepository repoIns;
     private final ProfesorRepository repoPrf;
     private final AlumnoRepository alumnoRepository;
+    private final CalificacionRepository repoCalf;
     @PostConstruct
     public void InitData(){
         Profesor profe= Profesor.builder()
@@ -167,8 +170,12 @@ public class InitData {
                 .build();
         asig8.addProfesor(pr);
         asignaturaRepo.save(asig8);
-
-
+        Calificacion cal = Calificacion.builder()
+                .alumno(a1)
+                .calificacion(9.2)
+                .instrumento(is)
+                .build();
+        repoCalf.save(cal);
     }
 }
 
