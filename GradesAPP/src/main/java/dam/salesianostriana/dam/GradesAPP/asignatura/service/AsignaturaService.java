@@ -1,6 +1,7 @@
 package dam.salesianostriana.dam.GradesAPP.asignatura.service;
 
 import dam.salesianostriana.dam.GradesAPP.MyPage;
+import dam.salesianostriana.dam.GradesAPP.asignatura.AsignaturaDTO.GetAsignaturaDTO;
 import dam.salesianostriana.dam.GradesAPP.asignatura.model.Asignatura;
 import dam.salesianostriana.dam.GradesAPP.asignatura.repository.AsignaturaRepository;
 import dam.salesianostriana.dam.GradesAPP.exception.NotFoundException;
@@ -11,6 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import dam.salesianostriana.dam.GradesAPP.asignatura.model.Asignatura;
+
+import java.util.List;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,8 +25,23 @@ import java.util.UUID;
 public class AsignaturaService {
     private  final AsignaturaRepository repo;
 
+    /*public MyPage<GetAsignaturaDTO> findAll(Pageable pageable){
+       Page<Asignatura> subjectList= repo.findAll(pageable);
 
+        if(subjectList.isEmpty()){
+            throw new NotFoundException("Asignatura");
+        }
+        Page<GetAsignaturaDTO> AsignaturaDTO= subjectList.map(GetAsignaturaDTO::of);
+        return MyPage.of(AsignaturaDTO);
 
+    }*/
+    public MyPage<GetAsignaturaDTO> findAll(Pageable pageable){
+        Page<GetAsignaturaDTO> subjectList= repo.obtenerTodasConNumeroAlumnos(pageable);
+        if (subjectList.isEmpty()){
+            throw new NotFoundException("Asignatura");
+        }
+        return MyPage.of(subjectList);
+    }
 
 
 
