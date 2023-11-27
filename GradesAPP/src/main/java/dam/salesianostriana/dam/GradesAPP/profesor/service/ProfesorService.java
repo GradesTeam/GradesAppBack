@@ -26,4 +26,4 @@ public class ProfesorService {
         Page<GetAlumnoListDTO> resDto = result.map(GetAlumnoListDTO::of);
         return MyPage.of(resDto);
     }
-}
+
