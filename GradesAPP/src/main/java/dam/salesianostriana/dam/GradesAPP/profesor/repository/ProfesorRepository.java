@@ -18,4 +18,6 @@ public interface ProfesorRepository extends JpaRepository<Profesor, UUID> {
         WHERE asignatura.profesor.id = :profesorId
     """)
     Page<Alumno> findAlumnosByProfesor(@Param("profesorId") UUID profesorId, Pageable pageable);
+
+
 }
