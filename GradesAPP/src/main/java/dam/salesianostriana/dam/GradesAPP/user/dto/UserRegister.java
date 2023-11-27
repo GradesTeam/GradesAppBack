@@ -2,6 +2,7 @@ package dam.salesianostriana.dam.GradesAPP.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import dam.salesianostriana.dam.GradesAPP.user.model.User;
+import dam.salesianostriana.dam.GradesAPP.validation.annotation.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -15,27 +16,32 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
+@FieldsValueMatch(
+        field = "password", fieldMatch = "repeatPassword",
+        message = "{UserRegister.password.nomatch}"
+)
 public class UserRegister {
 
     protected UUID id;
 
-    @NotNull
+    @NotNull(message = "{UserRegister.username.notempty}")
     @JsonView({UserResponse.class})
-    @NotEmpty(message = )
+    @NotEmpty(message = "{UserRegister.username.notempty}")
+    @UniqueUsername
     protected String username;
 
-    @NotNull
-    @NotEmpty
-    @Email
+    @NotNull(message = "{UserRegister.email.notempty}")
+    @NotEmpty(message = "{UserRegister.email.notempty}")
+    @Email(message = "{UserRegister.email.email}")
+    @UniqueEmail
     private String email;
 
-    @NotNull
+    @NotNull(message = "{UserRegister.password.notempty}")
     @JsonView({UserResponse.class})
-    @NotEmpty
+    @NotEmpty(message = "{UserRegister.password.notempty}")
+    @PasswordLength
     private String password;
 
-    @NotNull
-    @NotEmpty
     private String repeatPassword;
 
     private LocalDate fechaNacimiento;

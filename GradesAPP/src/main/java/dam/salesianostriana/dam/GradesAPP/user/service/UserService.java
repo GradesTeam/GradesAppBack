@@ -1,6 +1,7 @@
 package dam.salesianostriana.dam.GradesAPP.user.service;
 
 import dam.salesianostriana.dam.GradesAPP.alumno.model.Alumno;
+import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.model.ReferenteEvaluacion;
 import dam.salesianostriana.dam.GradesAPP.user.dto.UserRegister;
 import dam.salesianostriana.dam.GradesAPP.user.model.User;
 import dam.salesianostriana.dam.GradesAPP.user.repository.UserRepository;
@@ -31,5 +32,13 @@ public class UserService {
                         .username(u.getUsername())
                 .build()
         ));
+    }
+
+    public boolean existEmail(String s ) {
+        return repo.getAllEmails().stream().toList().contains(s);
+    }
+
+    public boolean existUsername(String s ) {
+        return repo.getAllUsernames().stream().toList().contains(s);
     }
 }
