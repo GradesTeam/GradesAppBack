@@ -33,32 +33,30 @@ public class ProfesorController {
 
     @Operation(summary = "Obtiene la lista de alumnos de un profesor")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",
-                    description = "Se han encontrado alumnos",
-                    content = { @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = Alumno.class)),
-                            examples = {@ExampleObject(
-                                    value = """
-                                            [
-                                                {
-                                                    "nombreApellidos": "Paco Paquito Pacazo",
-                                                    "fechaNacimiento": "2023-11-24"
-                                                }
-                                            ]                                        
-                                            """
-                            )}
-                    )}),
-            @ApiResponse(responseCode = "404",
-                    description = "No se ha encontrado ningun alumno asociado a este profesor",
-                    content = @Content),
+            @ApiResponse(responseCode = "200", description = "Se han encontrado alumnos", content = {
+                    @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Alumno.class)), examples = {
+                            @ExampleObject(value = """
+                                    {
+                                        "content": [
+                                            {
+                                                "nombreApellidos": "Paco Paquito Pacazo",
+                                                "fechaNacimiento": "2023-11-27"
+                                            }
+                                        ],
+                                        "size": 10,
+                                        "totalElements": 1,
+                                        "pageNumber": 0,
+                                        "first": true,
+                                        "last": true
+                                    }
+                                    """) }) }),
+            @ApiResponse(responseCode = "404", description = "The Profesor or the list could not be found", content = @Content),
     })
     @GetMapping("/{id}/alumnos")
     public MyPage<GetAlumnoListDTO> obtenerAlumnosPorProfesor(
             @PathVariable UUID id,
-            @PageableDefault(page = 0, size = 10)Pageable pageable
-    ){
+            @PageableDefault(page = 0, size = 10) Pageable pageable) {
         return service.obtenerAlumnosPorProfesor(id, pageable);
     }
-
 
 }
