@@ -13,20 +13,37 @@ import dam.salesianostriana.dam.GradesAPP.user.model.UserRole;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
 public class InitData {
-    private final AsignaturaRepository repoAs;
+    private final AsignaturaRepository asignaturaRepo;
     private final InstrumentoRepository repoIns;
     private final ProfesorRepository repoPrf;
     private final AlumnoRepository alumnoRepository;
     @PostConstruct
     public void InitData(){
+        Profesor profe= Profesor.builder()
+                .nombre("Pepe")
+                .apellidos("Perez")
+                .roles(Set.of(UserRole.ADMIN))
+                .email("holamundoi@triana.com")
+                .password("123")
+                .username("Pepeillo")
+                .titulacion("FICO")
+                .esJefeEstudios(true)
+                .build();
+        Asignatura asig= Asignatura.builder()
+                .nombre("AD")
+                .horas(12L)
+                .descripcion("Esta es una buena asignatura")
+                .hexColor("#ff6961")
+                .build();
+        asig.addProfesor(profe);
+        repoPrf.save(profe);
+        asignaturaRepo.save(asig);
         Profesor pr = Profesor.builder()
                 .nombre("Juan")
                 .apellidos("Paquito")
@@ -39,6 +56,7 @@ public class InitData {
                 .horas(10L)
                 .descripcion("Hola")
                 .nombre("Diseño Interfaces")
+                .hexColor("#77dd77")
                 .build();
         ReferenteEvaluacion ref1 = ReferenteEvaluacion.builder()
                 .codReferente("Ad.2")
@@ -48,7 +66,7 @@ public class InitData {
         as.addReferente(ref1);
         as.addProfesor(pr);
         repoPrf.save(pr);
-        repoAs.save(as);
+        asignaturaRepo.save(as);
         Instrumento is = Instrumento.builder()
                 .nombre("Examen T1")
                 .asignatura(as)
@@ -68,7 +86,7 @@ public class InitData {
         a1.setNombre("Paco");
         a1.setApellidos("Paquito Pacazo");
         a1.setTelefono("658425963");
-        a1.setFechaNacimiento(LocalDateTime.now());
+        a1.setFechaNacimiento(LocalDate.now());
         a1.setUsername("user");
         a1.setPassword("1");
         a1.setEmail("paco@paco.paco");
@@ -85,14 +103,72 @@ public class InitData {
         Asignatura asig1 = new Asignatura();
         asig1.setNombre("Masa madre");
         asig1.setDescripcion("Cositas varias");
+        asig1.setHexColor("#ff6961");
         asig1.setHoras(14L);
         asig1.setProfesor(p1);
 
         a1.getAsignaturas().add(asig1);
         repoPrf.save(p1);
-        repoAs.save(asig1);
+        asignaturaRepo.save(asig1);
 
         alumnoRepository.save(a1);
+        Asignatura asig2 = Asignatura.builder()
+                .descripcion("Hola")
+                .nombre("Diseño Interfaces")
+                .hexColor("#77dd77")
+                .build();
+        asig2.addProfesor(pr);
+        asignaturaRepo.save(asig2);
+
+        Asignatura asig3 = Asignatura.builder()
+                .descripcion("Hola")
+                .nombre("Diseño Interfaces")
+                .hexColor("#fdfd96")
+                .build();
+        asig3.addProfesor(pr);
+        asignaturaRepo.save(asig3);
+
+        Asignatura asig4 = Asignatura.builder()
+                .descripcion("Hola")
+                .nombre("Diseño Interfaces")
+                .hexColor("#84b6f4")
+                .build();
+        asig4.addProfesor(pr);
+        asignaturaRepo.save(asig4);
+
+        Asignatura asig5 = Asignatura.builder()
+                .descripcion("Hola")
+                .nombre("Diseño Interfaces")
+                .hexColor("#fdcae1")
+                .build();
+        asig5.addProfesor(pr);
+        asignaturaRepo.save(asig5);
+
+        Asignatura asig6 = Asignatura.builder()
+                .descripcion("Hola")
+                .nombre("Diseño Interfaces")
+                .hexColor("#77dd77")
+                .build();
+        asig6.addProfesor(pr);
+        asignaturaRepo.save(asig6);
+
+        Asignatura asig7 = Asignatura.builder()
+                .descripcion("Hola")
+                .nombre("Diseño Interfaces")
+                .hexColor("#b0c2f2")
+                .build();
+        asig7.addProfesor(pr);
+        asignaturaRepo.save(asig7);
+
+        Asignatura asig8 = Asignatura.builder()
+                .descripcion("Hola")
+                .nombre("Diseño Interfaces")
+                .hexColor("#fdf9c4")
+                .build();
+        asig8.addProfesor(pr);
+        asignaturaRepo.save(asig8);
+
 
     }
 }
+
