@@ -70,7 +70,7 @@ public class InstrumentoController {
                     }))
     })
     @Operation(summary = "Buscar todas los Instrumentos de una Asigantura", description = "Devuelve una lista de Instrumentos paginados")
-    @GetMapping("/asignatura/{id}/instrumentos")
+    @GetMapping("/teacher/asignatura/{id}/instrumentos")
     public MyPage<GETInstrumentoDTO> getAllInstrumentosFromAsignatura(@PathVariable UUID id, @PageableDefault(page = 0, size = 10)Pageable pageable){
         return service.getAllInstrumentosFromAsignatura(id, pageable);
     }

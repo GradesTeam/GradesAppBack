@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface AsignaturaRepository extends JpaRepository<Asignatura, UUID> {
@@ -18,4 +19,14 @@ public interface AsignaturaRepository extends JpaRepository<Asignatura, UUID> {
     Page<ReferenteEvaluacion> getReferentesFromAsignatura(UUID id, Pageable pageable);
 
     Page<Asignatura> findAll(Pageable pageable);
+    
+    @Query("""
+            select a.referentes from Asignatura a
+            where a.id = :id
+            """)
+    List<ReferenteEvaluacion> getNonPagedReferentesFromAsignatura(UUID id);
+    @Query("""
+            select a.referentes from Asignatura a
+            """)
+    List<ReferenteEvaluacion> getAllReferentes();
 }
