@@ -11,7 +11,7 @@ public record GetAlumnoListDTO(
     public static GetAlumnoListDTO of(Alumno a){
         return new GetAlumnoListDTO(
                 a.getNombre() + " " + a.getApellidos(),
-                a.getFechaNacimiento().toLocalDate()
+                a.getFechaNacimiento()
         );
     }
 }

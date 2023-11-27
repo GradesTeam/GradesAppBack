@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -29,7 +30,7 @@ public class InitData {
         a1.setNombre("Paco");
         a1.setApellidos("Paquito Pacazo");
         a1.setTelefono("658425963");
-        a1.setFechaNacimiento(LocalDateTime.now());
+        a1.setFechaNacimiento(LocalDate.now());
         a1.setUsername("user");
         a1.setPassword("1");
         a1.setEmail("paco@paco.paco");

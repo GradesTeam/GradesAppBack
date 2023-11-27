@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -18,7 +19,7 @@ import java.util.Set;
 public class Alumno extends User {
 
     private String telefono;
-    private LocalDateTime fechaNacimiento;
+    private LocalDate fechaNacimiento;
 
     @Getter
     @ManyToMany
