@@ -1,6 +1,7 @@
 package dam.salesianostriana.dam.GradesAPP.asignatura.service;
 
 import dam.salesianostriana.dam.GradesAPP.MyPage;
+import dam.salesianostriana.dam.GradesAPP.asignatura.AsignaturaDTO.GetAsignaturaDTO;
 import dam.salesianostriana.dam.GradesAPP.asignatura.model.Asignatura;
 import dam.salesianostriana.dam.GradesAPP.asignatura.repository.AsignaturaRepository;
 import dam.salesianostriana.dam.GradesAPP.exception.NotFoundException;
@@ -22,13 +23,14 @@ import java.util.UUID;
 public class AsignaturaService {
     private  final AsignaturaRepository repo;
 
-    public List<Asignatura> findAll(){
-        List<Asignatura> subjectList= repo.findAll();
+    public MyPage<GetAsignaturaDTO> findAll(Pageable pageable){
+       List<Asignatura> subjectList= repo.findAll();
 
         if(subjectList.isEmpty()){
-            throw new NotFoundException("Subject");
+            throw new NotFoundException("Asignatura");
         }
-        return subjectList;
+        GetAsignaturaDTO::of(subjectList);
+        return MyPage.of(subjectList);
 
     }
 

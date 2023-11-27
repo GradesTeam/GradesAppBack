@@ -2,21 +2,15 @@ package dam.salesianostriana.dam.GradesAPP;
 
 import dam.salesianostriana.dam.GradesAPP.profesor.model.Profesor;
 import dam.salesianostriana.dam.GradesAPP.profesor.repository.ProfesorRepository;
-import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.repository.ReferenteRepository;
 import dam.salesianostriana.dam.GradesAPP.asignatura.model.Asignatura;
 import dam.salesianostriana.dam.GradesAPP.asignatura.repository.AsignaturaRepository;
 import dam.salesianostriana.dam.GradesAPP.instrumento.model.Instrumento;
 import dam.salesianostriana.dam.GradesAPP.instrumento.repository.InstrumentoRepository;
-import dam.salesianostriana.dam.GradesAPP.profesor.model.Profesor;
-import dam.salesianostriana.dam.GradesAPP.profesor.repository.ProfesorRepository;
 import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.model.ReferenteEvaluacion;
 import dam.salesianostriana.dam.GradesAPP.user.model.UserRole;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import dam.salesianostriana.dam.GradesAPP.asignatura.repository.AsignaturaRepository;
-import dam.salesianostriana.dam.GradesAPP.asignatura.model.Asignatura;
-
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -24,8 +18,8 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class InitData {
     private final AsignaturaRepository asignaturaRepo;
+    private final InstrumentoRepository repoIns;
     private final ProfesorRepository profesorRepo;
-    private final ReferenteRepository referenteRepo;
     @PostConstruct
     public void InitData(){
         Profesor profe= Profesor.builder()
@@ -47,11 +41,6 @@ public class InitData {
         asig.addProfesor(profe);
         profesorRepo.save(profe);
         asignaturaRepo.save(asig);
-    private final AsignaturaRepository repoAs;
-    private final InstrumentoRepository repoIns;
-    private final ProfesorRepository repoPrf;
-    @PostConstruct
-    public void InitData(){
         Profesor pr = Profesor.builder()
                 .nombre("Juan")
                 .apellidos("Paquito")
@@ -72,8 +61,8 @@ public class InitData {
         ref1.setId(ref1.getId());
         as.addReferente(ref1);
         as.addProfesor(pr);
-        repoPrf.save(pr);
-        repoAs.save(as);
+        profesorRepo.save(pr);
+        asignaturaRepo.save(as);
         Instrumento is = Instrumento.builder()
                 .nombre("Examen T1")
                 .asignatura(as)
@@ -92,4 +81,4 @@ public class InitData {
 
     }
 }
-}
+
