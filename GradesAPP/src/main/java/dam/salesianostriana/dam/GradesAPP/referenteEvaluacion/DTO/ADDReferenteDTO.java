@@ -12,7 +12,7 @@ public record ADDReferenteDTO(
         @NotEmpty(message = "{ADDreferenteDTO.codReferente.notempty}")
         @UniqueCodReferente
         String codReferente,
-        @NotEmpty(message = "{ADDreferenteDTO.descrpcion.notempty}")
+        @NotEmpty(message = "{ADDreferenteDTO.descripcion.notempty}")
         String descripcion
 
 ) {
