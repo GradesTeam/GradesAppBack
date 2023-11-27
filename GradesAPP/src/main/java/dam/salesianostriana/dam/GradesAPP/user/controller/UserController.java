@@ -1,11 +1,18 @@
 package dam.salesianostriana.dam.GradesAPP.user.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.model.ReferenteEvaluacion;
 import dam.salesianostriana.dam.GradesAPP.security.jwt.access.JwtProvider;
 import dam.salesianostriana.dam.GradesAPP.user.dto.JwtUserResponse;
 import dam.salesianostriana.dam.GradesAPP.user.dto.UserRegister;
 import dam.salesianostriana.dam.GradesAPP.user.model.User;
 import dam.salesianostriana.dam.GradesAPP.user.service.UserService;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,6 +35,23 @@ public class UserController {
     private final AuthenticationManager authManager;
     private final UserService userService;
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "El usuario se ha creado correctamente", content = {
+                    @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = User.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                                {
+                                                    "username": "jimenez.feale23",
+                                                    "password": "123456789"
+                                                }
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "400",
+                    description = "Los datos introducidos no son válidos",
+                    content = @Content)
+    })
     @JsonView(UserRegister.UserResponse.class)
     @PostMapping("/register")
     public ResponseEntity<UserRegister> save (@Valid @RequestBody UserRegister u){
