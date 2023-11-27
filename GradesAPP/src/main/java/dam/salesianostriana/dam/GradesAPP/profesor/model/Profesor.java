@@ -20,6 +20,7 @@ public class Profesor extends User {
 
     @OneToMany(mappedBy = "profesor", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @ElementCollection(fetch = FetchType.LAZY)
+    @Builder.Default
     private Set<Asignatura> asignaturas = new LinkedHashSet<>();
 
     @Override
