@@ -36,6 +36,7 @@ public class InitData {
                 .build();
 
         Asignatura as = Asignatura.builder()
+                .horas(10L)
                 .descripcion("Hola")
                 .nombre("Diseño Interfaces")
                 .build();
