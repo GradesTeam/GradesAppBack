@@ -1,5 +1,6 @@
 package dam.salesianostriana.dam.GradesAPP.user.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 import dam.salesianostriana.dam.GradesAPP.user.model.User;
 import dam.salesianostriana.dam.GradesAPP.validation.annotation.*;
@@ -42,8 +43,10 @@ public class UserRegister {
     @PasswordLength
     private String password;
 
+    @NotEmpty(message = "{UserRegister.password.notempty}")
     private String repeatPassword;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate fechaNacimiento;
 
     public static UserRegister fromUser(User user) {

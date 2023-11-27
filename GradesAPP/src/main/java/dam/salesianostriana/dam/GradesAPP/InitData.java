@@ -14,6 +14,7 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -26,5 +27,15 @@ public class InitData {
     private final AlumnoRepository alumnoRepository;
     @PostConstruct
     public void InitData(){
+
+        Alumno a= Alumno.builder()
+                .nombre("yo")
+                .email("yo@gmail.com")
+                .apellidos("yo2")
+                .password("12345")
+                .fechaNacimiento(LocalDate.now())
+                .build();
+
+        System.out.println(a.getFechaNacimiento());
     }
 }
