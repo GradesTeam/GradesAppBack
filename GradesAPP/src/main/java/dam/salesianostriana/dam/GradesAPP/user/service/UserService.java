@@ -1,16 +1,13 @@
 package dam.salesianostriana.dam.GradesAPP.user.service;
 
 import dam.salesianostriana.dam.GradesAPP.alumno.model.Alumno;
-import dam.salesianostriana.dam.GradesAPP.user.dto.UserDtoRegister;
+import dam.salesianostriana.dam.GradesAPP.user.dto.UserRegister;
 import dam.salesianostriana.dam.GradesAPP.user.model.User;
-import dam.salesianostriana.dam.GradesAPP.user.model.UserRole;
 import dam.salesianostriana.dam.GradesAPP.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -26,13 +23,12 @@ public class UserService {
         return repo.findFirstByUsername(name);
     }
 
-    public Optional<User> saveAlumno (UserDtoRegister u){
+    public Optional<User> saveAlumno (UserRegister u){
         return Optional.of(repo.save(Alumno.builder()
-                .nombre(u.getNombre())
-                .apellidos(u.getApellidos())
-                .password(u.getPassword())
-                .roles(Set.of(UserRole.USER))
-                .fechaNacimiento(u.getFechaNacimiento())
+                        .email(u.getEmail())
+                        .password(u.getPassword())
+                        .fechaNacimiento(u.getFechaNacimiento())
+                        .username(u.getUsername())
                 .build()
         ));
     }
