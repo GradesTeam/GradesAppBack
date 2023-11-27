@@ -24,13 +24,13 @@ public class AsignaturaService {
     private  final AsignaturaRepository repo;
 
     public MyPage<GetAsignaturaDTO> findAll(Pageable pageable){
-       List<Asignatura> subjectList= repo.findAll();
+       Page<Asignatura> subjectList= repo.findAll(pageable);
 
         if(subjectList.isEmpty()){
             throw new NotFoundException("Asignatura");
         }
-        GetAsignaturaDTO::of(subjectList);
-        return MyPage.of(subjectList);
+        Page<GetAsignaturaDTO> AsignaturaDTO= subjectList.map(GetAsignaturaDTO::of);
+        return MyPage.of(AsignaturaDTO);
 
     }
 

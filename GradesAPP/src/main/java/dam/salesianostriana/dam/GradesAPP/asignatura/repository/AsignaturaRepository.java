@@ -16,4 +16,6 @@ public interface AsignaturaRepository extends JpaRepository<Asignatura, UUID> {
             where a.id = :id
             """)
     Page<ReferenteEvaluacion> getReferentesFromAsignatura(UUID id, Pageable pageable);
+
+    Page<Asignatura> findAll(Pageable pageable);
 }

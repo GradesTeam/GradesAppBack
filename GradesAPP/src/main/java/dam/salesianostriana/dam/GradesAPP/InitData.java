@@ -6,6 +6,8 @@ import dam.salesianostriana.dam.GradesAPP.asignatura.model.Asignatura;
 import dam.salesianostriana.dam.GradesAPP.asignatura.repository.AsignaturaRepository;
 import dam.salesianostriana.dam.GradesAPP.instrumento.model.Instrumento;
 import dam.salesianostriana.dam.GradesAPP.instrumento.repository.InstrumentoRepository;
+import dam.salesianostriana.dam.GradesAPP.profesor.model.Profesor;
+import dam.salesianostriana.dam.GradesAPP.profesor.repository.ProfesorRepository;
 import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.model.ReferenteEvaluacion;
 import dam.salesianostriana.dam.GradesAPP.user.model.UserRole;
 import jakarta.annotation.PostConstruct;
@@ -37,10 +39,10 @@ public class InitData {
                 .nombre("AD")
                 .horas(12L)
                 .descripcion("Esta es una buena asignatura")
-                .hexColor("#0000ff")
+                .hexColor("#ff6961")
                 .build();
         asig.addProfesor(profe);
-        profesorRepo.save(profe);
+        repoPrf.save(profe);
         asignaturaRepo.save(asig);
         Profesor pr = Profesor.builder()
                 .nombre("Juan")
@@ -53,6 +55,7 @@ public class InitData {
         Asignatura as = Asignatura.builder()
                 .descripcion("Hola")
                 .nombre("Diseño Interfaces")
+                .hexColor("#77dd77")
                 .build();
         ReferenteEvaluacion ref1 = ReferenteEvaluacion.builder()
                 .codReferente("Ad.2")
@@ -62,7 +65,7 @@ public class InitData {
         ref1.setId(ref1.getId());
         as.addReferente(ref1);
         as.addProfesor(pr);
-        profesorRepo.save(pr);
+        repoPrf.save(pr);
         asignaturaRepo.save(as);
         Instrumento is = Instrumento.builder()
                 .nombre("Examen T1")
@@ -100,14 +103,71 @@ public class InitData {
         Asignatura asig1 = new Asignatura();
         asig1.setNombre("Masa madre");
         asig1.setDescripcion("Cositas varias");
+        asig1.setHexColor("#ff6961");
         asig1.setHoras(14L);
         asig1.setProfesor(p1);
 
         a1.getAsignaturas().add(asig1);
         repoPrf.save(p1);
-        repoAs.save(asig1);
+        asignaturaRepo.save(asig1);
 
         alumnoRepository.save(a1);
+        Asignatura asig2 = Asignatura.builder()
+                .descripcion("Hola")
+                .nombre("Diseño Interfaces")
+                .hexColor("#77dd77")
+                .build();
+        asig2.addProfesor(pr);
+        asignaturaRepo.save(asig2);
+
+        Asignatura asig3 = Asignatura.builder()
+                .descripcion("Hola")
+                .nombre("Diseño Interfaces")
+                .hexColor("#fdfd96")
+                .build();
+        asig3.addProfesor(pr);
+        asignaturaRepo.save(asig3);
+
+        Asignatura asig4 = Asignatura.builder()
+                .descripcion("Hola")
+                .nombre("Diseño Interfaces")
+                .hexColor("#84b6f4")
+                .build();
+        asig4.addProfesor(pr);
+        asignaturaRepo.save(asig4);
+
+        Asignatura asig5 = Asignatura.builder()
+                .descripcion("Hola")
+                .nombre("Diseño Interfaces")
+                .hexColor("#fdcae1")
+                .build();
+        asig5.addProfesor(pr);
+        asignaturaRepo.save(asig5);
+
+        Asignatura asig6 = Asignatura.builder()
+                .descripcion("Hola")
+                .nombre("Diseño Interfaces")
+                .hexColor("#77dd77")
+                .build();
+        asig6.addProfesor(pr);
+        asignaturaRepo.save(asig6);
+
+        Asignatura asig7 = Asignatura.builder()
+                .descripcion("Hola")
+                .nombre("Diseño Interfaces")
+                .hexColor("#b0c2f2")
+                .build();
+        asig7.addProfesor(pr);
+        asignaturaRepo.save(asig7);
+
+        Asignatura asig8 = Asignatura.builder()
+                .descripcion("Hola")
+                .nombre("Diseño Interfaces")
+                .hexColor("#fdf9c4")
+                .build();
+        asig8.addProfesor(pr);
+        asignaturaRepo.save(asig8);
+
 
     }
 }

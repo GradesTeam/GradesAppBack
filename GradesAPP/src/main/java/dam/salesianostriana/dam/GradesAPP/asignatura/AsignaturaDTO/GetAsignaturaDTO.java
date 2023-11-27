@@ -8,12 +8,14 @@ import lombok.Builder;
 public record GetAsignaturaDTO(
         String asigNombre,
         String asigDescripcion,
-        String nombreProfesor) {
-    public static GetAsignaturaDTO of (Asignatura asig, Profesor pro){
+        String nombreProfesor,
+        String color) {
+    public static GetAsignaturaDTO of (Asignatura asig){
         return GetAsignaturaDTO.builder()
                 .asigNombre(asig.getNombre())
                 .asigDescripcion(asig.getDescripcion())
-                .nombreProfesor(pro.getNombre())
+                .nombreProfesor(asig.getProfesor().getNombre())
+                .color(asig.getHexColor())
                 .build();
     }
 

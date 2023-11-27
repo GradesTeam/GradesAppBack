@@ -1,5 +1,6 @@
 package dam.salesianostriana.dam.GradesAPP.asignatura.controller;
 
+import dam.salesianostriana.dam.GradesAPP.asignatura.AsignaturaDTO.GetAsignaturaDTO;
 import dam.salesianostriana.dam.GradesAPP.asignatura.service.AsignaturaService;
 import dam.salesianostriana.dam.GradesAPP.MyPage;
 import dam.salesianostriana.dam.GradesAPP.asignatura.model.Asignatura;
@@ -51,8 +52,8 @@ public class AsignaturaController {
         content = @Content),
 })
     @GetMapping("/")
-    public List<Asignatura> GetAll(){
-    return service.findAll();
+    public MyPage<GetAsignaturaDTO> GetAll(@PageableDefault(size = 12, page = 0) Pageable pageable){
+    return service.findAll(pageable);
     }
         @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Obtiene todos los referentes de la Asigantura con Id dado", content = {
