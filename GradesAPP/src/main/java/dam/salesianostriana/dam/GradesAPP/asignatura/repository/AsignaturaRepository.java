@@ -35,7 +35,7 @@ public interface AsignaturaRepository extends JpaRepository<Asignatura, UUID> {
 
     @Query("""
         select new dam.salesianostriana.dam.GradesAPP.asignatura.AsignaturaDTO.GetAsignaturaDTO(
-            a.nombre, a.descripcion, a.profesor, a.hexColor, (
+            a.nombre, a.descripcion, concat(a.profesor.nombre,' ', a.profesor.apellidos), a.hexColor, (
                 select case 
                     when count(al) > 0 then count(al)
                     else 0
