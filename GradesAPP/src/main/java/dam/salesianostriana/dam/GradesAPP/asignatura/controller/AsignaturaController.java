@@ -1,11 +1,11 @@
 package dam.salesianostriana.dam.GradesAPP.asignatura.controller;
 
-<<<<<<< HEAD
+
 import dam.salesianostriana.dam.GradesAPP.asignatura.AsignaturaDTO.GetAsignaturaDTO;
-=======
+
 import dam.salesianostriana.dam.GradesAPP.MyPage;
 import dam.salesianostriana.dam.GradesAPP.asignatura.model.Asignatura;
->>>>>>> main
+
 import dam.salesianostriana.dam.GradesAPP.asignatura.service.AsignaturaService;
 import dam.salesianostriana.dam.GradesAPP.MyPage;
 import dam.salesianostriana.dam.GradesAPP.asignatura.model.Asignatura;
@@ -55,7 +55,7 @@ public class AsignaturaController {
         description = "No se ha encontrado ninguna asignatura",
         content = @Content),
 })
-    @GetMapping("/")
+    @GetMapping("/teacher/asignatura/")
     public MyPage<GetAsignaturaDTO> GetAll(@PageableDefault(size = 12, page = 0) Pageable pageable){
     return service.findAll(pageable);
     }

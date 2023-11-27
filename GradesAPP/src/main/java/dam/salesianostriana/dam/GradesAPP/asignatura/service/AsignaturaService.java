@@ -25,7 +25,7 @@ import java.util.UUID;
 public class AsignaturaService {
     private  final AsignaturaRepository repo;
 
-    public MyPage<GetAsignaturaDTO> findAll(Pageable pageable){
+    /*public MyPage<GetAsignaturaDTO> findAll(Pageable pageable){
        Page<Asignatura> subjectList= repo.findAll(pageable);
 
         if(subjectList.isEmpty()){
@@ -34,6 +34,13 @@ public class AsignaturaService {
         Page<GetAsignaturaDTO> AsignaturaDTO= subjectList.map(GetAsignaturaDTO::of);
         return MyPage.of(AsignaturaDTO);
 
+    }*/
+    public MyPage<GetAsignaturaDTO> findAll(Pageable pageable){
+        Page<GetAsignaturaDTO> subjectList= repo.obtenerTodasConNumeroAlumnos(pageable);
+        if (subjectList.isEmpty()){
+            throw new NotFoundException("Asignatura");
+        }
+        return MyPage.of(subjectList);
     }
 
 
