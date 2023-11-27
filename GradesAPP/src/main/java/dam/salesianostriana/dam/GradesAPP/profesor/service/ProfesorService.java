@@ -19,11 +19,12 @@ import java.util.stream.Collectors;
 public class ProfesorService {
     private final ProfesorRepository repo;
 
-    public MyPage<GetAlumnoListDTO> obtenerAlumnosPorProfesor(UUID profesorId, Pageable pageable){
+    public MyPage<GetAlumnoListDTO> obtenerAlumnosPorProfesor(UUID profesorId, Pageable pageable) {
         Page<Alumno> result = repo.findAlumnosByProfesor(profesorId, pageable);
-        if(result.isEmpty())
+        if (result.isEmpty())
             throw new NotFoundException("Profesor");
         Page<GetAlumnoListDTO> resDto = result.map(GetAlumnoListDTO::of);
         return MyPage.of(resDto);
     }
 
+}
