@@ -1,4 +1,4 @@
-/*package dam.salesianostriana.dam.GradesAPP;
+package dam.salesianostriana.dam.GradesAPP;
 
 import dam.salesianostriana.dam.GradesAPP.alumno.model.Alumno;
 import dam.salesianostriana.dam.GradesAPP.alumno.repository.AlumnoRepository;
@@ -14,6 +14,7 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -67,7 +68,7 @@ public class InitData {
         a1.setNombre("Paco");
         a1.setApellidos("Paquito Pacazo");
         a1.setTelefono("658425963");
-        a1.setFechaNacimiento(LocalDateTime.now());
+        a1.setFechaNacimiento(LocalDate.now());
         a1.setUsername("user");
         a1.setPassword("1");
         a1.setEmail("paco@paco.paco");
@@ -93,5 +94,7 @@ public class InitData {
 
         alumnoRepository.save(a1);
 
+
+
     }
-}*/
+}
