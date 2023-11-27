@@ -25,7 +25,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         ErrorResponse er = ErrorResponse.builder(exception, HttpStatus.BAD_REQUEST, exception.getMessage())
                 .title("Invalid data error")
                 .type(URI.create("https://api.grades-team.com/errors/not-found"))
-                .property("Fields errors", validationErrors)
+                .property("fields_errors", validationErrors)
                 .build();
         return ResponseEntity.status(status)
                 .body(er);
