@@ -45,15 +45,13 @@ public class InstrumentoService {
         Optional<Asignatura> selectedAs = repoAs.findById(id);
         if (selectedAs.isEmpty())
             throw new NotFoundException("Asignatura");
+
+        Set<ReferenteEvaluacion> existingReferentes = repoAs.getNonPagedReferentesFromAsignatura(id)
+                .stream()
+                .filter(ref -> newIns.referentes().contains(ref.getCodReferente()))
+                .collect(Collectors.toSet());
         Instrumento created = POSTInstrumentoDTO.from(newIns, selectedAs.get());
-        Set<ReferenteEvaluacion> toSave = created.getReferentes();
-        repoAs.getAllReferentes().forEach(ref -> {
-            if (newIns.referentes().contains(ref.getCodReferente()))
-                toSave.add(ref);
-        });
-        created.setReferentes(toSave);
-
-
+        existingReferentes.forEach(created::addReferente);
         return GETInstrumentoDTO.of(repo.save(created));
     }
 
