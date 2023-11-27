@@ -39,17 +39,24 @@ public class ProfesorController {
                             array = @ArraySchema(schema = @Schema(implementation = Alumno.class)),
                             examples = {@ExampleObject(
                                     value = """
-                                            [
-                                                {
-                                                    "nombreApellidos": "Paco Paquito Pacazo",
-                                                    "fechaNacimiento": "2023-11-24"
-                                                }
-                                            ]                                        
+                                            {
+                                                "content": [
+                                                    {
+                                                        "nombreApellidos": "Paco Paquito Pacazo",
+                                                        "fechaNacimiento": "2023-11-27"
+                                                    }
+                                                ],
+                                                "size": 10,
+                                                "totalElements": 1,
+                                                "pageNumber": 0,
+                                                "first": true,
+                                                "last": true
+                                            }                                      
                                             """
                             )}
                     )}),
             @ApiResponse(responseCode = "404",
-                    description = "No se ha encontrado ningun alumno asociado a este profesor",
+                    description = "The Profesor or the list could not be found",
                     content = @Content),
     })
     @GetMapping("/{id}/alumnos")
