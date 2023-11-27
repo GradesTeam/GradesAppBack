@@ -14,6 +14,7 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -53,14 +54,14 @@ public class InitData {
                 .nombre("Examen T1")
                 .asignatura(as)
                 .contenidos("Hola como estas")
-                .fecha(LocalDateTime.of(2023, 11, 03, 12, 30))
+                .fecha(LocalDate.of(2023, 11, 3))
                 .build();
         repoIns.save(is);
         Instrumento is1 = Instrumento.builder()
                 .nombre("Proyecto T1")
                 .asignatura(as)
                 .contenidos("Hola como estas")
-                .fecha(LocalDateTime.of(2023, 12, 9, 12, 30))
+                .fecha(LocalDate.of(2023, 12, 9))
                 .build();
         repoIns.save(is1);
 

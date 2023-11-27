@@ -7,6 +7,7 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -35,7 +36,7 @@ public class Instrumento {
 
     private String nombre;
 
-    private LocalDateTime fecha;
+    private LocalDate fecha;
 
     private String contenidos;
 

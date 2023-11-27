@@ -4,15 +4,16 @@ import dam.salesianostriana.dam.GradesAPP.asignatura.model.Asignatura;
 import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.model.ReferenteEvaluacion;
 import dam.salesianostriana.dam.GradesAPP.validation.annotation.UniqueCodReferente;
 import jakarta.persistence.UniqueConstraint;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Builder;
 
 @Builder
 public record ADDReferenteDTO(
-        @NotEmpty(message = "{ADDreferenteDTO.codReferente.notempty}")
+        @NotBlank(message = "{ADDreferenteDTO.codReferente.notempty}")
         @UniqueCodReferente
         String codReferente,
-        @NotEmpty(message = "{ADDreferenteDTO.descripcion.notempty}")
+        @NotBlank(message = "{ADDreferenteDTO.descripcion.notempty}")
         String descripcion
 
 ) {
