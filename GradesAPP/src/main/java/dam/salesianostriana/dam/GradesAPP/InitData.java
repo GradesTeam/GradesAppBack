@@ -13,7 +13,7 @@ import dam.salesianostriana.dam.GradesAPP.user.model.UserRole;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Component
@@ -61,7 +61,6 @@ public class InitData {
         ReferenteEvaluacion ref1 = ReferenteEvaluacion.builder()
                 .codReferente("Ad.2")
                 .descripcion("Hola mundo")
-                .asignatura(as)
                 .build();
         ref1.setId(ref1.getId());
         as.addReferente(ref1);
@@ -72,14 +71,14 @@ public class InitData {
                 .nombre("Examen T1")
                 .asignatura(as)
                 .contenidos("Hola como estas")
-                .fecha(LocalDateTime.of(2023, 11, 03, 12, 30))
+                .fecha(LocalDate.of(2023, 11, 3))
                 .build();
         repoIns.save(is);
         Instrumento is1 = Instrumento.builder()
                 .nombre("Proyecto T1")
                 .asignatura(as)
                 .contenidos("Hola como estas")
-                .fecha(LocalDateTime.of(2023, 12, 9, 12, 30))
+                .fecha(LocalDate.of(2023, 12, 9))
                 .build();
         repoIns.save(is1);
 
@@ -87,7 +86,7 @@ public class InitData {
         a1.setNombre("Paco");
         a1.setApellidos("Paquito Pacazo");
         a1.setTelefono("658425963");
-        a1.setFechaNacimiento(LocalDateTime.now());
+        a1.setFechaNacimiento(LocalDate.now());
         a1.setUsername("user");
         a1.setPassword("1");
         a1.setEmail("paco@paco.paco");

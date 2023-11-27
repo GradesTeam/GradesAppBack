@@ -3,6 +3,7 @@ package dam.salesianostriana.dam.GradesAPP.instrumento.dto;
 import dam.salesianostriana.dam.GradesAPP.instrumento.model.Instrumento;
 import lombok.Builder;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -10,7 +11,7 @@ import java.util.UUID;
 public record GETInstrumentoDTO(
         UUID id,
         String nombre,
-        LocalDateTime fecha
+        LocalDate fecha
 ) {
     public static GETInstrumentoDTO of(Instrumento i){
         return GETInstrumentoDTO.builder()
