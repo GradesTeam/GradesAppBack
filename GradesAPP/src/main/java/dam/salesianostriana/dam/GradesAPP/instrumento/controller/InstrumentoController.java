@@ -2,6 +2,7 @@ package dam.salesianostriana.dam.GradesAPP.instrumento.controller;
 
 import dam.salesianostriana.dam.GradesAPP.MyPage;
 import dam.salesianostriana.dam.GradesAPP.instrumento.dto.GETInstrumentoDTO;
+import dam.salesianostriana.dam.GradesAPP.instrumento.dto.POSTInstrumentoDTO;
 import dam.salesianostriana.dam.GradesAPP.instrumento.model.Instrumento;
 import dam.salesianostriana.dam.GradesAPP.instrumento.service.InstrumentoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,13 +13,15 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.UUID;
 
@@ -73,5 +76,15 @@ public class InstrumentoController {
     @GetMapping("/teacher/asignatura/{id}/instrumentos")
     public MyPage<GETInstrumentoDTO> getAllInstrumentosFromAsignatura(@PathVariable UUID id, @PageableDefault(page = 0, size = 10)Pageable pageable){
         return service.getAllInstrumentosFromAsignatura(id, pageable);
+    }
+
+    @PostMapping("/teacher/asignatura/{id}/instrumento")
+    public ResponseEntity<GETInstrumentoDTO> createInstrumento(@PathVariable UUID id,@Valid @RequestBody POSTInstrumentoDTO newIns){
+        GETInstrumentoDTO created = service.createInstrumento(id, newIns);
+        URI createdURI = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(created.id()).toUri();
+        return ResponseEntity.created(createdURI).body(created);
     }
 }

@@ -1,8 +1,14 @@
 package dam.salesianostriana.dam.GradesAPP.asignatura.controller;
 
+
+import dam.salesianostriana.dam.GradesAPP.asignatura.AsignaturaDTO.GetAsignaturaDTO;
+
 import dam.salesianostriana.dam.GradesAPP.MyPage;
 import dam.salesianostriana.dam.GradesAPP.asignatura.model.Asignatura;
+
 import dam.salesianostriana.dam.GradesAPP.asignatura.service.AsignaturaService;
+import dam.salesianostriana.dam.GradesAPP.MyPage;
+import dam.salesianostriana.dam.GradesAPP.asignatura.model.Asignatura;
 import dam.salesianostriana.dam.GradesAPP.instrumento.model.Instrumento;
 import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.DTO.ADDReferenteDTO;
 import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.DTO.GETReferenteDTO;
@@ -14,6 +20,8 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,33 +33,33 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.UUID;
-
 @RestController
 @RequiredArgsConstructor
-@Tag(name= "RestController para Asignatura", description = "Controlador para la gestión de Asignaturas ")
+@Tag(name= "Asignatura", description= "Este es el controlador de las asignaturas, en el cual se gestionan y se enlazan las rutas con los métodos de esta entidad")
 public class AsignaturaController {
 
     private final AsignaturaService service;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    @ApiResponses(value = {
+@Operation(summary= "Obtiene todas las asignaturas")
+@ApiResponses(value= {
+        @ApiResponse(responseCode = "200",
+                    description= "Se han encontrado todas las asignaturas",
+                    content = { @Content(mediaType = "application/json",
+                    array = @ArraySchema(schema = @Schema(implementation = Asignatura.class)),
+                    examples = { @ExampleObject(
+                            value = """
+                                    []
+                                    """
+                    )}
+                    )}),
+        @ApiResponse(responseCode = "404",
+        description = "No se ha encontrado ninguna asignatura",
+        content = @Content),
+})
+    @GetMapping("/teacher/asignatura/")
+    public MyPage<GetAsignaturaDTO> GetAll(@PageableDefault(size = 12, page = 0) Pageable pageable){
+    return service.findAll(pageable);
+    }
+        @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Obtiene todos los referentes de la Asigantura con Id dado", content = {
                     @Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = ReferenteEvaluacion.class)),
