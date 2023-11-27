@@ -32,7 +32,7 @@ public class InitData {
                 .email("holamundoi@triana.com")
                 .password("123")
                 .username("Pepeillo")
-                .titulacion("Fracasado que no vale para el sector privado")
+                .titulacion("FICO")
                 .esJefeEstudios(true)
                 .build();
         Asignatura asig= Asignatura.builder()
