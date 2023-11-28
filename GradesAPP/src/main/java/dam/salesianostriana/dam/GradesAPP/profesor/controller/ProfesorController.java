@@ -27,7 +27,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/profesor")
 @RequiredArgsConstructor
-@Tag(name = "Categoria", description = "Controlador de la entidad Profesor")
+@Tag(name = "Profesor", description = "Controlador de la entidad Profesor")
 public class ProfesorController {
     private final ProfesorService service;
 
