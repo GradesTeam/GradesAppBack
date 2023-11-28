@@ -8,7 +8,41 @@
 	"item": [
 		{
 			"name": "No-auth",
-			"item": []
+			"item": [
+				{
+					"name": "LOGIN",
+					"item": [
+						{
+							"name": "http://localhost:8080/login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"Pepeillo\",\r\n    \"password\": \"123456789\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
 		},
 		{
 			"name": "auth",
@@ -25,7 +59,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://localhost:8080/teacher/asignatura/cb3308b1-9127-4073-8414-8c870029dc8e/instrumentos",
+											"raw": "http://localhost:8080/teacher/asignatura/7b591450-591e-4118-aafe-c83c251b8053/instrumentos",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -34,7 +68,7 @@
 											"path": [
 												"teacher",
 												"asignatura",
-												"cb3308b1-9127-4073-8414-8c870029dc8e",
+												"7b591450-591e-4118-aafe-c83c251b8053",
 												"instrumentos"
 											]
 										}
@@ -82,7 +116,7 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8080/teacher/asignatura/17f398a2-d6d4-4f43-aa22-5c6e8fa7e21e/instrumento",
+											"raw": "http://localhost:8080/teacher/asignatura/db5d861a-fc97-4df6-ba4b-fb9f5d32d398/instrumento",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -91,7 +125,7 @@
 											"path": [
 												"teacher",
 												"asignatura",
-												"17f398a2-d6d4-4f43-aa22-5c6e8fa7e21e",
+												"db5d861a-fc97-4df6-ba4b-fb9f5d32d398",
 												"instrumento"
 											]
 										}
@@ -114,7 +148,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://localhost:8080/teacher/asignatura/23c67616-ef51-4dc1-bcf4-935e22acbab7/referentes",
+											"raw": "http://localhost:8080/teacher/asignatura/db5d861a-fc97-4df6-ba4b-fb9f5d32d398/referentes",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -123,7 +157,7 @@
 											"path": [
 												"teacher",
 												"asignatura",
-												"23c67616-ef51-4dc1-bcf4-935e22acbab7",
+												"db5d861a-fc97-4df6-ba4b-fb9f5d32d398",
 												"referentes"
 											]
 										}
@@ -150,7 +184,7 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:8080/teacher/asignatura/8444ebc0-7fea-440f-a551-125714946644/referente",
+											"raw": "http://localhost:8080/teacher/asignatura/ddf4591d-50dc-4626-80a5-ebeb84794e0d/referente",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -159,7 +193,7 @@
 											"path": [
 												"teacher",
 												"asignatura",
-												"8444ebc0-7fea-440f-a551-125714946644",
+												"ddf4591d-50dc-4626-80a5-ebeb84794e0d",
 												"referente"
 											]
 										}
@@ -182,7 +216,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://localhost:8080/teacher/instrumento/789596cf-209e-4131-80a7-73f4378b6c9d/calificaciones",
+											"raw": "http://localhost:8080/teacher/instrumento/88b7f4b1-4f78-49a9-9e7a-a08292e52927/calificaciones",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -191,8 +225,44 @@
 											"path": [
 												"teacher",
 												"instrumento",
-												"789596cf-209e-4131-80a7-73f4378b6c9d",
+												"88b7f4b1-4f78-49a9-9e7a-a08292e52927",
 												"calificaciones"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "POST",
+							"item": [
+								{
+									"name": "http://localhost:8080/teacher/instrumento/0635b11f-cf76-448c-9d44-16d35a19c657/calificacion",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"codRef\": \"Ad.2\",\r\n    \"idAlumno\": \"edf7e3b4-01e8-40bc-8ee6-a9c1a802d082\",\r\n    \"calificacion\": 1.2\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/teacher/instrumento/0635b11f-cf76-448c-9d44-16d35a19c657/calificacion",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"teacher",
+												"instrumento",
+												"0635b11f-cf76-448c-9d44-16d35a19c657",
+												"calificacion"
 											]
 										}
 									},
