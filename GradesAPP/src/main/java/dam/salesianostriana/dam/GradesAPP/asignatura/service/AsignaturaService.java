@@ -14,11 +14,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import dam.salesianostriana.dam.GradesAPP.asignatura.model.Asignatura;
 
-import java.util.List;
+import java.util.*;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -74,5 +72,27 @@ public class AsignaturaService {
     }
     public boolean referenteExists(String s ) {
         return repo.getAllReferentes().stream().map(ReferenteEvaluacion::getCodReferente).toList().contains(s);
+    }
+
+    public GETReferenteDTO editReferente(UUID idAsig, String id, ADDReferenteDTO referenteDTO) {
+        Optional<Asignatura> selected = repo.findById(idAsig);
+        if (selected.isEmpty())
+            throw new NotFoundException("Asignatura");
+        Asignatura selectedAs = selected.get();
+        Optional<ReferenteEvaluacion> selectedR = repo.getReferenteById(id);
+        if(selectedR.isEmpty())
+            throw new NotFoundException("Referente");
+        ReferenteEvaluacion toEdit = selectedR.get();
+        List<ReferenteEvaluacion> refs = repo.getNonPagedReferentesFromAsignatura(idAsig);
+        refs.remove(toEdit);
+        toEdit.setDescripcion(referenteDTO.descripcion());
+        toEdit.setCodReferente(referenteDTO.codReferente());
+        toEdit.setId(toEdit.getId());
+        refs.add(toEdit);
+        selected.get().setReferentes(refs);
+        repo.save(selected.get());
+        return GETReferenteDTO.of(toEdit);
+
+
     }
 }

@@ -37,7 +37,7 @@ public class CalificacionService {
 
     }
 
-    public GETCalificacionDTO createReferente(UUID id, POSTCalificacionDTO newCal) {
+    public GETCalificacionDTO createCalificacion(UUID id, POSTCalificacionDTO newCal) {
         if(!repoIns.existsById(id))
             throw new NotFoundException("Instrumento");
         Instrumento selected = repoIns.getReferenceById(id);

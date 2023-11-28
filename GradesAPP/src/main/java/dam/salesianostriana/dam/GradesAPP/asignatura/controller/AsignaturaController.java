@@ -142,4 +142,9 @@ public class AsignaturaController {
                 .created(createdURI)
                 .body(GETReferenteDTO.of(created));
     }
+
+    @PutMapping("/teacher/asignatura/{id_asig}/referente/{id}")
+    public GETReferenteDTO editReferente(@PathVariable UUID id_asig, @PathVariable String id, @Valid @RequestBody ADDReferenteDTO referenteDTO ){
+        return service.editReferente(id_asig, id, referenteDTO);
+    }
 }

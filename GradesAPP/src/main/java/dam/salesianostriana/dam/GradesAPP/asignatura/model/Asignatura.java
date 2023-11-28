@@ -43,7 +43,7 @@ public class Asignatura {
     @JoinColumn(name = "profesor_id")
     private Profesor profesor;
 
-    @OneToMany(mappedBy = "asignatura", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "asignatura", fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
     @ToString.Exclude
     @Builder.Default
     private List<ReferenteEvaluacion> referentes = new ArrayList<>();

@@ -33,8 +33,13 @@ public interface AsignaturaRepository extends JpaRepository<Asignatura, UUID> {
             select a.referentes from Asignatura a
             """)
     List<ReferenteEvaluacion> getAllReferentes();
-
-
+    @Query(
+            """
+            select r from ReferenteEvaluacion r
+            where r.codReferente = :id        
+            """
+    )
+    Optional<ReferenteEvaluacion> getReferenteById(String id);
     @Query("""
         select new dam.salesianostriana.dam.GradesAPP.asignatura.AsignaturaDTO.GetAsignaturaDTO(
             a.nombre, a.descripcion, concat(a.profesor.nombre,' ', a.profesor.apellidos), a.hexColor, (
