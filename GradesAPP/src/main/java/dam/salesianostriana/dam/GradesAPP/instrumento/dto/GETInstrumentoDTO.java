@@ -4,11 +4,13 @@ import com.fasterxml.jackson.annotation.JsonView;
 import dam.salesianostriana.dam.GradesAPP.instrumento.jsonViews.InstrumentoViews;
 import dam.salesianostriana.dam.GradesAPP.instrumento.model.Instrumento;
 import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.DTO.GETReferenteDTO;
+import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.model.ReferenteEvaluacion;
 import lombok.Builder;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Builder
@@ -29,12 +31,12 @@ public record GETInstrumentoDTO(
                 .fecha(i.getFecha())
                 .build();
     }
-    public static GETInstrumentoDTO ofDetails(Instrumento i){
+    public static GETInstrumentoDTO ofDetails(Instrumento i, List<ReferenteEvaluacion> referentes){
         return GETInstrumentoDTO.builder()
                 .id(i.getId())
                 .nombre(i.getNombre())
                 .fecha(i.getFecha())
-                .referentes(i.getReferentes().stream().map(GETReferenteDTO::of).toList())
+                .referentes(referentes.stream().map(GETReferenteDTO::of).toList())
                 .build();
     }
 }

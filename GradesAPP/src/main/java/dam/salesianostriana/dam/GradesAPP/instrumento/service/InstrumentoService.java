@@ -63,6 +63,6 @@ public class InstrumentoService {
         Optional<Instrumento> selected = repo.findById(id);
         if(selected.isEmpty())
             throw new NotFoundException("Instrumento");
-        return GETInstrumentoDTO.ofDetails(selected.get());
+        return GETInstrumentoDTO.ofDetails(selected.get(), repo.getReferentesfromId(id));
     }
 }
