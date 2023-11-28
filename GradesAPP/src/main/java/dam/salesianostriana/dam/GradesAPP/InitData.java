@@ -4,6 +4,8 @@ import dam.salesianostriana.dam.GradesAPP.alumno.model.Alumno;
 import dam.salesianostriana.dam.GradesAPP.alumno.repository.AlumnoRepository;
 import dam.salesianostriana.dam.GradesAPP.asignatura.model.Asignatura;
 import dam.salesianostriana.dam.GradesAPP.asignatura.repository.AsignaturaRepository;
+import dam.salesianostriana.dam.GradesAPP.calificacion.model.Calificacion;
+import dam.salesianostriana.dam.GradesAPP.calificacion.repository.CalificacionRepository;
 import dam.salesianostriana.dam.GradesAPP.instrumento.model.Instrumento;
 import dam.salesianostriana.dam.GradesAPP.instrumento.repository.InstrumentoRepository;
 import dam.salesianostriana.dam.GradesAPP.profesor.model.Profesor;
@@ -23,6 +25,7 @@ public class InitData {
         private final InstrumentoRepository repoIns;
         private final ProfesorRepository repoPrf;
         private final AlumnoRepository alumnoRepository;
+        private final CalificacionRepository repoCalf;
 
         @PostConstruct
         public void InitData() {
@@ -64,6 +67,12 @@ public class InitData {
                                 .descripcion("Hola mundo")
                                 .build();
                 ref1.setId(ref1.getId());
+                ReferenteEvaluacion ref2 = ReferenteEvaluacion.builder()
+                                .codReferente("Ad.3")
+                                .descripcion("Hola mundo")
+                                .build();
+                ref2.setId(ref2.getId());
+                as.addReferente(ref2);
                 as.addReferente(ref1);
                 as.addProfesor(pr);
                 repoPrf.save(pr);
@@ -74,6 +83,8 @@ public class InitData {
                                 .contenidos("Hola como estas")
                                 .fecha(LocalDate.of(2023, 11, 3))
                                 .build();
+                is.addReferente(ref1);
+                is.addReferente(ref2);
                 repoIns.save(is);
                 Instrumento is1 = Instrumento.builder()
                                 .nombre("Proyecto T1")
@@ -168,6 +179,12 @@ public class InitData {
                                 .build();
                 asig8.addProfesor(pr);
                 asignaturaRepo.save(asig8);
-
+                Calificacion cal = Calificacion.builder()
+                                .alumno(a1)
+                                .calificacion(9.2)
+                                .instrumento(is)
+                                .referente(ref1)
+                                .build();
+                repoCalf.save(cal);
         }
 }

@@ -58,4 +58,11 @@ public class InstrumentoService {
     public boolean intrumentoExists(String s){
         return repo.findByNombre(s).isPresent();
     }
+
+    public GETInstrumentoDTO getInstrumentoDetails(UUID id){
+        Optional<Instrumento> selected = repo.findById(id);
+        if(selected.isEmpty())
+            throw new NotFoundException("Instrumento");
+        return GETInstrumentoDTO.ofDetails(selected.get());
+    }
 }
