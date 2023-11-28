@@ -22,41 +22,41 @@ import java.util.Set;
 @Component
 @RequiredArgsConstructor
 public class InitData {
-    private final AsignaturaRepository asignaturaRepo;
-    private final InstrumentoRepository repoIns;
-    private final ProfesorRepository repoPrf;
-    private final AlumnoRepository alumnoRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final CalificacionRepository calificacionRepository;
-    @PostConstruct
-    public void InitData(){
-        Profesor profe= Profesor.builder()
-                .nombre("Pepe")
-                .apellidos("Perez")
-                .roles(Set.of(UserRole.ADMIN))
-                .email("holamundoi@triana.com")
-                .password(passwordEncoder.encode("123456789"))
-                .username("Pepeillo")
-                .titulacion("FICO")
-                .esJefeEstudios(true)
-                .build();
-        Asignatura asig= Asignatura.builder()
-                .nombre("AD")
-                .horas(12L)
-                .descripcion("Esta es una buena asignatura")
-                .hexColor("#ff6961")
-                .build();
-        asig.addProfesor(profe);
-        repoPrf.save(profe);
-        asignaturaRepo.save(asig);
-        Profesor pr = Profesor.builder()
-                .nombre("Juan")
-                .apellidos("Paquito")
-                .roles(Set.of(UserRole.ADMIN))
-                .password("1")
-                .username("Juanito")
-                .build();
+        private final AsignaturaRepository asignaturaRepo;
+        private final InstrumentoRepository repoIns;
+        private final ProfesorRepository repoPrf;
+        private final AlumnoRepository alumnoRepository;
+        private final PasswordEncoder passwordEncoder;
+        private final CalificacionRepository repoCalf;
 
+        @PostConstruct
+        public void InitData() {
+                Profesor profe = Profesor.builder()
+                                .nombre("Pepe")
+                                .apellidos("Perez")
+                                .roles(Set.of(UserRole.ADMIN))
+                                .email("holamundoi@triana.com")
+                                .password(passwordEncoder.encode("123456789"))
+                                .username("Pepeillo")
+                                .titulacion("FICO")
+                                .esJefeEstudios(true)
+                                .build();
+                Asignatura asig = Asignatura.builder()
+                                .nombre("AD")
+                                .horas(12L)
+                                .descripcion("Esta es una buena asignatura")
+                                .hexColor("#ff6961")
+                                .build();
+                asig.addProfesor(profe);
+                repoPrf.save(profe);
+                asignaturaRepo.save(asig);
+                Profesor pr = Profesor.builder()
+                                .nombre("Juan")
+                                .apellidos("Paquito")
+                                .roles(Set.of(UserRole.ADMIN))
+                                .password("1")
+                                .username("Juanito")
+                                .build();
                 Asignatura as = Asignatura.builder()
                                 .horas(10L)
                                 .descripcion("Hola")
@@ -80,7 +80,7 @@ public class InitData {
                 asignaturaRepo.save(as);
                 Instrumento is = Instrumento.builder()
                                 .nombre("Examen T1")
-                                .asignatura(as)
+                                .asignatura(asignaturaRepo.getReferenceById(as.getId()))
                                 .contenidos("Hola como estas")
                                 .fecha(LocalDate.of(2023, 11, 3))
                                 .build();
@@ -89,7 +89,7 @@ public class InitData {
                 repoIns.save(is);
                 Instrumento is1 = Instrumento.builder()
                                 .nombre("Proyecto T1")
-                                .asignatura(as)
+                                .asignatura(asignaturaRepo.getReferenceById(as.getId()))
                                 .contenidos("Hola como estas")
                                 .fecha(LocalDate.of(2023, 12, 9))
                                 .build();
@@ -186,6 +186,6 @@ public class InitData {
                                 .instrumento(is)
                                 .referente(ref1)
                                 .build();
-            calificacionRepository.save(cal);
+                repoCalf.save(cal);
         }
 }
