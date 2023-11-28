@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.model.ReferenteEvaluacion;
 import dam.salesianostriana.dam.GradesAPP.security.jwt.access.JwtProvider;
 import dam.salesianostriana.dam.GradesAPP.user.dto.JwtUserResponse;
+import dam.salesianostriana.dam.GradesAPP.user.dto.UserLogin;
 import dam.salesianostriana.dam.GradesAPP.user.dto.UserRegister;
 import dam.salesianostriana.dam.GradesAPP.user.model.User;
 import dam.salesianostriana.dam.GradesAPP.user.service.UserService;
@@ -27,7 +28,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/student")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -57,11 +57,16 @@ public class UserController {
     public ResponseEntity<UserRegister> save (@Valid @RequestBody UserRegister u){
         userService.saveAlumno(u);
 
-        /*
+        return ResponseEntity.status(HttpStatus.CREATED).body(u);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<JwtUserResponse> login(@RequestBody UserLogin userLogin) {
+
         Authentication authentication = authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        u.getUsername(),
-                        u.getPassword()
+                        userLogin.getUsername(),
+                        userLogin.getPassword()
                 )
         );
 
@@ -71,9 +76,10 @@ public class UserController {
 
         User user = (User) authentication.getPrincipal();
 
-         */
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(JwtUserResponse.of(user, token));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(u);
+
     }
 
 }

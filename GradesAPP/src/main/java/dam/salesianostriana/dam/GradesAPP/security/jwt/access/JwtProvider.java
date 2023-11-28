@@ -11,7 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
-import java.security.SignatureException;
+import io.jsonwebtoken.security.SignatureException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -89,7 +89,7 @@ public class JwtProvider {
         try {
             jwtParser.parse(token);
             return true;
-        } catch (MalformedJwtException | ExpiredJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
+        } catch (SignatureException | MalformedJwtException | ExpiredJwtException | UnsupportedJwtException | IllegalArgumentException ex) {
             log.info("Error con el token: " + ex.getMessage());
             throw new JwtTokenException(ex.getMessage());
         }

@@ -33,7 +33,7 @@ public class UserRegister {
 
     @NotNull(message = "{UserRegister.email.notempty}")
     @NotEmpty(message = "{UserRegister.email.notempty}")
-    @Email(message = "{UserRegister.email.email}")
+    @Email(message = "{UserRegister.email.notanemail}")
     @UniqueEmail
     private String email;
 

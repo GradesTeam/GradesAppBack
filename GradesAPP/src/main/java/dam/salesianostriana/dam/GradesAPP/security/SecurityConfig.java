@@ -26,6 +26,7 @@ import static org.springframework.security.web.util.matcher.AntPathRequestMatche
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
 public class SecurityConfig {
 
@@ -40,6 +41,8 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder authenticationManagerBuilder =
                 http.getSharedObject(AuthenticationManagerBuilder.class);
+
+
 
         return authenticationManagerBuilder.authenticationProvider(authenticationProvider())
                 .build();
@@ -73,15 +76,15 @@ public class SecurityConfig {
                         .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                         .accessDeniedHandler(jwtAccessDeniedHandler);
                 })
-                .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement((s) -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers(antMatcher("/student/**")).hasRole("USER")
                         .requestMatchers(antMatcher("/teacher/**")).hasRole("ADMIN")
-                        .anyRequest().permitAll()
+                        .anyRequest().authenticated()
                 );
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-        http.headers(h -> h.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
+        http.headers((h) -> h.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
         return http.build();
     }
 
@@ -89,11 +92,9 @@ public class SecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web -> web.ignoring()
                 .requestMatchers(
-                        antMatcher("/**"),
                         antMatcher("/proyecto/**"),
                         antMatcher("/register"),
-                        antMatcher("/login"),
-                        antMatcher(HttpMethod.POST, "/**")
+                        antMatcher("/login")
                 ));
 
     }

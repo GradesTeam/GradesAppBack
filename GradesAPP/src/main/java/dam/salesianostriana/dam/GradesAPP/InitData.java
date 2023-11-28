@@ -12,6 +12,7 @@ import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.model.ReferenteEva
 import dam.salesianostriana.dam.GradesAPP.user.model.UserRole;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.Set;
@@ -23,6 +24,7 @@ public class InitData {
     private final InstrumentoRepository repoIns;
     private final ProfesorRepository repoPrf;
     private final AlumnoRepository alumnoRepository;
+    private final PasswordEncoder passwordEncoder;
     @PostConstruct
     public void InitData(){
         Profesor profe= Profesor.builder()
@@ -30,7 +32,7 @@ public class InitData {
                 .apellidos("Perez")
                 .roles(Set.of(UserRole.ADMIN))
                 .email("holamundoi@triana.com")
-                .password("123")
+                .password(passwordEncoder.encode("123456789"))
                 .username("Pepeillo")
                 .titulacion("FICO")
                 .esJefeEstudios(true)
