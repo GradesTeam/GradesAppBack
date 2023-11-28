@@ -1,5 +1,6 @@
 package dam.salesianostriana.dam.GradesAPP.user.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import dam.salesianostriana.dam.GradesAPP.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,18 +11,19 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class JwtUserResponse extends UserRegister {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class JwtUserResponse extends UserResponse {
 
     private String token;
 
-    public JwtUserResponse(UserRegister userDtoRegister) {
-        id = userDtoRegister.getId();
-        username = userDtoRegister.getUsername();
+    public JwtUserResponse(UserResponse userResponse) {
+        id = userResponse.getId();
+        username = userResponse.getUsername();
     }
 
 
     public static JwtUserResponse of (User user, String token) {
-        JwtUserResponse result = new JwtUserResponse(UserRegister.fromUser(user));
+        JwtUserResponse result = new JwtUserResponse(UserResponse.fromUser(user));
         result.setToken(token);
         return result;
     }
