@@ -22,7 +22,6 @@ import java.util.Set;
 @Component
 @RequiredArgsConstructor
 public class InitData {
-<<<<<<< HEAD
     private final AsignaturaRepository asignaturaRepo;
     private final InstrumentoRepository repoIns;
     private final ProfesorRepository repoPrf;
@@ -56,13 +55,6 @@ public class InitData {
                 .password("1")
                 .username("Juanito")
                 .build();
-=======
-        private final AsignaturaRepository asignaturaRepo;
-        private final InstrumentoRepository repoIns;
-        private final ProfesorRepository repoPrf;
-        private final AlumnoRepository alumnoRepository;
-        private final CalificacionRepository repoCalf;
->>>>>>> main
 
         @PostConstruct
         public void InitData() {
