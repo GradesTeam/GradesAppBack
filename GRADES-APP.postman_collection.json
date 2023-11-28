@@ -1,0 +1,208 @@
+{
+	"info": {
+		"_postman_id": "6d982acf-08bd-4018-a9de-ce2a9ebfbc9a",
+		"name": "GRADES-APP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30052758"
+	},
+	"item": [
+		{
+			"name": "No-auth",
+			"item": []
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "Instrumento",
+					"item": [
+						{
+							"name": "GET",
+							"item": [
+								{
+									"name": "getAllInstrumentosFromAsignatura",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/teacher/asignatura/cb3308b1-9127-4073-8414-8c870029dc8e/instrumentos",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"teacher",
+												"asignatura",
+												"cb3308b1-9127-4073-8414-8c870029dc8e",
+												"instrumentos"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "instrumentoDetails",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/teacher/instrumento/fbf22985-b030-4d41-bb1c-a986cedeb3d7",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"teacher",
+												"instrumento",
+												"fbf22985-b030-4d41-bb1c-a986cedeb3d7"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "POST",
+							"item": [
+								{
+									"name": "createInstrumento",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"nombre\": \"hdodgfdgfdfdsa\",\r\n    \"fecha\": \"2028-11-07\",\r\n    \"contenidos\": \"mi papa\",\r\n    \"referentes\": [\r\n        \"Ad.2\"\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/teacher/asignatura/17f398a2-d6d4-4f43-aa22-5c6e8fa7e21e/instrumento",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"teacher",
+												"asignatura",
+												"17f398a2-d6d4-4f43-aa22-5c6e8fa7e21e",
+												"instrumento"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "ReferenteEvaluacion",
+					"item": [
+						{
+							"name": "GET",
+							"item": [
+								{
+									"name": "GetAllReferentes",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/teacher/asignatura/23c67616-ef51-4dc1-bcf4-935e22acbab7/referentes",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"teacher",
+												"asignatura",
+												"23c67616-ef51-4dc1-bcf4-935e22acbab7",
+												"referentes"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "POST",
+							"item": [
+								{
+									"name": "createRef",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"codReferente\": \"hola\",\r\n    \"descripcion\": \"hahahaha\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/teacher/asignatura/8444ebc0-7fea-440f-a551-125714946644/referente",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"teacher",
+												"asignatura",
+												"8444ebc0-7fea-440f-a551-125714946644",
+												"referente"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Calificacion",
+					"item": [
+						{
+							"name": "GET",
+							"item": [
+								{
+									"name": "GetAllCalificacionesFromInstrumento",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/teacher/instrumento/789596cf-209e-4131-80a7-73f4378b6c9d/calificaciones",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"teacher",
+												"instrumento",
+												"789596cf-209e-4131-80a7-73f4378b6c9d",
+												"calificaciones"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}
