@@ -29,7 +29,7 @@ public class InitData {
     private final PasswordEncoder passwordEncoder;
     private final CalificacionRepository repoCalf;
     @PostConstruct
-    public void InitData(){
+    public void InitData() {
         Profesor profe= Profesor.builder()
                 .nombre("Pepe")
                 .apellidos("Perez")
@@ -94,97 +94,97 @@ public class InitData {
                         .build();
                 repoIns.save(is1);
 
-                Alumno a1 = new Alumno();
-                a1.setNombre("Paco");
-                a1.setApellidos("Paquito Pacazo");
-                a1.setTelefono("658425963");
-                a1.setFechaNacimiento(LocalDate.now());
-                a1.setUsername("user");
-                a1.setPassword("1");
-                a1.setEmail("paco@paco.paco");
+        Alumno a1 = new Alumno();
+        a1.setNombre("Paco");
+        a1.setApellidos("Paquito Pacazo");
+        a1.setTelefono("658425963");
+        a1.setFechaNacimiento(LocalDate.now());
+        a1.setUsername("user");
+        a1.setPassword("1");
+        a1.setEmail("paco@paco.paco");
 
-                Profesor p1 = new Profesor();
-                p1.setNombre("Luismi");
-                p1.setApellidos("Lopez Magaña");
-                p1.setEmail("luismi@luismi.api");
-                p1.setTitulacion("Crack");
-                p1.setUsername("admin");
-                p1.setPassword("1");
-                p1.setEsJefeEstudios(true);
+        Profesor p1 = new Profesor();
+        p1.setNombre("Luismi");
+        p1.setApellidos("Lopez Magaña");
+        p1.setEmail("luismi@luismi.api");
+        p1.setTitulacion("Crack");
+        p1.setUsername("admin");
+        p1.setPassword("1");
+        p1.setEsJefeEstudios(true);
 
-                Asignatura asig1 = new Asignatura();
-                asig1.setNombre("Masa madre");
-                asig1.setDescripcion("Cositas varias");
-                asig1.setHexColor("#ff6961");
-                asig1.setHoras(14L);
-                asig1.setProfesor(p1);
+        Asignatura asig1 = new Asignatura();
+        asig1.setNombre("Masa madre");
+        asig1.setDescripcion("Cositas varias");
+        asig1.setHexColor("#ff6961");
+        asig1.setHoras(14L);
+        asig1.setProfesor(p1);
 
-                a1.getAsignaturas().add(asig1);
-                repoPrf.save(p1);
-                asignaturaRepo.save(asig1);
+        a1.getAsignaturas().add(asig1);
+        repoPrf.save(p1);
+        asignaturaRepo.save(asig1);
 
-                alumnoRepository.save(a1);
-                Asignatura asig2 = Asignatura.builder()
-                                .descripcion("Hola")
-                                .nombre("Diseño Interfaces")
-                                .hexColor("#77dd77")
-                                .build();
-                asig2.addProfesor(pr);
-                asignaturaRepo.save(asig2);
+        alumnoRepository.save(a1);
+        Asignatura asig2 = Asignatura.builder()
+                .descripcion("Hola")
+                .nombre("Diseño Interfaces")
+                .hexColor("#77dd77")
+                .build();
+        asig2.addProfesor(pr);
+        asignaturaRepo.save(asig2);
 
-                Asignatura asig3 = Asignatura.builder()
-                                .descripcion("Hola")
-                                .nombre("Diseño Interfaces")
-                                .hexColor("#fdfd96")
-                                .build();
-                asig3.addProfesor(pr);
-                asignaturaRepo.save(asig3);
+        Asignatura asig3 = Asignatura.builder()
+                .descripcion("Hola")
+                .nombre("Diseño Interfaces")
+                .hexColor("#fdfd96")
+                .build();
+        asig3.addProfesor(pr);
+        asignaturaRepo.save(asig3);
 
-                Asignatura asig4 = Asignatura.builder()
-                                .descripcion("Hola")
-                                .nombre("Diseño Interfaces")
-                                .hexColor("#84b6f4")
-                                .build();
-                asig4.addProfesor(pr);
-                asignaturaRepo.save(asig4);
+        Asignatura asig4 = Asignatura.builder()
+                .descripcion("Hola")
+                .nombre("Diseño Interfaces")
+                .hexColor("#84b6f4")
+                .build();
+        asig4.addProfesor(pr);
+        asignaturaRepo.save(asig4);
 
-                Asignatura asig5 = Asignatura.builder()
-                                .descripcion("Hola")
-                                .nombre("Diseño Interfaces")
-                                .hexColor("#fdcae1")
-                                .build();
-                asig5.addProfesor(pr);
-                asignaturaRepo.save(asig5);
+        Asignatura asig5 = Asignatura.builder()
+                .descripcion("Hola")
+                .nombre("Diseño Interfaces")
+                .hexColor("#fdcae1")
+                .build();
+        asig5.addProfesor(pr);
+        asignaturaRepo.save(asig5);
 
-                Asignatura asig6 = Asignatura.builder()
-                                .descripcion("Hola")
-                                .nombre("Diseño Interfaces")
-                                .hexColor("#77dd77")
-                                .build();
-                asig6.addProfesor(pr);
-                asignaturaRepo.save(asig6);
+        Asignatura asig6 = Asignatura.builder()
+                .descripcion("Hola")
+                .nombre("Diseño Interfaces")
+                .hexColor("#77dd77")
+                .build();
+        asig6.addProfesor(pr);
+        asignaturaRepo.save(asig6);
 
-                Asignatura asig7 = Asignatura.builder()
-                                .descripcion("Hola")
-                                .nombre("Diseño Interfaces")
-                                .hexColor("#b0c2f2")
-                                .build();
-                asig7.addProfesor(pr);
-                asignaturaRepo.save(asig7);
+        Asignatura asig7 = Asignatura.builder()
+                .descripcion("Hola")
+                .nombre("Diseño Interfaces")
+                .hexColor("#b0c2f2")
+                .build();
+        asig7.addProfesor(pr);
+        asignaturaRepo.save(asig7);
 
-                Asignatura asig8 = Asignatura.builder()
-                                .descripcion("Hola")
-                                .nombre("Diseño Interfaces")
-                                .hexColor("#fdf9c4")
-                                .build();
-                asig8.addProfesor(pr);
-                asignaturaRepo.save(asig8);
-                Calificacion cal = Calificacion.builder()
-                                .alumno(a1)
-                                .calificacion(9.2)
-                                .instrumento(is)
-                                .referente(ref1)
-                                .build();
-                repoCalf.save(cal);
-        }
+        Asignatura asig8 = Asignatura.builder()
+                .descripcion("Hola")
+                .nombre("Diseño Interfaces")
+                .hexColor("#fdf9c4")
+                .build();
+        asig8.addProfesor(pr);
+        asignaturaRepo.save(asig8);
+        Calificacion cal = Calificacion.builder()
+                .alumno(a1)
+                .calificacion(9.2)
+                .instrumento(is)
+                .referente(ref1)
+                .build();
+        repoCalf.save(cal);
+    }
 }
