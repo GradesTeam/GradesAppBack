@@ -60,6 +60,33 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(u);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "El usuario se ha registrado correctamente", content = {
+                    @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = User.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                                {
+                                                    "id": "f53fd11b-a28f-4748-a725-41c617faf2f3",
+                                                                               "username": "Pepeillo",
+                                                                               "rol": "ADMIN",
+                                                                               "token": "eyJ0eXAiOiJKV1
+                                                                               QiLCJhbGciOiJIUzUxMiJ9.eyJ
+                                                                               zdWIiOiJmNTNmZDExYi1hMjhmLT
+                                                                               Q3NDgtYTcyNS00MWM2MTdmYWYy
+                                                                               ZjMiLCJpYXQiOjE3MDExOTgzNTg
+                                                                               sImV4cCI6MTcwMTI4NDc1OH0.aQ
+                                                                               6EYXHlHcUXAjKzSMXsXKOtpac3O
+                                                                               Lrw9VkAYb31PtmRea8X2RrRzMci8k
+                                                                               A-_BRG6U6Y9rX3Jyc8s0jXM8rbMw"
+                                                }
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "401",
+                    description = "Los datos introducidos no son válidos",
+                    content = @Content)
+    })
     @PostMapping("/login")
     public ResponseEntity<JwtUserResponse> login(@RequestBody UserLogin userLogin) {
 

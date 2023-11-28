@@ -19,6 +19,7 @@ public class JwtUserResponse extends UserResponse {
     public JwtUserResponse(UserResponse userResponse) {
         id = userResponse.getId();
         username = userResponse.getUsername();
+        rol = userResponse.getRol();
     }
 
 
