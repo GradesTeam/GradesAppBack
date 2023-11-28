@@ -78,7 +78,7 @@ public class InitData {
         asignaturaRepo.save(as);
         Instrumento is = Instrumento.builder()
                 .nombre("Examen T1")
-                .asignatura(as)
+                .asignatura(asignaturaRepo.getReferenceById(as.getId()))
                 .contenidos("Hola como estas")
                 .fecha(LocalDate.of(2023, 11, 3))
                 .build();
@@ -87,7 +87,7 @@ public class InitData {
         repoIns.save(is);
         Instrumento is1 = Instrumento.builder()
                 .nombre("Proyecto T1")
-                .asignatura(as)
+                .asignatura(asignaturaRepo.getReferenceById(as.getId()))
                 .contenidos("Hola como estas")
                 .fecha(LocalDate.of(2023, 12, 9))
                 .build();

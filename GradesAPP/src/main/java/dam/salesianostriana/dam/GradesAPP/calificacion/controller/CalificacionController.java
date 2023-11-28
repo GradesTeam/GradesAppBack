@@ -2,6 +2,7 @@ package dam.salesianostriana.dam.GradesAPP.calificacion.controller;
 
 import dam.salesianostriana.dam.GradesAPP.MyPage;
 import dam.salesianostriana.dam.GradesAPP.calificacion.DTO.GETCalificacionDTO;
+import dam.salesianostriana.dam.GradesAPP.calificacion.DTO.POSTCalificacionDTO;
 import dam.salesianostriana.dam.GradesAPP.calificacion.model.Calificacion;
 import dam.salesianostriana.dam.GradesAPP.calificacion.service.CalificacionService;
 import dam.salesianostriana.dam.GradesAPP.instrumento.model.Instrumento;
@@ -15,10 +16,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.UUID;
 
 @RestController
@@ -73,5 +75,15 @@ public class CalificacionController {
     @GetMapping("/teacher/instrumento/{id}/calificaciones")
     public MyPage<GETCalificacionDTO> getAllCalificacionesfromInstrumento(@PathVariable UUID id, @PageableDefault(size = 10, page = 0)Pageable pageable){
         return service.getAllCalificacionesFromInstrumento(id, pageable);
+    }
+
+    @PostMapping("/teacher/instrumento/{id}/calificacion")
+    public ResponseEntity<GETCalificacionDTO> createReferente(@PathVariable UUID id, @RequestBody POSTCalificacionDTO newCal){
+        GETCalificacionDTO created = service.createReferente(id, newCal);
+        URI createdURI = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(created.id()).toUri();
+        return ResponseEntity.created(createdURI).body(created);
     }
 }

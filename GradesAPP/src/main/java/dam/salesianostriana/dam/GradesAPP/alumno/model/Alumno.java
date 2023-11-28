@@ -22,11 +22,10 @@ public class Alumno extends User {
     private LocalDate fechaNacimiento;
 
     @Getter
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     @JoinTable(name = "Alumno_asignaturas",
             joinColumns = @JoinColumn(name = "alumno_id"),
             inverseJoinColumns = @JoinColumn(name = "asignaturas_id"))
-    @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
     private Set<Asignatura> asignaturas = new LinkedHashSet<>();
 
