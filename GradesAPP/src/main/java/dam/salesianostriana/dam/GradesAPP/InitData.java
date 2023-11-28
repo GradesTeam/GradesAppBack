@@ -27,6 +27,7 @@ public class InitData {
     private final ProfesorRepository repoPrf;
     private final AlumnoRepository alumnoRepository;
     private final PasswordEncoder passwordEncoder;
+    private final CalificacionRepository calificacionRepository;
     @PostConstruct
     public void InitData(){
         Profesor profe= Profesor.builder()
@@ -55,35 +56,6 @@ public class InitData {
                 .password("1")
                 .username("Juanito")
                 .build();
-
-        @PostConstruct
-        public void InitData() {
-                Profesor profe = Profesor.builder()
-                                .nombre("Pepe")
-                                .apellidos("Perez")
-                                .roles(Set.of(UserRole.ADMIN))
-                                .email("holamundoi@triana.com")
-                                .password("123")
-                                .username("Pepeillo")
-                                .titulacion("FICO")
-                                .esJefeEstudios(true)
-                                .build();
-                Asignatura asig = Asignatura.builder()
-                                .nombre("AD")
-                                .horas(12L)
-                                .descripcion("Esta es una buena asignatura")
-                                .hexColor("#ff6961")
-                                .build();
-                asig.addProfesor(profe);
-                repoPrf.save(profe);
-                asignaturaRepo.save(asig);
-                Profesor pr = Profesor.builder()
-                                .nombre("Juan")
-                                .apellidos("Paquito")
-                                .roles(Set.of(UserRole.ADMIN))
-                                .password("1")
-                                .username("Juanito")
-                                .build();
 
                 Asignatura as = Asignatura.builder()
                                 .horas(10L)
@@ -214,6 +186,6 @@ public class InitData {
                                 .instrumento(is)
                                 .referente(ref1)
                                 .build();
-                repoCalf.save(cal);
+            calificacionRepository.save(cal);
         }
 }
