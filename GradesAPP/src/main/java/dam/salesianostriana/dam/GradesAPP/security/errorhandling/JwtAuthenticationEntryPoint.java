@@ -20,17 +20,22 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
-    private final ObjectMapper objectMapper;
+    @Autowired
+    @Qualifier("handlerExceptionResolver")
+    private HandlerExceptionResolver resolver;
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        response.setStatus(HttpStatus.UNAUTHORIZED.value());
-        response.setHeader("WWW-Authenticate", "Bearer");
-        response.setContentType("application/json");
 
-        response.getWriter()
-                .println(objectMapper.writeValueAsString(
-                        Map.of("error", authException.getMessage())
-                ));
+       /*response.setStatus(HttpStatus.UNAUTHORIZED.value());
+       response.setHeader("WWW-Authenticate", "Bearer");
+       response.setContentType("application/json");
+
+       response.getWriter()
+               .println(objectMapper.writeValueAsString(
+                       Map.of("error", authException.getMessage())
+               ));
+       */
+        resolver.resolveException(request, response, null, authException);
     }
 }

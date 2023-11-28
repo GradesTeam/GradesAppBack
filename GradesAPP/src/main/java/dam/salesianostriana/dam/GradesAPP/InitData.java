@@ -14,6 +14,7 @@ import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.model.ReferenteEva
 import dam.salesianostriana.dam.GradesAPP.user.model.UserRole;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.Set;
@@ -21,11 +22,39 @@ import java.util.Set;
 @Component
 @RequiredArgsConstructor
 public class InitData {
-        private final AsignaturaRepository asignaturaRepo;
-        private final InstrumentoRepository repoIns;
-        private final ProfesorRepository repoPrf;
-        private final AlumnoRepository alumnoRepository;
-        private final CalificacionRepository repoCalf;
+    private final AsignaturaRepository asignaturaRepo;
+    private final InstrumentoRepository repoIns;
+    private final ProfesorRepository repoPrf;
+    private final AlumnoRepository alumnoRepository;
+    private final PasswordEncoder passwordEncoder;
+    @PostConstruct
+    public void InitData(){
+        Profesor profe= Profesor.builder()
+                .nombre("Pepe")
+                .apellidos("Perez")
+                .roles(Set.of(UserRole.ADMIN))
+                .email("holamundoi@triana.com")
+                .password(passwordEncoder.encode("123456789"))
+                .username("Pepeillo")
+                .titulacion("FICO")
+                .esJefeEstudios(true)
+                .build();
+        Asignatura asig= Asignatura.builder()
+                .nombre("AD")
+                .horas(12L)
+                .descripcion("Esta es una buena asignatura")
+                .hexColor("#ff6961")
+                .build();
+        asig.addProfesor(profe);
+        repoPrf.save(profe);
+        asignaturaRepo.save(asig);
+        Profesor pr = Profesor.builder()
+                .nombre("Juan")
+                .apellidos("Paquito")
+                .roles(Set.of(UserRole.ADMIN))
+                .password("1")
+                .username("Juanito")
+                .build();
 
         @PostConstruct
         public void InitData() {
