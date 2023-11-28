@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/alumno")
@@ -21,9 +24,14 @@ public class AlumnoController {
 
     @PostMapping("/")
     public ResponseEntity<GetAlumnoDTO> agregarAlumno(@Valid @RequestBody PostAlumnoDTO nuevo){
-        Alumno a = service.save(nuevo);
+        GetAlumnoDTO a = service.save(nuevo);
+        URI createdUri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(a.id()).toUri();
+
         return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(GetAlumnoDTO.of(a));
+                .created(createdUri)
+                .body(a);
     }
 }

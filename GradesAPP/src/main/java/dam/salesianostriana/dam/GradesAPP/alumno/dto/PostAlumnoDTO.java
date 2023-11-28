@@ -9,19 +9,25 @@ import java.time.LocalDate;
 
 public record PostAlumnoDTO(
 
-        @NotEmpty @NotNull
+        @NotEmpty(message = "{PostAlumnoDTO.nombre.notempty}")
+        @NotNull
         String nombre,
-        @NotEmpty @NotNull
+        @NotEmpty(message = "{PostAlumnoDTO.apellidos.notempty}")
+        @NotNull
         String apellidos,
-        @LocalDateNotNull
+        @LocalDateNotNull(message = "{PostAlumnoDTO.fechaNacimiento.localdatenotnull}")
         LocalDate fechaNacimiento,
-        @NotEmpty @NotNull
+        @NotEmpty(message = "{PostAlumnoDTO.email.notempty}")
+        @NotNull
         String email,
-        @NotEmpty @NotNull
+        @NotEmpty(message = "{PostAlumnoDTO.telefono.notempty}")
+        @NotNull
         String telefono,
-        @NotEmpty @NotNull
+        @NotEmpty(message = "{PostAlumnoDTO.username.notempty}")
+        @NotNull
         String username,
-        @NotEmpty @NotNull
+        @NotEmpty(message = "{PostAlumnoDTO.password.notempty}")
+        @NotNull
         String password
 
 ) {
