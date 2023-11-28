@@ -6,12 +6,10 @@ import java.time.LocalDate;
 
 public record GetAlumnoListDTO(
         String nombreApellidos,
-        LocalDate fechaNacimiento
-) {
-    public static GetAlumnoListDTO of(Alumno a){
+        LocalDate fechaNacimiento) {
+    public static GetAlumnoListDTO of(Alumno a) {
         return new GetAlumnoListDTO(
                 a.getNombre() + " " + a.getApellidos(),
-                a.getFechaNacimiento()
-        );
+                a.getFechaNacimiento());
     }
 }
