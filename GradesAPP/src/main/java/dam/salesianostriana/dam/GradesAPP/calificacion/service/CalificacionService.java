@@ -1,7 +1,7 @@
 package dam.salesianostriana.dam.GradesAPP.calificacion.service;
 
 import dam.salesianostriana.dam.GradesAPP.MyPage;
-import dam.salesianostriana.dam.GradesAPP.calificacion.DTO.GETCalificaciónDTO;
+import dam.salesianostriana.dam.GradesAPP.calificacion.DTO.GETCalificacionDTO;
 import dam.salesianostriana.dam.GradesAPP.calificacion.model.Calificacion;
 import dam.salesianostriana.dam.GradesAPP.calificacion.repository.CalificacionRepository;
 import dam.salesianostriana.dam.GradesAPP.exception.NotFoundException;
@@ -21,12 +21,11 @@ public class CalificacionService {
     private final CalificacionRepository repo;
     private final InstrumentoRepository repoIns;
 
-    public MyPage<GETCalificaciónDTO> getAllCalificacionesFromInstrumento(UUID uuid, Pageable pageable){
-        Optional<Instrumento> selected = repoIns.findById(uuid);
-        if(selected.isEmpty())
+    public MyPage<GETCalificacionDTO> getAllCalificacionesFromInstrumento(UUID uuid, Pageable pageable){
+        if(!repoIns.existsById(uuid))
             throw new NotFoundException("Instrumento");
         Page<Calificacion> request = repo.findAllByInstrumento_Id(uuid, pageable);
-        Page<GETCalificaciónDTO> toReturn = request.map(GETCalificaciónDTO::of);
+        Page<GETCalificacionDTO> toReturn = request.map(GETCalificacionDTO::of);
         return MyPage.of(toReturn);
 
     }

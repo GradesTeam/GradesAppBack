@@ -1,6 +1,8 @@
 package dam.salesianostriana.dam.GradesAPP;
 
 
+import com.fasterxml.jackson.annotation.JsonView;
+import dam.salesianostriana.dam.GradesAPP.instrumento.jsonViews.InstrumentoViews;
 import lombok.Builder;
 import org.springframework.data.domain.Page;
 
@@ -9,7 +11,9 @@ import java.util.List;
 
 
 @Builder
+@JsonView(InstrumentoViews.InstrumentoList.class)
 public record MyPage<T>(
+
         List<T> content,
 
         Integer size,
