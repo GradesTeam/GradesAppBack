@@ -33,7 +33,7 @@ public class AsignaturaService {
         return MyPage.of(subjectList);
     }
 
-public MyPage<GetAsignaturaDTO> findAsignaturasByProfesor(Pageable pageable, UUID profesorId){
+public MyPage<GetAsignaturaDTO> getAsignaturasByProfesor(Pageable pageable, UUID profesorId){
         Page<GetAsignaturaDTO> asignaturaListProfe= repo.getAsignaturasByProfesor(profesorId, pageable);
         if (asignaturaListProfe.isEmpty())
             throw new NotFoundException("Asignatura");

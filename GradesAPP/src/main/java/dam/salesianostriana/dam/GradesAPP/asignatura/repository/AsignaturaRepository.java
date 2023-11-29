@@ -57,7 +57,7 @@ public interface AsignaturaRepository extends JpaRepository<Asignatura, UUID> {
     Page<GetAsignaturaDTO> obtenerTodasConNumeroAlumnos(Pageable pageable);
 
     @Query("""
-<<<<<<< HEAD
+
         select new dam.salesianostriana.dam.GradesAPP.asignatura.AsignaturaDTO.GetAsignaturaDTO(
             a.nombre, a.descripcion, concat(a.profesor.nombre,' ', a.profesor.apellidos), a.hexColor, (
                 select case 
@@ -72,11 +72,11 @@ public interface AsignaturaRepository extends JpaRepository<Asignatura, UUID> {
         where a.profesor.id= :profesorId           
         """)
     Page<GetAsignaturaDTO> getAsignaturasByProfesor (@Param("profesorId") UUID profesorId, Pageable pageable);
-=======
+        @Query("""
             select a from Asignatura a
             join fetch a.referentes
             where a.id = :idAsig
             """)
     Optional<Asignatura> findByIdWithRefrerente(UUID idAsig);
->>>>>>> main
+
 }

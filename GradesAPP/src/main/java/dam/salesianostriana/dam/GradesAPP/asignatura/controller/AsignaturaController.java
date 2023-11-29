@@ -48,7 +48,39 @@ public class AsignaturaController {
                     array = @ArraySchema(schema = @Schema(implementation = Asignatura.class)),
                     examples = { @ExampleObject(
                             value = """
-                                    []
+                                    {
+                                        "content": [
+                                            {
+                                                "id": "0420354e-9bd3-405c-b5fa-2a8431a47ed8",
+                                                "asigNombre": "AD",
+                                                "asigDescripcion": "Esta es una buena asignatura",
+                                                "nombreProfesor": "Pepe Perez",
+                                                "color": "#ff6961",
+                                                "numAlumnos": 0
+                                            },
+                                            {
+                                                "id": "d56a2194-24b3-44be-9986-97ef314562cb",
+                                                "asigNombre": "Diseño Interfaces",
+                                                "asigDescripcion": "Hola",
+                                                "nombreProfesor": "Juan Paquito",
+                                                "color": "#77dd77",
+                                                "numAlumnos": 0
+                                            },
+                                            {
+                                                "id": "79ff6883-7f9e-4a24-98a8-dee031b65217",
+                                                "asigNombre": "Masa madre",
+                                                "asigDescripcion": "Cositas varias",
+                                                "nombreProfesor": "Luismi Lopez Magaña",
+                                                "color": "#ff6961",
+                                                "numAlumnos": 1
+                                            }
+                                        ],
+                                        "size": 12,
+                                        "totalElements": 10,
+                                        "pageNumber": 0,
+                                        "first": true,
+                                        "last": true
+                                    }
                                     """
                     )}
                     )}),
@@ -206,5 +238,26 @@ public class AsignaturaController {
     @GetMapping("/teacher/referente/{id}")
     public GETReferenteDTO getReferenteById(@PathVariable String id){
         return  service.getReferenteById(id);
+    }
+
+    @Operation(summary= "Obtiene todas las asignaturas que tiene un profesor")
+    @ApiResponses(value= {
+            @ApiResponse(responseCode = "200",
+                    description= "Se han encontrado todas las asignaturas que tiene un profesor",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Asignatura.class)),
+                            examples = { @ExampleObject(
+                                    value = """
+                                    []
+                                    """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado ninguna asignatura",
+                    content = @Content),
+    })
+    @GetMapping("/teacher/{id}/asignatura/")
+    public MyPage<GetAsignaturaDTO> getAllAsignaturasByProfesor(@PathVariable UUID id, @PageableDefault(size = 10, page = 0) Pageable pageable){
+        return service.getAsignaturasByProfesor(pageable, id);
     }
 }
