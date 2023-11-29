@@ -1,5 +1,6 @@
 package dam.salesianostriana.dam.GradesAPP.asignatura.model;
 
+import dam.salesianostriana.dam.GradesAPP.alumno.model.Alumno;
 import dam.salesianostriana.dam.GradesAPP.profesor.model.Profesor;
 import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.model.ReferenteEvaluacion;
 import jakarta.persistence.*;
@@ -9,6 +10,7 @@ import org.hibernate.annotations.Parameter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -47,6 +49,9 @@ public class Asignatura {
     @ToString.Exclude
     @Builder.Default
     private List<ReferenteEvaluacion> referentes = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "asignaturas", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    private Set<Alumno> alumnos;
 
     public void addReferente(ReferenteEvaluacion referenteEvaluacion) {
         this.referentes.add(referenteEvaluacion);

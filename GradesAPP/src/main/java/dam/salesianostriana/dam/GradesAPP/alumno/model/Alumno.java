@@ -48,4 +48,11 @@ public class Alumno extends User {
     public boolean isEnabled() {
         return true;
     }
+
+    public void desvincularDeAsignaturas() {
+        for (Asignatura asignatura : asignaturas) {
+            asignatura.getAlumnos().remove(this);
+        }
+        asignaturas.clear();
+    }
 }
