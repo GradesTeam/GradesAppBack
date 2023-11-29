@@ -53,9 +53,82 @@ public class InitData {
                 .nombre("Juan")
                 .apellidos("Paquito")
                 .roles(Set.of(UserRole.ADMIN))
-                .password("1")
+                .password(passwordEncoder.encode("123456789"))
                 .username("Juanito")
+                .titulacion("Técnico")
                 .build();
+        Profesor pr2 = Profesor.builder()
+                .nombre("Jose")
+                .apellidos("Herrera")
+                .roles(Set.of(UserRole.ADMIN))
+                .password(passwordEncoder.encode("123456789"))
+                .username("josito")
+                .titulacion("Profesor")
+                .build();
+        repoPrf.save(pr2);
+        Profesor pr3 = Profesor.builder()
+                .nombre("Amanda")
+                .apellidos("Fernandez")
+                .roles(Set.of(UserRole.ADMIN))
+                .password(passwordEncoder.encode("123456789"))
+                .username("amandez")
+                .titulacion("Teacher")
+                .build();
+        repoPrf.save(pr3);
+        Profesor pr4 = Profesor.builder()
+                .nombre("Ana")
+                .apellidos("Tomate")
+                .roles(Set.of(UserRole.ADMIN))
+                .password(passwordEncoder.encode("123456789"))
+                .username("anate")
+                .titulacion("Profesor")
+                .build();
+        repoPrf.save(pr4);
+        Profesor pr5 = Profesor.builder()
+                .nombre("Andres")
+                .apellidos("Gómez")
+                .roles(Set.of(UserRole.ADMIN))
+                .password(passwordEncoder.encode("123456789"))
+                .username("andromez")
+                .titulacion("Jardinero")
+                .build();
+        repoPrf.save(pr5);
+        Profesor pr6 = Profesor.builder()
+                .nombre("Teodoro")
+                .apellidos("Rey")
+                .roles(Set.of(UserRole.ADMIN))
+                .password(passwordEncoder.encode("123456789"))
+                .username("elrey")
+                .titulacion("Pianista")
+                .build();
+        repoPrf.save(pr6);
+        Profesor pr7 = Profesor.builder()
+                .nombre("Antonio")
+                .apellidos("Molina")
+                .roles(Set.of(UserRole.ADMIN))
+                .password(passwordEncoder.encode("123456789"))
+                .username("anotio")
+                .titulacion("Chavalito")
+                .build();
+        repoPrf.save(pr7);
+        Profesor pr8 = Profesor.builder()
+                .nombre("Fernanda")
+                .apellidos("Tockson")
+                .roles(Set.of(UserRole.ADMIN))
+                .password(passwordEncoder.encode("123456789"))
+                .username("Nachita")
+                .titulacion("Maestra")
+                .build();
+        repoPrf.save(pr8);
+        Profesor pr9 = Profesor.builder()
+                .nombre("Sara")
+                .apellidos("Lopez")
+                .roles(Set.of(UserRole.ADMIN))
+                .password(passwordEncoder.encode("123456789"))
+                .username("saritalo")
+                .titulacion("Maquina")
+                .build();
+        repoPrf.save(pr9);
                 Asignatura as = Asignatura.builder()
                         .horas(10L)
                         .descripcion("Hola")
