@@ -4,13 +4,14 @@ import dam.salesianostriana.dam.GradesAPP.alumno.model.Alumno;
 import dam.salesianostriana.dam.GradesAPP.alumno.repository.AlumnoRepository;
 import dam.salesianostriana.dam.GradesAPP.asignatura.model.Asignatura;
 import dam.salesianostriana.dam.GradesAPP.asignatura.repository.AsignaturaRepository;
+import dam.salesianostriana.dam.GradesAPP.asignatura.service.AsignaturaService;
 import dam.salesianostriana.dam.GradesAPP.calificacion.model.Calificacion;
 import dam.salesianostriana.dam.GradesAPP.calificacion.repository.CalificacionRepository;
 import dam.salesianostriana.dam.GradesAPP.instrumento.model.Instrumento;
 import dam.salesianostriana.dam.GradesAPP.instrumento.repository.InstrumentoRepository;
 import dam.salesianostriana.dam.GradesAPP.profesor.model.Profesor;
 import dam.salesianostriana.dam.GradesAPP.profesor.repository.ProfesorRepository;
-import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.model.ReferenteEvaluacion;
+import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.DTO.ADDReferenteDTO;
 import dam.salesianostriana.dam.GradesAPP.user.model.UserRole;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -22,12 +23,14 @@ import java.util.Set;
 @Component
 @RequiredArgsConstructor
 public class InitData {
+
         private final AsignaturaRepository asignaturaRepo;
         private final InstrumentoRepository repoIns;
         private final ProfesorRepository repoPrf;
         private final AlumnoRepository alumnoRepository;
         private final PasswordEncoder passwordEncoder;
         private final CalificacionRepository repoCalf;
+        private final AsignaturaService asService;
 
         @PostConstruct
         public void InitData() {
@@ -54,38 +57,110 @@ public class InitData {
                                 .nombre("Juan")
                                 .apellidos("Paquito")
                                 .roles(Set.of(UserRole.ADMIN))
-                                .password("1")
+                                .password(passwordEncoder.encode("123456789"))
                                 .username("Juanito")
+                                .titulacion("Técnico")
                                 .build();
+                Profesor pr2 = Profesor.builder()
+                                .nombre("Jose")
+                                .apellidos("Herrera")
+                                .roles(Set.of(UserRole.ADMIN))
+                                .password(passwordEncoder.encode("123456789"))
+                                .username("josito")
+                                .titulacion("Profesor")
+                                .build();
+                repoPrf.save(pr2);
+                Profesor pr3 = Profesor.builder()
+                                .nombre("Amanda")
+                                .apellidos("Fernandez")
+                                .roles(Set.of(UserRole.ADMIN))
+                                .password(passwordEncoder.encode("123456789"))
+                                .username("amandez")
+                                .titulacion("Teacher")
+                                .build();
+                repoPrf.save(pr3);
+                Profesor pr4 = Profesor.builder()
+                                .nombre("Ana")
+                                .apellidos("Tomate")
+                                .roles(Set.of(UserRole.ADMIN))
+                                .password(passwordEncoder.encode("123456789"))
+                                .username("anate")
+                                .titulacion("Profesor")
+                                .build();
+                repoPrf.save(pr4);
+                Profesor pr5 = Profesor.builder()
+                                .nombre("Andres")
+                                .apellidos("Gómez")
+                                .roles(Set.of(UserRole.ADMIN))
+                                .password(passwordEncoder.encode("123456789"))
+                                .username("andromez")
+                                .titulacion("Jardinero")
+                                .build();
+                repoPrf.save(pr5);
+                Profesor pr6 = Profesor.builder()
+                                .nombre("Teodoro")
+                                .apellidos("Rey")
+                                .roles(Set.of(UserRole.ADMIN))
+                                .password(passwordEncoder.encode("123456789"))
+                                .username("elrey")
+                                .titulacion("Pianista")
+                                .build();
+                repoPrf.save(pr6);
+                Profesor pr7 = Profesor.builder()
+                                .nombre("Antonio")
+                                .apellidos("Molina")
+                                .roles(Set.of(UserRole.ADMIN))
+                                .password(passwordEncoder.encode("123456789"))
+                                .username("anotio")
+                                .titulacion("Chavalito")
+                                .build();
+                repoPrf.save(pr7);
+                Profesor pr8 = Profesor.builder()
+                                .nombre("Fernanda")
+                                .apellidos("Tockson")
+                                .roles(Set.of(UserRole.ADMIN))
+                                .password(passwordEncoder.encode("123456789"))
+                                .username("Nachita")
+                                .titulacion("Maestra")
+                                .build();
+                repoPrf.save(pr8);
+                Profesor pr9 = Profesor.builder()
+                                .nombre("Sara")
+                                .apellidos("Lopez")
+                                .roles(Set.of(UserRole.ADMIN))
+                                .password(passwordEncoder.encode("123456789"))
+                                .username("saritalo")
+                                .titulacion("Maquina")
+                                .build();
+                repoPrf.save(pr9);
                 Asignatura as = Asignatura.builder()
                                 .horas(10L)
                                 .descripcion("Hola")
                                 .nombre("Diseño Interfaces")
                                 .hexColor("#77dd77")
                                 .build();
-                ReferenteEvaluacion ref1 = ReferenteEvaluacion.builder()
+                ADDReferenteDTO ref1 = ADDReferenteDTO.builder()
                                 .codReferente("Ad.2")
                                 .descripcion("Hola mundo")
                                 .build();
-                ref1.setId(ref1.getId());
-                ReferenteEvaluacion ref2 = ReferenteEvaluacion.builder()
+                ADDReferenteDTO ref2 = ADDReferenteDTO.builder()
                                 .codReferente("Ad.3")
                                 .descripcion("Hola mundo")
                                 .build();
-                ref2.setId(ref2.getId());
-                as.addReferente(ref2);
-                as.addReferente(ref1);
+
                 as.addProfesor(pr);
                 repoPrf.save(pr);
                 asignaturaRepo.save(as);
+                asService.addReferente(as.getId(), ref1);
+                asService.addReferente(as.getId(), ref2);
                 Instrumento is = Instrumento.builder()
                                 .nombre("Examen T1")
                                 .asignatura(asignaturaRepo.getReferenceById(as.getId()))
                                 .contenidos("Hola como estas")
                                 .fecha(LocalDate.of(2023, 11, 3))
                                 .build();
-                is.addReferente(ref1);
-                is.addReferente(ref2);
+                is.addReferente(asignaturaRepo.getReferenteById(ref1.codReferente()).get());
+                is.addReferente(asignaturaRepo.getReferenteById(ref2.codReferente()).get());
                 repoIns.save(is);
                 Instrumento is1 = Instrumento.builder()
                                 .nombre("Proyecto T1")
@@ -93,6 +168,7 @@ public class InitData {
                                 .contenidos("Hola como estas")
                                 .fecha(LocalDate.of(2023, 12, 9))
                                 .build();
+                is1.addReferente(asignaturaRepo.getReferenteById(ref1.codReferente()).get());
                 repoIns.save(is1);
 
                 Alumno a1 = new Alumno();
@@ -172,7 +248,6 @@ public class InitData {
                                 .build();
                 asig7.addProfesor(pr);
                 asignaturaRepo.save(asig7);
-
                 Asignatura asig8 = Asignatura.builder()
                                 .descripcion("Hola")
                                 .nombre("Diseño Interfaces")
@@ -184,7 +259,7 @@ public class InitData {
                                 .alumno(a1)
                                 .calificacion(9.2)
                                 .instrumento(is)
-                                .referente(ref1)
+                                .referente(asignaturaRepo.getReferenteById(ref1.codReferente()).get())
                                 .build();
                 repoCalf.save(cal);
         }

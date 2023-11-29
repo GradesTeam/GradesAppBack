@@ -67,6 +67,19 @@ public class AlumnoController {
                 .body(a);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<GetAlumnoDTO> obtenerPorId(@PathVariable String id){
+        GetAlumnoDTO a = service.details(UUID.fromString(id));
+        URI createdUri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(a.id()).toUri();
+
+        return ResponseEntity
+                .created(createdUri)
+                .body(a);
+    }
+
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "El Alumno se ha editado de forma correcta", content = {
                     @Content(mediaType = "application/json",
@@ -96,18 +109,11 @@ public class AlumnoController {
     })
     @Operation(summary = "Editar un Alumno")
     @PutMapping("/edit/{id}")
-    public ResponseEntity<GetAlumnoDTO> editarAlumno(
+    public GetAlumnoDTO editarAlumno(
             @PathVariable String id,
             @Valid @RequestBody EditAlumnoDTO edit
     ){
-        GetAlumnoDTO a = service.edit(UUID.fromString(id), edit);
-        URI createdUri = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(a.id()).toUri();
-        return ResponseEntity
-                .created(createdUri)
-                .body(a);
+        return service.edit(UUID.fromString(id), edit);
     }
 
     @ApiResponses(value = {

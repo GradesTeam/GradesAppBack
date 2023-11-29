@@ -30,23 +30,30 @@ public class AlumnoService {
     private final AsignaturaRepository asignaturaRepository;
     private final CalificacionRepository calificacionRepository;
 
-    public GetAlumnoDTO save(@Valid PostAlumnoDTO nuevo){
+    public GetAlumnoDTO save(@Valid PostAlumnoDTO nuevo) {
         Alumno a = PostAlumnoDTO.from(nuevo);
         return GetAlumnoDTO.of(repo.save(a));
     }
 
-    public GetAlumnoDTO edit(UUID id, @Valid EditAlumnoDTO aEditar){
-        if(repo.existsById(id)){
-            Optional<Alumno> result = repo.findById(id);
-            Alumno editado = result.get();
-            editado.setEmail(aEditar.email());
-            editado.setTelefono(aEditar.telefono());
-            editado.setUsername(aEditar.username());
-            editado.setPassword(aEditar.password());
-            return GetAlumnoDTO.of(repo.save(editado));
-        }else {
+    public GetAlumnoDTO edit(UUID id, @Valid EditAlumnoDTO aEditar) {
+        Optional<Alumno> result = repo.findById(id);
+        if (result.isEmpty())
             throw new NotFoundException("Alumno");
-        }
+
+        Alumno editado = result.get();
+        editado.setNombre(aEditar.nombre());
+        editado.setApellidos(aEditar.apellidos());
+        editado.setEmail(aEditar.email());
+        editado.setTelefono(aEditar.telefono());
+        return GetAlumnoDTO.of(repo.save(editado));
+    }
+
+    public GetAlumnoDTO details(UUID id) {
+        Optional<Alumno> alumnoOptional = repo.findById(id);
+        if (alumnoOptional.isEmpty())
+            throw new NotFoundException("Alumno");
+
+        return GetAlumnoDTO.of(alumnoOptional.get());
     }
 
     public List<Alumno> obtenerAlumnosDeAsignatura(Asignatura asignatura) {
@@ -55,9 +62,9 @@ public class AlumnoService {
     }
 
     @Transactional
-    public void delete(UUID id){
+    public void delete(UUID id) {
         Optional<Alumno> alumnoOpt = repo.findById(id);
-        if(alumnoOpt.isPresent()){
+        if (alumnoOpt.isPresent()) {
             Alumno alumno = alumnoOpt.get();
 
             alumno.desvincularDeAsignaturas();

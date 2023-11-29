@@ -15,6 +15,11 @@ import java.util.UUID;
 public interface CalificacionRepository extends JpaRepository<Calificacion, UUID> {
 
     Page<Calificacion> findAllByInstrumento_Id(UUID id, Pageable pageable);
+
+    List<Calificacion> findAllByInstrumento_Id(UUID id);
+
+    List<Calificacion> findAllByReferente_CodReferente(String codReferente);
+
     @Query("SELECT c FROM Calificacion c WHERE c.alumno = :alumno")
     List<Calificacion> findByAlumno(@Param("alumno") Alumno alumno);
 }

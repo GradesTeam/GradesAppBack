@@ -14,10 +14,26 @@ import java.util.UUID;
 public interface InstrumentoRepository extends JpaRepository<Instrumento, UUID> {
 
     Page<Instrumento> findAllByAsignatura_Id(UUID id, Pageable pageable);
+
+    List<Instrumento> findAllByAsignatura_Id(UUID id);
     Optional<Instrumento> findByNombre(String name);
     @Query("""
             select i.referentes from Instrumento i
             where i.id = :id
             """)
     List<ReferenteEvaluacion> getReferentesfromId(UUID id);
+
+    @Query("""
+            select i from Instrumento i
+            join fetch i.referentes
+            where i.id = :id
+            """)
+    Optional<Instrumento> findByIdWithReferentes(UUID id);
+
+    @Query("""
+            select i from Instrumento i
+            join fetch i.referentes
+            where :referenteEvaluacion member of i.referentes
+            """)
+    List<Instrumento> getAllWithReferente(ReferenteEvaluacion referenteEvaluacion);
 }
