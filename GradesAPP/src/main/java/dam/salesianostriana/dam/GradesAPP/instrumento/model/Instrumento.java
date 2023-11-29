@@ -43,8 +43,7 @@ public class Instrumento {
     @ManyToOne
     private Asignatura asignatura;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @Builder.Default
     private Set<ReferenteEvaluacion> referentes = new HashSet<>();
 

@@ -44,7 +44,6 @@ public class Asignatura {
     private Profesor profesor;
 
     @OneToMany(mappedBy = "asignatura", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @ElementCollection(fetch = FetchType.LAZY)
     @ToString.Exclude
     @Builder.Default
     private List<ReferenteEvaluacion> referentes = new ArrayList<>();

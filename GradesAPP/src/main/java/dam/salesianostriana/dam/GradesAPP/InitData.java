@@ -56,44 +56,43 @@ public class InitData {
                 .password("1")
                 .username("Juanito")
                 .build();
-
-        Asignatura as = Asignatura.builder()
-                .horas(10L)
-                .descripcion("Hola")
-                .nombre("Diseño Interfaces")
-                .hexColor("#77dd77")
-                .build();
-        ReferenteEvaluacion ref1 = ReferenteEvaluacion.builder()
-                .codReferente("Ad.2")
-                .descripcion("Hola mundo")
-                .build();
-        ref1.setId(ref1.getId());
-        ReferenteEvaluacion ref2 = ReferenteEvaluacion.builder()
-                .codReferente("Ad.3")
-                .descripcion("Hola mundo")
-                .build();
-        ref2.setId(ref2.getId());
-        as.addReferente(ref2);
-        as.addReferente(ref1);
-        as.addProfesor(pr);
-        repoPrf.save(pr);
-        asignaturaRepo.save(as);
-        Instrumento is = Instrumento.builder()
-                .nombre("Examen T1")
-                .asignatura(as)
-                .contenidos("Hola como estas")
-                .fecha(LocalDate.of(2023, 11, 3))
-                .build();
-        is.addReferente(ref1);
-        is.addReferente(ref2);
-        repoIns.save(is);
-        Instrumento is1 = Instrumento.builder()
-                .nombre("Proyecto T1")
-                .asignatura(as)
-                .contenidos("Hola como estas")
-                .fecha(LocalDate.of(2023, 12, 9))
-                .build();
-        repoIns.save(is1);
+                Asignatura as = Asignatura.builder()
+                        .horas(10L)
+                        .descripcion("Hola")
+                        .nombre("Diseño Interfaces")
+                        .hexColor("#77dd77")
+                        .build();
+                ReferenteEvaluacion ref1 = ReferenteEvaluacion.builder()
+                        .codReferente("Ad.2")
+                        .descripcion("Hola mundo")
+                        .build();
+                ref1.setId(ref1.getId());
+                ReferenteEvaluacion ref2 = ReferenteEvaluacion.builder()
+                        .codReferente("Ad.3")
+                        .descripcion("Hola mundo")
+                        .build();
+                ref2.setId(ref2.getId());
+                as.addReferente(ref2);
+                as.addReferente(ref1);
+                as.addProfesor(pr);
+                repoPrf.save(pr);
+                asignaturaRepo.save(as);
+                Instrumento is = Instrumento.builder()
+                        .nombre("Examen T1")
+                        .asignatura(asignaturaRepo.getReferenceById(as.getId()))
+                        .contenidos("Hola como estas")
+                        .fecha(LocalDate.of(2023, 11, 3))
+                        .build();
+                is.addReferente(ref1);
+                is.addReferente(ref2);
+                repoIns.save(is);
+                Instrumento is1 = Instrumento.builder()
+                        .nombre("Proyecto T1")
+                        .asignatura(asignaturaRepo.getReferenceById(as.getId()))
+                        .contenidos("Hola como estas")
+                        .fecha(LocalDate.of(2023, 12, 9))
+                        .build();
+                repoIns.save(is1);
 
         Alumno a1 = new Alumno();
         a1.setNombre("Paco");
