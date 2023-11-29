@@ -12,6 +12,7 @@ import dam.salesianostriana.dam.GradesAPP.asignatura.model.Asignatura;
 import dam.salesianostriana.dam.GradesAPP.instrumento.model.Instrumento;
 import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.DTO.ADDReferenteDTO;
 import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.DTO.GETReferenteDTO;
+import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.DTO.PUTReferenteDTO;
 import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.model.ReferenteEvaluacion;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -144,7 +145,12 @@ public class AsignaturaController {
     }
 
     @PutMapping("/teacher/asignatura/{id_asig}/referente/{id}")
-    public GETReferenteDTO editReferente(@PathVariable UUID id_asig, @PathVariable String id, @Valid @RequestBody ADDReferenteDTO referenteDTO ){
+    public GETReferenteDTO editReferente(@PathVariable UUID id_asig, @PathVariable String id, @Valid @RequestBody PUTReferenteDTO referenteDTO ){
         return service.editReferente(id_asig, id, referenteDTO);
+    }
+
+    @GetMapping("/teacher/referente/{id}")
+    public GETReferenteDTO getReferenteById(@PathVariable String id){
+        return  service.getReferenteById(id);
     }
 }

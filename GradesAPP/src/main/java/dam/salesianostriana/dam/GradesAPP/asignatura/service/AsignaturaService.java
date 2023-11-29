@@ -7,6 +7,7 @@ import dam.salesianostriana.dam.GradesAPP.asignatura.repository.AsignaturaReposi
 import dam.salesianostriana.dam.GradesAPP.exception.NotFoundException;
 import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.DTO.ADDReferenteDTO;
 import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.DTO.GETReferenteDTO;
+import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.DTO.PUTReferenteDTO;
 import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.model.ReferenteEvaluacion;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -74,8 +75,8 @@ public class AsignaturaService {
         return repo.getAllReferentes().stream().map(ReferenteEvaluacion::getCodReferente).toList().contains(s);
     }
 
-    public GETReferenteDTO editReferente(UUID idAsig, String id, ADDReferenteDTO referenteDTO) {
-        Optional<Asignatura> selected = repo.findById(idAsig);
+    public GETReferenteDTO editReferente(UUID idAsig, String id, PUTReferenteDTO referenteDTO) {
+        Optional<Asignatura> selected = repo.findByIdWithRefrerente(idAsig);
         if (selected.isEmpty())
             throw new NotFoundException("Asignatura");
         Asignatura selectedAs = selected.get();
@@ -83,16 +84,17 @@ public class AsignaturaService {
         if(selectedR.isEmpty())
             throw new NotFoundException("Referente");
         ReferenteEvaluacion toEdit = selectedR.get();
-        List<ReferenteEvaluacion> refs = repo.getNonPagedReferentesFromAsignatura(idAsig);
-        refs.remove(toEdit);
-        toEdit.setDescripcion(referenteDTO.descripcion());
-        toEdit.setCodReferente(referenteDTO.codReferente());
-        toEdit.setId(toEdit.getId());
-        refs.add(toEdit);
-        selected.get().setReferentes(refs);
-        repo.save(selected.get());
-        return GETReferenteDTO.of(toEdit);
+        selectedAs.removeReferente(toEdit);
+        selectedAs.addReferente(PUTReferenteDTO.from(toEdit, referenteDTO));
+        repo.save(selectedAs);
+        return GETReferenteDTO.of(PUTReferenteDTO.from(toEdit, referenteDTO));
 
 
+    }
+    public GETReferenteDTO getReferenteById(String id){
+        Optional<ReferenteEvaluacion> ref = repo.getReferenteById(id);
+        if(ref.isEmpty())
+            throw new NotFoundException("Referente");
+        return GETReferenteDTO.of(ref.get());
     }
 }

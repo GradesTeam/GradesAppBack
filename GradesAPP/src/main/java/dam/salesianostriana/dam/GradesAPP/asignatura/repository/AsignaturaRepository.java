@@ -54,4 +54,11 @@ public interface AsignaturaRepository extends JpaRepository<Asignatura, UUID> {
         from Asignatura a            
         """)
     Page<GetAsignaturaDTO> obtenerTodasConNumeroAlumnos(Pageable pageable);
+
+    @Query("""
+            select a from Asignatura a
+            join fetch a.referentes
+            where a.id = :idAsig
+            """)
+    Optional<Asignatura> findByIdWithRefrerente(UUID idAsig);
 }
