@@ -59,6 +59,7 @@ public class AsignaturaController {
     public MyPage<GetAsignaturaDTO> GetAll(@PageableDefault(size = 12, page = 0) Pageable pageable){
     return service.findAll(pageable);
     }
+
         @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Obtiene todos los referentes de la Asigantura con Id dado", content = {
                     @Content(mediaType = "application/json",
@@ -142,4 +143,5 @@ public class AsignaturaController {
                 .created(createdURI)
                 .body(GETReferenteDTO.of(created));
     }
+
 }

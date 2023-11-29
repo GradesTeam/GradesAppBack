@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -49,4 +50,20 @@ public interface AsignaturaRepository extends JpaRepository<Asignatura, UUID> {
         from Asignatura a            
         """)
     Page<GetAsignaturaDTO> obtenerTodasConNumeroAlumnos(Pageable pageable);
+
+    @Query("""
+        select new dam.salesianostriana.dam.GradesAPP.asignatura.AsignaturaDTO.GetAsignaturaDTO(
+            a.nombre, a.descripcion, concat(a.profesor.nombre,' ', a.profesor.apellidos), a.hexColor, (
+                select case 
+                    when count(al) > 0 then count(al)
+                    else 0
+                end
+                from Alumno al
+                where a member of al.asignaturas
+            )
+        )
+        from Asignatura a 
+        where a.profesor.id= :profesorId           
+        """)
+    Page<GetAsignaturaDTO> getAsignaturasByProfesor (@Param("profesorId") UUID profesorId, Pageable pageable);
 }
