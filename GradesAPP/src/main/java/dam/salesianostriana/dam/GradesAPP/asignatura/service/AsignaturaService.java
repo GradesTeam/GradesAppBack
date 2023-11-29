@@ -2,9 +2,12 @@ package dam.salesianostriana.dam.GradesAPP.asignatura.service;
 
 import dam.salesianostriana.dam.GradesAPP.MyPage;
 import dam.salesianostriana.dam.GradesAPP.asignatura.AsignaturaDTO.GetAsignaturaDTO;
+import dam.salesianostriana.dam.GradesAPP.asignatura.AsignaturaDTO.PostAsignaturaDTO;
 import dam.salesianostriana.dam.GradesAPP.asignatura.model.Asignatura;
 import dam.salesianostriana.dam.GradesAPP.asignatura.repository.AsignaturaRepository;
 import dam.salesianostriana.dam.GradesAPP.exception.NotFoundException;
+import dam.salesianostriana.dam.GradesAPP.profesor.model.Profesor;
+import dam.salesianostriana.dam.GradesAPP.profesor.repository.ProfesorRepository;
 import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.DTO.ADDReferenteDTO;
 import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.DTO.GETReferenteDTO;
 import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.DTO.PUTReferenteDTO;
@@ -23,17 +26,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AsignaturaService {
     private  final AsignaturaRepository repo;
+    private final ProfesorRepository proRepo;
 
-    /*public MyPage<GetAsignaturaDTO> findAll(Pageable pageable){
-       Page<Asignatura> subjectList= repo.findAll(pageable);
-
-        if(subjectList.isEmpty()){
-            throw new NotFoundException("Asignatura");
-        }
-        Page<GetAsignaturaDTO> AsignaturaDTO= subjectList.map(GetAsignaturaDTO::of);
-        return MyPage.of(AsignaturaDTO);
-
-    }*/
     public MyPage<GetAsignaturaDTO> findAll(Pageable pageable){
         Page<GetAsignaturaDTO> subjectList= repo.obtenerTodasConNumeroAlumnos(pageable);
         if (subjectList.isEmpty()){
@@ -42,7 +36,16 @@ public class AsignaturaService {
         return MyPage.of(subjectList);
     }
 
-
+    public GetAsignaturaDTO createAsignatura (PostAsignaturaDTO nuevoAsig){
+        UUID profesorUUID = UUID.fromString(nuevoAsig.idProfesor());
+        Optional<Profesor> profeSeleccion= proRepo.findById(profesorUUID);
+        if(profeSeleccion.isEmpty()) {
+            throw new NotFoundException("Profesor");
+        }
+        Profesor profe= profeSeleccion.get();
+        Asignatura asignaturaNueva= PostAsignaturaDTO.from(nuevoAsig, profe);
+        return GetAsignaturaDTO.of(repo.save(asignaturaNueva));
+    }
 
 
 
