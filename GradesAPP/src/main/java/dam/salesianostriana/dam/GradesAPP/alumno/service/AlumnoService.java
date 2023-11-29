@@ -8,8 +8,6 @@ import dam.salesianostriana.dam.GradesAPP.alumno.repository.AlumnoRepository;
 import dam.salesianostriana.dam.GradesAPP.exception.NotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -37,5 +35,13 @@ public class AlumnoService {
         }else {
             throw new NotFoundException("Alumno");
         }
+    }
+
+    public GetAlumnoDTO details(UUID id){
+        Optional<Alumno> alumnoOptional = repo.findById(id);
+        if(alumnoOptional.isEmpty())
+            throw new NotFoundException("Alumno");
+
+        return GetAlumnoDTO.of(alumnoOptional.get());
     }
 }
