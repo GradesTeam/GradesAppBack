@@ -1,8 +1,10 @@
 package dam.salesianostriana.dam.GradesAPP.profesor.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import dam.salesianostriana.dam.GradesAPP.MyPage;
 import dam.salesianostriana.dam.GradesAPP.alumno.dto.GetAlumnoListDTO;
 import dam.salesianostriana.dam.GradesAPP.alumno.model.Alumno;
+import dam.salesianostriana.dam.GradesAPP.profesor.dto.NewTeacherRequired;
 import dam.salesianostriana.dam.GradesAPP.profesor.dto.TeacherListResponse;
 import dam.salesianostriana.dam.GradesAPP.profesor.model.Profesor;
 import dam.salesianostriana.dam.GradesAPP.profesor.service.ProfesorService;
@@ -14,12 +16,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import org.springframework.data.domain.Pageable;
 
@@ -94,6 +97,25 @@ public class ProfesorController {
     @GetMapping("")
     public MyPage<TeacherListResponse> obtenerTodos (@PageableDefault(page = 0, size = 10) Pageable pageable){
         return service.getAll(pageable);
+    }
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Se ha creado el profesor", content = {
+                    @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Profesor.class)), examples = {
+                            @ExampleObject(value = """
+                                    {
+                                        "username": "usuario",
+                                        "password": "123456789"
+                                    }
+                                    """) }) }),
+            @ApiResponse(responseCode = "400", description = "Los datos introducidos no son válidos", content = @Content),
+    })
+    @JsonView({NewTeacherRequired.teacherResponse.class})
+    @PostMapping("/register")
+    public ResponseEntity<NewTeacherRequired> createTeacher (@Valid @RequestBody NewTeacherRequired teacher){
+        service.save(teacher);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(teacher);
     }
 
 }

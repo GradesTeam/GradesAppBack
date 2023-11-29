@@ -7,6 +7,7 @@ import dam.salesianostriana.dam.GradesAPP.asignatura.repository.AsignaturaReposi
 import dam.salesianostriana.dam.GradesAPP.exception.NotFoundException;
 import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.DTO.ADDReferenteDTO;
 import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.DTO.GETReferenteDTO;
+import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.DTO.PUTReferenteDTO;
 import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.model.ReferenteEvaluacion;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -14,11 +15,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import dam.salesianostriana.dam.GradesAPP.asignatura.model.Asignatura;
 
-import java.util.List;
+import java.util.*;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -72,5 +71,28 @@ public MyPage<GetAsignaturaDTO> findAsignaturasByProfesor(Pageable pageable, UUI
     }
     public boolean referenteExists(String s ) {
         return repo.getAllReferentes().stream().map(ReferenteEvaluacion::getCodReferente).toList().contains(s);
+    }
+
+    public GETReferenteDTO editReferente(UUID idAsig, String id, PUTReferenteDTO referenteDTO) {
+        Optional<Asignatura> selected = repo.findByIdWithRefrerente(idAsig);
+        if (selected.isEmpty())
+            throw new NotFoundException("Asignatura");
+        Asignatura selectedAs = selected.get();
+        Optional<ReferenteEvaluacion> selectedR = repo.getReferenteById(id);
+        if(selectedR.isEmpty())
+            throw new NotFoundException("Referente");
+        ReferenteEvaluacion toEdit = selectedR.get();
+        selectedAs.removeReferente(toEdit);
+        selectedAs.addReferente(PUTReferenteDTO.from(toEdit, referenteDTO));
+        repo.save(selectedAs);
+        return GETReferenteDTO.of(PUTReferenteDTO.from(toEdit, referenteDTO));
+
+
+    }
+    public GETReferenteDTO getReferenteById(String id){
+        Optional<ReferenteEvaluacion> ref = repo.getReferenteById(id);
+        if(ref.isEmpty())
+            throw new NotFoundException("Referente");
+        return GETReferenteDTO.of(ref.get());
     }
 }

@@ -162,4 +162,49 @@ public class InstrumentoController {
     public GETInstrumentoDTO getInstrumentoDetails(@PathVariable UUID id){
         return service.getInstrumentoDetails(id);
     }
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Edita el instrumento de forma correcta", content = {
+                    @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Instrumento.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                                {
+                                                    "id": "fbf22985-b030-4d41-bb1c-a986cedeb3d7",
+                                                    "nombre": "Examen T1",
+                                                    "fecha": "2023-11-03",
+                                                    "referentes": [
+                                                        {
+                                                            "codReferente": "Ad.2",
+                                                            "descripcion": "Hola mundo"
+                                                        }
+                                                    ]
+                                                }
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado el Instrumento",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Instrumento.class)),
+                            examples = {@ExampleObject(
+                                    """
+                                        {
+                                            "error": "The Instrumento or the list of it could not be found" 
+                                        }       
+                                    """
+                            )
+                            }))
+    })
+    @Operation(summary = "Edita un instrumento", description = "Devuelve el instrumento editado")
+    @PutMapping("/teacher/instrumento/{id}")
+    @JsonView(InstrumentoViews.InstrumentoDetails.class)
+    public GETInstrumentoDTO editInstrumento(@PathVariable UUID id, @Valid @RequestBody POSTInstrumentoDTO edited){
+        return service.editInstrumento(id, edited);
+    }
+    @DeleteMapping("/teacher/instrumento/{id}")
+    public ResponseEntity<?> deleteInstrumento(@PathVariable UUID id){
+        service.deleteInstrumento(id);
+        return ResponseEntity.noContent().build();
+    }
 }
