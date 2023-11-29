@@ -4,12 +4,11 @@ import dam.salesianostriana.dam.GradesAPP.validation.annotation.PasswordLength;
 import jakarta.validation.constraints.Email;
 
 public record EditAlumnoDTO(
+        String nombre,
+        String apellidos,
         @Email
         String email,
-        String telefono,
-        String username,
-        @PasswordLength
-        String password
+        String telefono
 ){
 
 }

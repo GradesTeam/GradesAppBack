@@ -24,17 +24,16 @@ public class AlumnoService {
     }
 
     public GetAlumnoDTO edit(UUID id, @Valid EditAlumnoDTO aEditar){
-        if(repo.existsById(id)){
-            Optional<Alumno> result = repo.findById(id);
-            Alumno editado = result.get();
-            editado.setEmail(aEditar.email());
-            editado.setTelefono(aEditar.telefono());
-            editado.setUsername(aEditar.username());
-            editado.setPassword(aEditar.password());
-            return GetAlumnoDTO.of(repo.save(editado));
-        }else {
+        Optional<Alumno> result = repo.findById(id);
+        if(result.isEmpty())
             throw new NotFoundException("Alumno");
-        }
+
+        Alumno editado = result.get();
+        editado.setNombre(aEditar.nombre());
+        editado.setApellidos(aEditar.apellidos());
+        editado.setEmail(aEditar.email());
+        editado.setTelefono(aEditar.telefono());
+        return GetAlumnoDTO.of(repo.save(editado));
     }
 
     public GetAlumnoDTO details(UUID id){
