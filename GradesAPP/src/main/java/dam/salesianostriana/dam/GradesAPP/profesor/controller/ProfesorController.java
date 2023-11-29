@@ -4,6 +4,7 @@ import dam.salesianostriana.dam.GradesAPP.MyPage;
 import dam.salesianostriana.dam.GradesAPP.alumno.dto.GetAlumnoListDTO;
 import dam.salesianostriana.dam.GradesAPP.alumno.model.Alumno;
 import dam.salesianostriana.dam.GradesAPP.profesor.dto.TeacherListResponse;
+import dam.salesianostriana.dam.GradesAPP.profesor.model.Profesor;
 import dam.salesianostriana.dam.GradesAPP.profesor.service.ProfesorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -59,7 +60,38 @@ public class ProfesorController {
         return service.obtenerAlumnosPorProfesor(id, pageable);
     }
 
-    @GetMapping("/")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Se han encontrado profesores", content = {
+                    @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Profesor.class)), examples = {
+                            @ExampleObject(value = """
+                                    {
+                                        "content": [
+                                                {
+                                                    "id": "bf9babbf-aa8f-4cdb-b039-9610be23cd99",
+                                                    "nombre": "Pepe Perez",
+                                                    "titulacion": "FICO"
+                                                },
+                                                {
+                                                    "id": "573743e7-9579-408f-ae0f-a77110651ea2",
+                                                    "nombre": "Juan Paquito",
+                                                    "titulacion": null
+                                                },
+                                                {
+                                                    "id": "12f25202-a522-42cd-8a73-da07ffacf84e",
+                                                    "nombre": "Luismi Lopez Magaña",
+                                                    "titulacion": "Crack"
+                                                }
+                                            ],
+                                            "size": 10,
+                                            "totalElements": 3,
+                                            "pageNumber": 0,
+                                            "first": true,
+                                            "last": true
+                                    }
+                                    """) }) }),
+            @ApiResponse(responseCode = "404", description = "No se encuentran resultados", content = @Content),
+    })
+    @GetMapping("")
     public MyPage<TeacherListResponse> obtenerTodos (@PageableDefault(page = 0, size = 10) Pageable pageable){
         return service.getAll(pageable);
     }
