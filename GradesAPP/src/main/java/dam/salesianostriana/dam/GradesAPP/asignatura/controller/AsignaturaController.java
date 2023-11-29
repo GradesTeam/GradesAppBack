@@ -4,6 +4,7 @@ package dam.salesianostriana.dam.GradesAPP.asignatura.controller;
 import dam.salesianostriana.dam.GradesAPP.asignatura.AsignaturaDTO.GetAsignaturaDTO;
 
 import dam.salesianostriana.dam.GradesAPP.MyPage;
+import dam.salesianostriana.dam.GradesAPP.asignatura.AsignaturaDTO.PostAsignaturaDTO;
 import dam.salesianostriana.dam.GradesAPP.asignatura.model.Asignatura;
 
 import dam.salesianostriana.dam.GradesAPP.asignatura.service.AsignaturaService;
@@ -89,8 +90,33 @@ public class AsignaturaController {
         content = @Content),
 })
     @GetMapping("/teacher/asignatura/")
-    public MyPage<GetAsignaturaDTO> GetAll(@PageableDefault(size = 12, page = 0) Pageable pageable){
+    public MyPage<GetAsignaturaDTO> GetAll(@PageableDefault(size = 9, page = 0) Pageable pageable){
     return service.findAll(pageable);
+    }
+
+    @Operation(summary= "Crea una nueva asignaturas")
+    @ApiResponses(value= {
+            @ApiResponse(responseCode = "200",
+                    description= "Se han encontrado todas las asignaturas",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Asignatura.class)),
+                            examples = { @ExampleObject(
+                                    value = """
+                                    
+                                    """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "400",
+                    description = "La información requerida no es correcta",
+                    content = @Content),
+    })
+    @PostMapping("/teacher/asignatura/")
+    public ResponseEntity<GetAsignaturaDTO> createAsignatura (@Valid @RequestBody PostAsignaturaDTO nuevo){
+        GetAsignaturaDTO created= service.createAsignatura(nuevo);
+        URI createdURI= ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .buildAndExpand(created.id()).toUri();
+        return ResponseEntity.created(createdURI).body(created);
     }
 
         @ApiResponses(value = {
