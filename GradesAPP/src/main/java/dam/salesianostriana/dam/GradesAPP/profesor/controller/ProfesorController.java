@@ -135,4 +135,10 @@ public class ProfesorController {
         return ResponseEntity.status(HttpStatus.OK).body(teacher);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteTeacher(@PathVariable UUID id){
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }
