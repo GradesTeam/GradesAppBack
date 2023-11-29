@@ -5,6 +5,7 @@ import dam.salesianostriana.dam.GradesAPP.asignatura.AsignaturaDTO.GetAsignatura
 
 import dam.salesianostriana.dam.GradesAPP.MyPage;
 import dam.salesianostriana.dam.GradesAPP.asignatura.AsignaturaDTO.PostAsignaturaDTO;
+import dam.salesianostriana.dam.GradesAPP.asignatura.AsignaturaDTO.PutAsignaturaDTO;
 import dam.salesianostriana.dam.GradesAPP.asignatura.model.Asignatura;
 
 import dam.salesianostriana.dam.GradesAPP.asignatura.service.AsignaturaService;
@@ -314,42 +315,35 @@ public class AsignaturaController {
     public MyPage<GetAsignaturaDTO> getAllAsignaturasByProfesor(@PathVariable UUID id, @PageableDefault(size = 10, page = 0) Pageable pageable) {
         return service.getAsignaturasByProfesor(pageable, id);
     }
+
+
+    @Operation(summary = "Edita una asignatura", description = "Devuelve el referente buscado")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Obtiene todos el Referente con el cod Ref dado", content = {
+            @ApiResponse(responseCode = "200", description = "Edita la asignatura con un nuevo color y una nueva descripción", content = {
                     @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = ReferenteEvaluacion.class)),
+                            array = @ArraySchema(schema = @Schema(implementation = Asignatura.class)),
                             examples = {@ExampleObject(
                                     value = """
-                                             [
-                                                 {
-                                                     "codReferente": "Ad.2",
-                                                     "descripcion": "Hola mundo"
-                                                 },
-                                                 {
-                                                     "codReferente": "Ad.3",
-                                                     "descripcion": "Hola mundo"
-                                                 }
-                                             ]
                                             """
                             )}
                     )}),
             @ApiResponse(responseCode = "404",
-                    description = "No se ha encontrado el Instrumento",
+                    description = "No se ha encontrado la asignatura",
                     content = @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = ReferenteEvaluacion.class)),
+                            array = @ArraySchema(schema = @Schema(implementation = Asignatura.class)),
                             examples = {@ExampleObject(
                                     """
                                         {
-                                            "error": "The Instrumento or the list of it could not be found" 
+                                            "error": "The Asignatura or the list of it could not be found" 
                                         }       
                                     """
                             )
                             }))
     })
-    @Operation(summary = "Buscar todos los referentes de un Instrumento", description = "Devuelve la lista de Referentes")
-    @GetMapping("/student/instrumento/{id_ins}/referentes")
-    public List<GETReferenteDTO> getReferenteAlumnoInstrumento(@PathVariable UUID id_ins) {
-        return service.getReferentesFromInstrumento(id_ins);
+    @PutMapping("/teacher/asignatura/{id}")
+    public GetAsignaturaDTO editAsignatura(@PathVariable UUID idAsig, @Valid @RequestBody PutAsignaturaDTO editAsignatura ){
+    return service.editAsignatura(idAsig, editAsignatura);
+
     }
 
         @ApiResponses(value = {
@@ -366,6 +360,44 @@ public class AsignaturaController {
         public ResponseEntity<?> deleteReferente (@PathVariable String id){
             service.deleteReferente(id);
             return ResponseEntity.noContent().build();
+        }
+
+        @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Obtiene todos el Referente con el cod Ref dado", content = {
+                    @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = ReferenteEvaluacion.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                             [
+                                                 {
+                                                     "codReferente": "Ad.2",
+                                                     "descripcion": "Hola mundo"
+                                                 },
+                                                 {
+                                                     "codReferente": "Ad.3",
+                                                     "descripcion": "Hola mundo"
+                                                 }
+                                                ]
+                                                """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado la asignatura",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Asignatura.class)),
+                            examples = {@ExampleObject(
+                                    """
+                                        {
+                                            "error": "The Asignatura or the list of it could not be found" 
+                                        }       
+                                    """
+                            )
+                            }))
+    })
+        @Operation(summary = "Buscar todos los referentes de un Instrumento", description = "Devuelve la lista de Referentes")
+        @GetMapping("/student/instrumento/{id_ins}/referentes")
+        public List<GETReferenteDTO> getReferenteAlumnoInstrumento(@PathVariable UUID id_ins) {
+        return service.getReferentesFromInstrumento(id_ins);
         }
 }
 
