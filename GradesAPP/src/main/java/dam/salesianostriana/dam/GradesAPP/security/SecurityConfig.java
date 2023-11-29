@@ -90,7 +90,7 @@ public class SecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        //return (web -> web.ignoring().antMatchers("/h2-console/**", "/auth/register", "/auth/login", "/refreshtoken"));
+
         return (web -> web.ignoring()
                 .requestMatchers(
                         antMatcher("/h2-console/**"),
