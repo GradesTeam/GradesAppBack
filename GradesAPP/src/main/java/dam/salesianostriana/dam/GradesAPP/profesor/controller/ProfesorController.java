@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import dam.salesianostriana.dam.GradesAPP.MyPage;
 import dam.salesianostriana.dam.GradesAPP.alumno.dto.GetAlumnoListDTO;
 import dam.salesianostriana.dam.GradesAPP.alumno.model.Alumno;
+import dam.salesianostriana.dam.GradesAPP.profesor.dto.EditTeacherRequired;
 import dam.salesianostriana.dam.GradesAPP.profesor.dto.NewTeacherRequired;
 import dam.salesianostriana.dam.GradesAPP.profesor.dto.TeacherListResponse;
 import dam.salesianostriana.dam.GradesAPP.profesor.model.Profesor;
@@ -70,18 +71,17 @@ public class ProfesorController {
                                     {
                                         "content": [
                                                 {
-                                                    "id": "bf9babbf-aa8f-4cdb-b039-9610be23cd99",
-                                                    "nombre": "Pepe Perez",
-                                                    "titulacion": "FICO"
-                                                },
-                                                {
                                                     "id": "573743e7-9579-408f-ae0f-a77110651ea2",
-                                                    "nombre": "Juan Paquito",
+                                                    "nombre": "Juan",
+                                                    "apellidos": "Paquito",
+                                                    "email": "juanpa@gmail.com",
                                                     "titulacion": null
                                                 },
                                                 {
                                                     "id": "12f25202-a522-42cd-8a73-da07ffacf84e",
-                                                    "nombre": "Luismi Lopez Magaña",
+                                                    "nombre": "Luismi",
+                                                    "apellidos": "Lopez Magaña",
+                                                    "email": "Luismilopes@gmail.com",
                                                     "titulacion": "Crack"
                                                 }
                                             ],
@@ -116,6 +116,23 @@ public class ProfesorController {
         service.save(teacher);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(teacher);
+    }
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Se ha editado el profesor", content = {
+                    @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Profesor.class)), examples = {
+                            @ExampleObject(value = """
+                                    {
+                                        "nombre": "Luismi",
+                                        "apellidos": "López"
+                                    }
+                                    """) }) }),
+            @ApiResponse(responseCode = "400", description = "Los datos introducidos no son válidos", content = @Content),
+    })
+    @JsonView({EditTeacherRequired.teacherEditResponse.class})
+    @PutMapping("/{id}/edit")
+    public ResponseEntity<EditTeacherRequired> editTeacher (@PathVariable UUID id,@Valid @RequestBody EditTeacherRequired teacher){
+        service.edit(id, teacher);
+        return ResponseEntity.status(HttpStatus.OK).body(teacher);
     }
 
 }
