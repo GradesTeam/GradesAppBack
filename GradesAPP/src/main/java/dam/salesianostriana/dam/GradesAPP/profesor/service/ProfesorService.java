@@ -4,6 +4,7 @@ import dam.salesianostriana.dam.GradesAPP.MyPage;
 import dam.salesianostriana.dam.GradesAPP.alumno.dto.GetAlumnoListDTO;
 import dam.salesianostriana.dam.GradesAPP.alumno.model.Alumno;
 import dam.salesianostriana.dam.GradesAPP.exception.NotFoundException;
+import dam.salesianostriana.dam.GradesAPP.profesor.dto.TeacherListResponse;
 import dam.salesianostriana.dam.GradesAPP.profesor.model.Profesor;
 import dam.salesianostriana.dam.GradesAPP.profesor.repository.ProfesorRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,14 @@ public class ProfesorService {
 
     public Optional<Profesor> findById (UUID id){
         return repo.findById(id);
+    }
+
+    public MyPage<TeacherListResponse> getAll(Pageable pageable){
+        Page<Profesor> result = repo.findAll(pageable);
+        if (result.isEmpty())
+            throw new NotFoundException("Profesor");
+        Page<TeacherListResponse> respuesta = result.map(TeacherListResponse::of);
+        return MyPage.of(respuesta);
     }
 
 }
