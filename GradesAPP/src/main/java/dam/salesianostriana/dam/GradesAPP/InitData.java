@@ -110,7 +110,7 @@ public class InitData {
                 p1.setEmail("luismi@luismi.api");
                 p1.setTitulacion("Crack");
                 p1.setUsername("admin");
-                p1.setPassword("1");
+                p1.setPassword(passwordEncoder.encode("1"));
                 p1.setEsJefeEstudios(true);
 
                 Asignatura asig1 = new Asignatura();
