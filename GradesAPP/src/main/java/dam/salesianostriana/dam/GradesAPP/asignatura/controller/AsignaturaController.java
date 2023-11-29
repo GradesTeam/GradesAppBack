@@ -339,10 +339,11 @@ public class AsignaturaController {
                             )
                             }))
     })
+    @PutMapping("/teacher/asignatura/{id}")
     public GetAsignaturaDTO editAsignatura(@PathVariable UUID idAsig, @Valid @RequestBody PutAsignaturaDTO editAsignatura ){
     return service.editAsignatura(idAsig, editAsignatura);
     }
-}
+
         @ApiResponses(value = {
                 @ApiResponse(responseCode = "204",
                         description = "El Referente y sus calificaiones se han borrado correctamente",
