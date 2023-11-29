@@ -274,8 +274,32 @@ public class AsignaturaController {
                             array = @ArraySchema(schema = @Schema(implementation = Asignatura.class)),
                             examples = { @ExampleObject(
                                     value = """
-                                    []
-                                    """
+                                                    {
+                                                        "content": [
+                                                            {
+                                                                "id": "a86fdae4-55d5-4946-9c41-2090ccd09a85",
+                                                                "asigNombre": "Diseño Interfaces",
+                                                                "asigDescripcion": "Hola",
+                                                                "nombreProfesor": "Juan Paquito",
+                                                                "color": "#77dd77",
+                                                                "numAlumnos": 0
+                                                            },
+                                                            {
+                                                                "id": "992c5f3c-0598-4e00-b957-8a7d21ff4ef2",
+                                                                "asigNombre": "Diseño Interfaces",
+                                                                "asigDescripcion": "Hola",
+                                                                "nombreProfesor": "Juan Paquito",
+                                                                "color": "#77dd77",
+                                                                "numAlumnos": 0
+                                                            }
+                                                        ],
+                                                        "size": 10,
+                                                        "totalElements": 8,
+                                                        "pageNumber": 0,
+                                                        "first": true,
+                                                        "last": true
+                                                    }
+                                            """
                             )}
                     )}),
             @ApiResponse(responseCode = "404",
