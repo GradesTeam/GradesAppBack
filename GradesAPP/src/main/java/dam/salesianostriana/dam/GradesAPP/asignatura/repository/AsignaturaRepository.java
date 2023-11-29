@@ -1,5 +1,6 @@
 package dam.salesianostriana.dam.GradesAPP.asignatura.repository;
 
+import dam.salesianostriana.dam.GradesAPP.alumno.model.Alumno;
 import dam.salesianostriana.dam.GradesAPP.asignatura.AsignaturaDTO.GetAsignaturaDTO;
 import dam.salesianostriana.dam.GradesAPP.asignatura.model.Asignatura;
 import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.model.ReferenteEvaluacion;
@@ -90,4 +91,10 @@ public interface AsignaturaRepository extends JpaRepository<Asignatura, UUID> {
                     """
     )
     int deleteReferenteByCodReferente(String codReferente);
+    @Query("""
+            select a from Alumno a
+            join fetch a.asignaturas
+            where :a member of a.asignaturas
+            """)
+    List<Alumno> getAlumnosFromAsignatura(Asignatura a);
 }

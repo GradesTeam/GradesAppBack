@@ -1,6 +1,8 @@
 package dam.salesianostriana.dam.GradesAPP.asignatura.controller;
 
 
+import dam.salesianostriana.dam.GradesAPP.alumno.dto.GetAlumnoDTO;
+import dam.salesianostriana.dam.GradesAPP.alumno.model.Alumno;
 import dam.salesianostriana.dam.GradesAPP.asignatura.AsignaturaDTO.GetAsignaturaDTO;
 
 import dam.salesianostriana.dam.GradesAPP.MyPage;
@@ -35,6 +37,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
@@ -327,6 +330,37 @@ public class AsignaturaController {
         public ResponseEntity<?> deleteReferente (@PathVariable String id){
             service.deleteReferente(id);
             return ResponseEntity.noContent().build();
+        }
+
+
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Alumnos encontrados", content = {
+                    @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Alumno.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                                [
+                                                    {
+                                                        "id": "07bc8d93-1fa6-4438-95f4-38f1c8b63e66",
+                                                        "nombre": "Nombre del Alumno",
+                                                        "apellido": "Apellidos del Alumno",
+                                                        "fechaNacimiento": "2000-01-01",
+                                                        "telefono": "123456789",
+                                                        "email": "correo@example.com"
+                                                    }
+                                                ]
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "Asignatura no encontrada",
+                    content = @Content)
+        })
+        @Operation(summary = "Buscar todos los alumnos de una asignatura")
+        @GetMapping("/teacher/asignatura/{id}/alumnos")
+        public List<GetAlumnoDTO> getAlumnosFromAsignatura(@PathVariable UUID id){
+            return service.getAlumnosFromAsignatura(id);
         }
     }
 
