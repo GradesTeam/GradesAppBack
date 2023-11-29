@@ -122,4 +122,12 @@ public class AsignaturaService {
         repo.save(selected.removeReferente(ref.get()));
         repo.deleteReferenteByCodReferente(ref.get().getCodReferente());
     }
+
+    public List<GETReferenteDTO> getReferentesFromInstrumento(UUID idIns) {
+        Optional<Instrumento> selected = repoIns.findById(idIns);
+        if(selected.isEmpty())
+            throw new NotFoundException("Instrumento");
+        List<ReferenteEvaluacion> refs = repoIns.getReferentesfromId(idIns);
+        return refs.stream().map(GETReferenteDTO::of).toList();
+    }
 }

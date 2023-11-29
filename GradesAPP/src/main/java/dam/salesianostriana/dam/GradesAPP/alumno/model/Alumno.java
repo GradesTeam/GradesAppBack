@@ -29,6 +29,13 @@ public class Alumno extends User {
     @Builder.Default
     private Set<Asignatura> asignaturas = new LinkedHashSet<>();
 
+    public void addAsignatura(Asignatura a){
+        this.asignaturas.add(a);
+    }
+    public void removeAsignatura(Asignatura a){
+        this.asignaturas.remove(a);
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;

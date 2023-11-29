@@ -33,6 +33,7 @@ public class InitData {
     private final AsignaturaService asService;
     @PostConstruct
     public void InitData() {
+
         Profesor profe= Profesor.builder()
                 .nombre("Pepe")
                 .apellidos("Perez")
@@ -52,6 +53,16 @@ public class InitData {
         asig.addProfesor(profe);
         repoPrf.save(profe);
         asignaturaRepo.save(asig);
+        Alumno al = Alumno.builder()
+                .nombre("Juanito")
+                .username("erchulo")
+                .password(passwordEncoder.encode("1"))
+                .fechaNacimiento(LocalDate.of(2004, 12, 3))
+                .email("erchulo@gmail.com")
+                .roles(Set.of(UserRole.USER))
+                .build();
+        al.addAsignatura(asig);
+        alumnoRepository.save(al);
         Profesor pr = Profesor.builder()
                 .nombre("Juan")
                 .apellidos("Paquito")
