@@ -44,6 +44,7 @@ public class Asignatura {
     @Builder.Default
     private List<ReferenteEvaluacion> referentes = new ArrayList<>();
 
+    //Esto lo he puesto ya que no he sido capaz de sacar la consulta. Fdo. Nono
     @ManyToMany(mappedBy = "asignaturas", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private Set<Alumno> alumnos;
 
