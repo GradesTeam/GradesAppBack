@@ -144,11 +144,64 @@ public class AsignaturaController {
                 .body(GETReferenteDTO.of(created));
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Edita el referente indicado con la nueva descripción", content = {
+                    @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = ReferenteEvaluacion.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                             {
+                                                "codReferente": "Ad.2",
+                                                "descripcion": "Hola mundo"
+                                             }
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado el Referente o la Asignatura",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = ReferenteEvaluacion.class)),
+                            examples = {@ExampleObject(
+                                    """
+                                        {
+                                            "error": "The Referente or the list of it could not be found" 
+                                        }       
+                                    """
+                            )
+                            }))
+    })
+    @Operation(summary = "Edita un referente", description = "Devuelve el referente editado")
     @PutMapping("/teacher/asignatura/{id_asig}/referente/{id}")
     public GETReferenteDTO editReferente(@PathVariable UUID id_asig, @PathVariable String id, @Valid @RequestBody PUTReferenteDTO referenteDTO ){
         return service.editReferente(id_asig, id, referenteDTO);
     }
-
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Obtiene todos el Referente con el cod Ref dado", content = {
+                    @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = ReferenteEvaluacion.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                             {
+                                                "codReferente": "Ad.2",
+                                                "descripcion": "Hola mundo"
+                                             }
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado el Referente",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = ReferenteEvaluacion.class)),
+                            examples = {@ExampleObject(
+                                    """
+                                        {
+                                            "error": "The Referente or the list of it could not be found" 
+                                        }       
+                                    """
+                            )
+                            }))
+    })
+    @Operation(summary = "Buscar un referente por id", description = "Devuelve el referente buscado")
     @GetMapping("/teacher/referente/{id}")
     public GETReferenteDTO getReferenteById(@PathVariable String id){
         return  service.getReferenteById(id);
