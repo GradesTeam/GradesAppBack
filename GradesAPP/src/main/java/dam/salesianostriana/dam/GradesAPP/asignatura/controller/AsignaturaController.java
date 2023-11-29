@@ -42,69 +42,70 @@ import java.util.UUID;
 public class AsignaturaController {
 
     private final AsignaturaService service;
-@Operation(summary= "Obtiene todas las asignaturas")
-@ApiResponses(value= {
-        @ApiResponse(responseCode = "200",
-                    description= "Se han encontrado todas las asignaturas",
-                    content = { @Content(mediaType = "application/json",
-                    array = @ArraySchema(schema = @Schema(implementation = Asignatura.class)),
-                    examples = { @ExampleObject(
-                            value = """
-                                    {
-                                        "content": [
+
+    @Operation(summary = "Obtiene todas las asignaturas")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado todas las asignaturas",
+                    content = {@Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Asignatura.class)),
+                            examples = {@ExampleObject(
+                                    value = """
                                             {
-                                                "id": "0420354e-9bd3-405c-b5fa-2a8431a47ed8",
-                                                "asigNombre": "AD",
-                                                "asigDescripcion": "Esta es una buena asignatura",
-                                                "nombreProfesor": "Pepe Perez",
-                                                "color": "#ff6961",
-                                                "numAlumnos": 0
-                                            },
-                                            {
-                                                "id": "d56a2194-24b3-44be-9986-97ef314562cb",
-                                                "asigNombre": "Diseño Interfaces",
-                                                "asigDescripcion": "Hola",
-                                                "nombreProfesor": "Juan Paquito",
-                                                "color": "#77dd77",
-                                                "numAlumnos": 0
-                                            },
-                                            {
-                                                "id": "79ff6883-7f9e-4a24-98a8-dee031b65217",
-                                                "asigNombre": "Masa madre",
-                                                "asigDescripcion": "Cositas varias",
-                                                "nombreProfesor": "Luismi Lopez Magaña",
-                                                "color": "#ff6961",
-                                                "numAlumnos": 1
+                                                "content": [
+                                                    {
+                                                        "id": "0420354e-9bd3-405c-b5fa-2a8431a47ed8",
+                                                        "asigNombre": "AD",
+                                                        "asigDescripcion": "Esta es una buena asignatura",
+                                                        "nombreProfesor": "Pepe Perez",
+                                                        "color": "#ff6961",
+                                                        "numAlumnos": 0
+                                                    },
+                                                    {
+                                                        "id": "d56a2194-24b3-44be-9986-97ef314562cb",
+                                                        "asigNombre": "Diseño Interfaces",
+                                                        "asigDescripcion": "Hola",
+                                                        "nombreProfesor": "Juan Paquito",
+                                                        "color": "#77dd77",
+                                                        "numAlumnos": 0
+                                                    },
+                                                    {
+                                                        "id": "79ff6883-7f9e-4a24-98a8-dee031b65217",
+                                                        "asigNombre": "Masa madre",
+                                                        "asigDescripcion": "Cositas varias",
+                                                        "nombreProfesor": "Luismi Lopez Magaña",
+                                                        "color": "#ff6961",
+                                                        "numAlumnos": 1
+                                                    }
+                                                ],
+                                                "size": 12,
+                                                "totalElements": 10,
+                                                "pageNumber": 0,
+                                                "first": true,
+                                                "last": true
                                             }
-                                        ],
-                                        "size": 12,
-                                        "totalElements": 10,
-                                        "pageNumber": 0,
-                                        "first": true,
-                                        "last": true
-                                    }
-                                    """
-                    )}
+                                            """
+                            )}
                     )}),
-        @ApiResponse(responseCode = "404",
-        description = "No se ha encontrado ninguna asignatura",
-        content = @Content),
-})
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado ninguna asignatura",
+                    content = @Content),
+    })
     @GetMapping("/teacher/asignatura/")
-    public MyPage<GetAsignaturaDTO> GetAll(@PageableDefault(size = 9, page = 0) Pageable pageable){
-    return service.findAll(pageable);
+    public MyPage<GetAsignaturaDTO> GetAll(@PageableDefault(size = 9, page = 0) Pageable pageable) {
+        return service.findAll(pageable);
     }
 
-    @Operation(summary= "Crea una nueva asignaturas")
-    @ApiResponses(value= {
+    @Operation(summary = "Crea una nueva asignaturas")
+    @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description= "Se han encontrado todas las asignaturas",
-                    content = { @Content(mediaType = "application/json",
+                    description = "Se han encontrado todas las asignaturas",
+                    content = {@Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = Asignatura.class)),
-                            examples = { @ExampleObject(
+                            examples = {@ExampleObject(
                                     value = """
-                                    
-                                    """
+                                                                                
+                                            """
                             )}
                     )}),
             @ApiResponse(responseCode = "400",
@@ -112,15 +113,15 @@ public class AsignaturaController {
                     content = @Content),
     })
     @PostMapping("/teacher/asignatura/")
-    public ResponseEntity<GetAsignaturaDTO> createAsignatura (@Valid @RequestBody PostAsignaturaDTO nuevo){
-        GetAsignaturaDTO created= service.createAsignatura(nuevo);
-        URI createdURI= ServletUriComponentsBuilder
+    public ResponseEntity<GetAsignaturaDTO> createAsignatura(@Valid @RequestBody PostAsignaturaDTO nuevo) {
+        GetAsignaturaDTO created = service.createAsignatura(nuevo);
+        URI createdURI = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .buildAndExpand(created.id()).toUri();
         return ResponseEntity.created(createdURI).body(created);
     }
 
-        @ApiResponses(value = {
+    @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Obtiene todos los referentes de la Asigantura con Id dado", content = {
                     @Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = ReferenteEvaluacion.class)),
@@ -148,16 +149,16 @@ public class AsignaturaController {
                             array = @ArraySchema(schema = @Schema(implementation = ReferenteEvaluacion.class)),
                             examples = {@ExampleObject(
                                     """
-                                        {
-                                            "error": "The Referente/Asignatura or the list of it could not be found" 
-                                        }       
-                                    """
+                                                {
+                                                    "error": "The Referente/Asignatura or the list of it could not be found" 
+                                                }       
+                                            """
                             )
                             }))
     })
     @Operation(summary = "Buscar todas los Referentes de una Asigantura", description = "Devuelve una lista de Referentes de evaluacion paginados")
     @GetMapping("/teacher/asignatura/{id}/referentes")
-    public MyPage<GETReferenteDTO> getAllReferentesFromAsignatura(@PathVariable UUID id, @PageableDefault(size = 10, page = 0) Pageable pageable){
+    public MyPage<GETReferenteDTO> getAllReferentesFromAsignatura(@PathVariable UUID id, @PageableDefault(size = 10, page = 0) Pageable pageable) {
         return service.getReferentesFromAsignatura(id, pageable);
     }
 
@@ -180,10 +181,10 @@ public class AsignaturaController {
                             array = @ArraySchema(schema = @Schema(implementation = ReferenteEvaluacion.class)),
                             examples = {@ExampleObject(
                                     """
-                                        {
-                                            "error": "The Asignatura or the list of it could not be found" 
-                                        }       
-                                    """
+                                                {
+                                                    "error": "The Asignatura or the list of it could not be found" 
+                                                }       
+                                            """
                             )
                             })),
             @ApiResponse(responseCode = "400",
@@ -192,7 +193,7 @@ public class AsignaturaController {
     })
     @Operation(summary = "Crear un Nuevo Referente de Evaluación", description = "Crea un nuevo Referente de Evaluación en una asignatura designada")
     @PostMapping("/teacher/asignatura/{id}/referente")
-    public ResponseEntity<GETReferenteDTO> addReferente(@PathVariable UUID id, @Valid @RequestBody ADDReferenteDTO referenteDTO){
+    public ResponseEntity<GETReferenteDTO> addReferente(@PathVariable UUID id, @Valid @RequestBody ADDReferenteDTO referenteDTO) {
         ReferenteEvaluacion created = service.addReferente(id, referenteDTO);
         URI createdURI = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -223,18 +224,19 @@ public class AsignaturaController {
                             array = @ArraySchema(schema = @Schema(implementation = ReferenteEvaluacion.class)),
                             examples = {@ExampleObject(
                                     """
-                                        {
-                                            "error": "The Referente or the list of it could not be found" 
-                                        }       
-                                    """
+                                                {
+                                                    "error": "The Referente or the list of it could not be found" 
+                                                }       
+                                            """
                             )
                             }))
     })
     @Operation(summary = "Edita un referente", description = "Devuelve el referente editado")
     @PutMapping("/teacher/asignatura/{id_asig}/referente/{id}")
-    public GETReferenteDTO editReferente(@PathVariable UUID id_asig, @PathVariable String id, @Valid @RequestBody PUTReferenteDTO referenteDTO ){
+    public GETReferenteDTO editReferente(@PathVariable UUID id_asig, @PathVariable String id, @Valid @RequestBody PUTReferenteDTO referenteDTO) {
         return service.editReferente(id_asig, id, referenteDTO);
     }
+
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Obtiene todos el Referente con el cod Ref dado", content = {
                     @Content(mediaType = "application/json",
@@ -254,26 +256,26 @@ public class AsignaturaController {
                             array = @ArraySchema(schema = @Schema(implementation = ReferenteEvaluacion.class)),
                             examples = {@ExampleObject(
                                     """
-                                        {
-                                            "error": "The Referente or the list of it could not be found" 
-                                        }       
-                                    """
+                                                {
+                                                    "error": "The Referente or the list of it could not be found" 
+                                                }       
+                                            """
                             )
                             }))
     })
     @Operation(summary = "Buscar un referente por id", description = "Devuelve el referente buscado")
     @GetMapping("/teacher/referente/{id}")
-    public GETReferenteDTO getReferenteById(@PathVariable String id){
-        return  service.getReferenteById(id);
+    public GETReferenteDTO getReferenteById(@PathVariable String id) {
+        return service.getReferenteById(id);
     }
 
-    @Operation(summary= "Obtiene todas las asignaturas que tiene un profesor")
-    @ApiResponses(value= {
+    @Operation(summary = "Obtiene todas las asignaturas que tiene un profesor")
+    @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description= "Se han encontrado todas las asignaturas que tiene un profesor",
-                    content = { @Content(mediaType = "application/json",
+                    description = "Se han encontrado todas las asignaturas que tiene un profesor",
+                    content = {@Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = Asignatura.class)),
-                            examples = { @ExampleObject(
+                            examples = {@ExampleObject(
                                     value = """
                                                     {
                                                         "content": [
@@ -308,22 +310,23 @@ public class AsignaturaController {
                     content = @Content),
     })
     @GetMapping("/teacher/{id}/asignatura/")
-    public MyPage<GetAsignaturaDTO> getAllAsignaturasByProfesor(@PathVariable UUID id, @PageableDefault(size = 10, page = 0) Pageable pageable){
+    public MyPage<GetAsignaturaDTO> getAllAsignaturasByProfesor(@PathVariable UUID id, @PageableDefault(size = 10, page = 0) Pageable pageable) {
         return service.getAsignaturasByProfesor(pageable, id);
-
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "204",
-                    description = "El Referente y sus calificaiones se han borrado correctamente",
-                    content = @Content
-            ),
-            @ApiResponse(responseCode = "404",
-                    description = "No encontrado el Referente a borrar",
-                    content = @Content)
-    })
-    @Operation(summary = "Borrar Referente de Evaluacion", description = "Devuelve 204 no content si todo va bien ")
-    @DeleteMapping("/teacher/referente/{id}")
-    public ResponseEntity<?> deleteReferente(@PathVariable String id){
-        service.deleteReferente(id);
-        return ResponseEntity.noContent().build();
     }
-}
+        @ApiResponses(value = {
+                @ApiResponse(responseCode = "204",
+                        description = "El Referente y sus calificaiones se han borrado correctamente",
+                        content = @Content
+                ),
+                @ApiResponse(responseCode = "404",
+                        description = "No encontrado el Referente a borrar",
+                        content = @Content)
+        })
+        @Operation(summary = "Borrar Referente de Evaluacion", description = "Devuelve 204 no content si todo va bien ")
+        @DeleteMapping("/teacher/referente/{id}")
+        public ResponseEntity<?> deleteReferente (@PathVariable String id){
+            service.deleteReferente(id);
+            return ResponseEntity.noContent().build();
+        }
+    }
+
