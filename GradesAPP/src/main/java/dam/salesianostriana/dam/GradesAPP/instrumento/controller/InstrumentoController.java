@@ -202,6 +202,16 @@ public class InstrumentoController {
     public GETInstrumentoDTO editInstrumento(@PathVariable UUID id, @Valid @RequestBody POSTInstrumentoDTO edited){
         return service.editInstrumento(id, edited);
     }
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204",
+                    description = "El instrumento y sus calificaciones se han borrado correctamente",
+                    content = @Content
+            ),
+            @ApiResponse(responseCode = "404",
+                    description = "No encontrado el instrumento a borrar",
+                    content = @Content)
+    })
+    @Operation(summary = "Borrar Instrumento", description = "Devuelve 204 no content si todo va bien ")
     @DeleteMapping("/teacher/instrumento/{id}")
     public ResponseEntity<?> deleteInstrumento(@PathVariable UUID id){
         service.deleteInstrumento(id);

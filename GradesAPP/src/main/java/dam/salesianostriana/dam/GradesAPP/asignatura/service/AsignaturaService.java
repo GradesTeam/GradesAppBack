@@ -5,7 +5,11 @@ import dam.salesianostriana.dam.GradesAPP.asignatura.AsignaturaDTO.GetAsignatura
 import dam.salesianostriana.dam.GradesAPP.asignatura.AsignaturaDTO.PostAsignaturaDTO;
 import dam.salesianostriana.dam.GradesAPP.asignatura.model.Asignatura;
 import dam.salesianostriana.dam.GradesAPP.asignatura.repository.AsignaturaRepository;
+import dam.salesianostriana.dam.GradesAPP.calificacion.model.Calificacion;
+import dam.salesianostriana.dam.GradesAPP.calificacion.repository.CalificacionRepository;
 import dam.salesianostriana.dam.GradesAPP.exception.NotFoundException;
+import dam.salesianostriana.dam.GradesAPP.instrumento.model.Instrumento;
+import dam.salesianostriana.dam.GradesAPP.instrumento.repository.InstrumentoRepository;
 import dam.salesianostriana.dam.GradesAPP.profesor.model.Profesor;
 import dam.salesianostriana.dam.GradesAPP.profesor.repository.ProfesorRepository;
 import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.DTO.ADDReferenteDTO;
@@ -27,6 +31,8 @@ import java.util.List;
 public class AsignaturaService {
     private  final AsignaturaRepository repo;
     private final ProfesorRepository proRepo;
+    private final InstrumentoRepository repoIns;
+    private final CalificacionRepository repoCal;
 
     public MyPage<GetAsignaturaDTO> findAll(Pageable pageable){
         Page<GetAsignaturaDTO> subjectList= repo.obtenerTodasConNumeroAlumnos(pageable);
@@ -107,5 +113,21 @@ public MyPage<GetAsignaturaDTO> getAsignaturasByProfesor(Pageable pageable, UUID
         if(ref.isEmpty())
             throw new NotFoundException("Referente");
         return GETReferenteDTO.of(ref.get());
+    }
+
+    public void deleteReferente(String id) {
+        Optional<ReferenteEvaluacion> ref = repo.getReferenteById(id);
+        if(ref.isEmpty())
+            throw new NotFoundException("Referente");
+        List<Instrumento> insWithReferente = repoIns.getAllWithReferente(ref.get());
+        insWithReferente.forEach(ins -> {
+            ins.deleteReferente(ref.get());
+            repoIns.save(ins);
+        });
+        List<Calificacion> calWithReferente = repoCal.findAllByReferente_CodReferente(ref.get().getCodReferente());
+        repoCal.deleteAll(calWithReferente);
+        Asignatura selected = repo.findByIdWithRefrerente(ref.get().getAsignatura().getId()).orElseThrow();
+        repo.save(selected.removeReferente(ref.get()));
+        repo.deleteReferenteByCodReferente(ref.get().getCodReferente());
     }
 }
