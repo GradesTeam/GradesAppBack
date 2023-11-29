@@ -162,4 +162,10 @@ public class InstrumentoController {
     public GETInstrumentoDTO getInstrumentoDetails(@PathVariable UUID id){
         return service.getInstrumentoDetails(id);
     }
+
+    @PutMapping("/teacher/instrumento/{id}")
+    @JsonView(InstrumentoViews.InstrumentoDetails.class)
+    public GETInstrumentoDTO editInstrumento(@PathVariable UUID id, @Valid @RequestBody POSTInstrumentoDTO edited){
+        return service.editInstrumento(id, edited);
+    }
 }
