@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "6d982acf-08bd-4018-a9de-ce2a9ebfbc9a",
+		"_postman_id": "071d9b91-7d4f-4466-a165-7402b8fa78d3",
 		"name": "GRADES-APP",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "30052758"
+		"_exporter_id": "30376309"
 	},
 	"item": [
 		{
@@ -710,6 +710,162 @@
 											"path": [
 												"profesor",
 												"{id_profesor}"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Alumno",
+					"item": [
+						{
+							"name": "GET",
+							"item": [
+								{
+									"name": "GETAlumnosProfesor",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/profesor/eab16b93-3cc3-4ceb-a8ff-f710963306d0/alumnos",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"profesor",
+												"eab16b93-3cc3-4ceb-a8ff-f710963306d0",
+												"alumnos"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "PUT",
+							"item": [
+								{
+									"name": "PUTAlumno",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmNDUzMDJiYi04MzUwLTQ1NWYtOWM3NC0wZjY5MWVlZmRiOWQiLCJpYXQiOjE3MDEyMjYyODIsImV4cCI6MTcwMTMxMjY4Mn0.qj709PUUrcU2I10mQmB6IZsx9tNI7Bh7lrINUwryrcxAbTXancAd5V6DqcdSilssdS5IHBx-caPD5zHVoq26-Q",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"nombre\": \"Antonio\",\r\n    \"apellidos\": \"Antoniano\",\r\n    \"email\": \"paco1@gmail.com\",\r\n    \"telefono\": \"617519522\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/alumno/edit/8b3d127b-2fef-464e-a12c-2c93c5c44de4",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"alumno",
+												"edit",
+												"8b3d127b-2fef-464e-a12c-2c93c5c44de4"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "POST",
+							"item": [
+								{
+									"name": "POSTAlumno",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmNDUzMDJiYi04MzUwLTQ1NWYtOWM3NC0wZjY5MWVlZmRiOWQiLCJpYXQiOjE3MDEyMjYyODIsImV4cCI6MTcwMTMxMjY4Mn0.qj709PUUrcU2I10mQmB6IZsx9tNI7Bh7lrINUwryrcxAbTXancAd5V6DqcdSilssdS5IHBx-caPD5zHVoq26-Q",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"nombre\": \"Paco\",\r\n    \"apellidos\": \"Lopez\",\r\n    \"fechaNacimiento\": \"2022-12-12\",\r\n    \"email\": \"paco@gmail.com\",\r\n    \"telefono\": \"23455678\",\r\n    \"username\": \"paqisdfto1\",\r\n    \"password\": \"3456\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/alumno/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"alumno",
+												""
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "DELETE",
+							"item": [
+								{
+									"name": "DELETEAlumno",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmNDUzMDJiYi04MzUwLTQ1NWYtOWM3NC0wZjY5MWVlZmRiOWQiLCJpYXQiOjE3MDEyMjYyODIsImV4cCI6MTcwMTMxMjY4Mn0.qj709PUUrcU2I10mQmB6IZsx9tNI7Bh7lrINUwryrcxAbTXancAd5V6DqcdSilssdS5IHBx-caPD5zHVoq26-Q",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/alumno/delete/a05709d1-5ef0-46d9-9170-d84909590f3d",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"alumno",
+												"delete",
+												"a05709d1-5ef0-46d9-9170-d84909590f3d"
 											]
 										}
 									},
