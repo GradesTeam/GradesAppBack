@@ -7,12 +7,14 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Builder
-public record TeacherListResponse(UUID id, String nombre, String titulacion) {
+public record TeacherListResponse(UUID id, String nombre, String titulacion, String apellidos, String email) {
 
     public static TeacherListResponse of (Profesor profe){
         return TeacherListResponse.builder()
                 .id(profe.getId())
-                .nombre(profe.getNombre()+ " " +profe.getApellidos())
+                .nombre(profe.getNombre())
+                .apellidos(profe.getApellidos())
+                .email(profe.getEmail())
                 .titulacion(profe.getTitulacion())
                 .build();
     }
