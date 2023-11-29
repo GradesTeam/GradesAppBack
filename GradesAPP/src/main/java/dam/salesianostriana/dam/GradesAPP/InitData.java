@@ -166,6 +166,7 @@ public class InitData {
                         .contenidos("Hola como estas")
                         .fecha(LocalDate.of(2023, 12, 9))
                         .build();
+                is1.addReferente(asignaturaRepo.getReferenteById(ref1.codReferente()).get());
                 repoIns.save(is1);
 
         Alumno a1 = new Alumno();
