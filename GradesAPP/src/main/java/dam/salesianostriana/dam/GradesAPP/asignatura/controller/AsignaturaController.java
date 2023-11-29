@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
@@ -313,6 +314,44 @@ public class AsignaturaController {
     public MyPage<GetAsignaturaDTO> getAllAsignaturasByProfesor(@PathVariable UUID id, @PageableDefault(size = 10, page = 0) Pageable pageable) {
         return service.getAsignaturasByProfesor(pageable, id);
     }
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Obtiene todos el Referente con el cod Ref dado", content = {
+                    @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = ReferenteEvaluacion.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                             [
+                                                 {
+                                                     "codReferente": "Ad.2",
+                                                     "descripcion": "Hola mundo"
+                                                 },
+                                                 {
+                                                     "codReferente": "Ad.3",
+                                                     "descripcion": "Hola mundo"
+                                                 }
+                                             ]
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado el Instrumento",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = ReferenteEvaluacion.class)),
+                            examples = {@ExampleObject(
+                                    """
+                                        {
+                                            "error": "The Instrumento or the list of it could not be found" 
+                                        }       
+                                    """
+                            )
+                            }))
+    })
+    @Operation(summary = "Buscar todos los referentes de un Instrumento", description = "Devuelve la lista de Referentes")
+    @GetMapping("/student/instrumento/{id_ins}/referentes")
+    public List<GETReferenteDTO> getReferenteAlumnoInstrumento(@PathVariable UUID id_ins) {
+        return service.getReferentesFromInstrumento(id_ins);
+    }
+
         @ApiResponses(value = {
                 @ApiResponse(responseCode = "204",
                         description = "El Referente y sus calificaiones se han borrado correctamente",
@@ -328,5 +367,6 @@ public class AsignaturaController {
             service.deleteReferente(id);
             return ResponseEntity.noContent().build();
         }
-    }
+}
+
 
