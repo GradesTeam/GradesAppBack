@@ -4,6 +4,7 @@ import dam.salesianostriana.dam.GradesAPP.MyPage;
 import dam.salesianostriana.dam.GradesAPP.alumno.dto.GetAlumnoListDTO;
 import dam.salesianostriana.dam.GradesAPP.alumno.model.Alumno;
 import dam.salesianostriana.dam.GradesAPP.exception.NotFoundException;
+import dam.salesianostriana.dam.GradesAPP.profesor.dto.EditTeacherRequired;
 import dam.salesianostriana.dam.GradesAPP.profesor.dto.NewTeacherRequired;
 import dam.salesianostriana.dam.GradesAPP.profesor.dto.TeacherListResponse;
 import dam.salesianostriana.dam.GradesAPP.profesor.model.Profesor;
@@ -59,6 +60,20 @@ public class ProfesorService {
                 .username(p.username())
                 .build()
         ));
+    }
+
+    public Optional<Profesor> edit (UUID id, EditTeacherRequired p){
+        Optional<Profesor> acambiar = repo.findById(id);
+
+        if (acambiar.isPresent()){
+            acambiar.get().setTitulacion(p.titulacion());
+            acambiar.get().setNombre(p.nombre());
+            acambiar.get().setApellidos(p.apellidos());
+            return Optional.of(repo.save(acambiar.get()));
+        }
+
+        throw new NotFoundException("Profesor");
+
     }
 
 }
