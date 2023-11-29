@@ -1,6 +1,8 @@
 package dam.salesianostriana.dam.GradesAPP.asignatura.controller;
 
 
+import dam.salesianostriana.dam.GradesAPP.alumno.dto.GetAlumnoDTO;
+import dam.salesianostriana.dam.GradesAPP.alumno.model.Alumno;
 import dam.salesianostriana.dam.GradesAPP.asignatura.AsignaturaDTO.GetAsignaturaDTO;
 
 import dam.salesianostriana.dam.GradesAPP.MyPage;
@@ -362,6 +364,35 @@ public class AsignaturaController {
             return ResponseEntity.noContent().build();
         }
 
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Alumnos encontrados", content = {
+                    @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Alumno.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                                [
+                                                    {
+                                                        "id": "07bc8d93-1fa6-4438-95f4-38f1c8b63e66",
+                                                        "nombre": "Nombre del Alumno",
+                                                        "apellido": "Apellidos del Alumno",
+                                                        "fechaNacimiento": "2000-01-01",
+                                                        "telefono": "123456789",
+                                                        "email": "correo@example.com"
+                                                    }
+                                                ]
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "Asignatura no encontrada",
+                    content = @Content)
+        })
+        @Operation(summary = "Buscar todos los alumnos de una asignatura")
+        @GetMapping("/teacher/asignatura/{id}/alumnos")
+        public List<GetAlumnoDTO> getAlumnosFromAsignatura(@PathVariable UUID id){
+            return service.getAlumnosFromAsignatura(id);
+        }
         @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Obtiene todos el Referente con el cod Ref dado", content = {
                     @Content(mediaType = "application/json",
@@ -400,5 +431,4 @@ public class AsignaturaController {
         return service.getReferentesFromInstrumento(id_ins);
         }
 }
-
 

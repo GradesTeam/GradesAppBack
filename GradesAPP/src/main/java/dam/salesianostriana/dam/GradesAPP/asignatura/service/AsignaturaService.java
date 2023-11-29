@@ -1,6 +1,7 @@
 package dam.salesianostriana.dam.GradesAPP.asignatura.service;
 
 import dam.salesianostriana.dam.GradesAPP.MyPage;
+import dam.salesianostriana.dam.GradesAPP.alumno.dto.GetAlumnoDTO;
 import dam.salesianostriana.dam.GradesAPP.asignatura.AsignaturaDTO.GetAsignaturaDTO;
 import dam.salesianostriana.dam.GradesAPP.asignatura.AsignaturaDTO.PostAsignaturaDTO;
 import dam.salesianostriana.dam.GradesAPP.asignatura.AsignaturaDTO.PutAsignaturaDTO;
@@ -131,12 +132,20 @@ public MyPage<GetAsignaturaDTO> getAsignaturasByProfesor(Pageable pageable, UUID
         repo.save(selected.removeReferente(ref.get()));
         repo.deleteReferenteByCodReferente(ref.get().getCodReferente());
     }
-    public GetAsignaturaDTO editAsignatura (UUID idAsig, PutAsignaturaDTO edit){
-        Optional<Asignatura> asignaturaObtenida= repo.findById(idAsig);
+
+    public List<GetAlumnoDTO> getAlumnosFromAsignatura(UUID id) {
+        Optional<Asignatura> as = repo.findById(id);
+        if (as.isEmpty())
+            throw new NotFoundException("ASignatura");
+        return repo.getAlumnosFromAsignatura(as.get()).stream().map(GetAlumnoDTO::of).toList();
+    }
+    public GetAsignaturaDTO editAsignatura (UUID idAsig, PutAsignaturaDTO edit) {
+        Optional<Asignatura> asignaturaObtenida = repo.findById(idAsig);
         if (asignaturaObtenida.isEmpty())
             throw new NotFoundException("Asignatura");
-        Asignatura asigEdit= asignaturaObtenida.get();
+        Asignatura asigEdit = asignaturaObtenida.get();
         return GetAsignaturaDTO.of(PutAsignaturaDTO.from(asigEdit, edit));
+    }
 
     public List<GETReferenteDTO> getReferentesFromInstrumento(UUID idIns) {
         Optional<Instrumento> selected = repoIns.findById(idIns);

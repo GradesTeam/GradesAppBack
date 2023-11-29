@@ -53,4 +53,12 @@ public class CalificacionService {
         Calificacion created = repo.save(POSTCalificacionDTO.from(selectedAl.get(),newCal, ref, selected));
         return GETCalificacionDTO.of(created);
     }
+
+    public void deleteCalificacion(UUID id) {
+        Optional<Calificacion> selected = repo.findById(id);
+        if(selected.isEmpty())
+            throw new NotFoundException("Calificacion");
+
+        repo.delete(selected.get());
+    }
 }

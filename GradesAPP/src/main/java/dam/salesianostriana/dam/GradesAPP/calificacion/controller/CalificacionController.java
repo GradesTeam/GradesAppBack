@@ -156,4 +156,10 @@ public class CalificacionController {
                 .buildAndExpand(created.id()).toUri();
         return ResponseEntity.created(createdURI).body(created);
     }
+
+    @DeleteMapping("/teacher/calificacion/{id}")
+    public ResponseEntity<?> deleteCalificacion(@PathVariable UUID id){
+        service.deleteCalificacion(id);
+        return ResponseEntity.noContent().build();
+    }
 }
