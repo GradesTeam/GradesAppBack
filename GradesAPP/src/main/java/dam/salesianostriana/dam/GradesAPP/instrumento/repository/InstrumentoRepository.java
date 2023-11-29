@@ -20,4 +20,11 @@ public interface InstrumentoRepository extends JpaRepository<Instrumento, UUID> 
             where i.id = :id
             """)
     List<ReferenteEvaluacion> getReferentesfromId(UUID id);
+
+    @Query("""
+            select i from Instrumento i
+            join fetch i.referentes
+            where i.id = :id
+            """)
+    Optional<Instrumento> findByIdWithReferentes(UUID id);
 }
