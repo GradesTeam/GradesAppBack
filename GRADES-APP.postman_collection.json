@@ -13,7 +13,7 @@
 					"name": "LOGIN",
 					"item": [
 						{
-							"name": "http://localhost:8080/login",
+							"name": "Login",
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -133,6 +133,87 @@
 									"response": []
 								}
 							]
+						},
+						{
+							"name": "PUT",
+							"item": [
+								{
+									"name": "http://localhost:8080/teacher/instrumento/7f017eaf-02f5-47f0-b96b-8ca620e8f54e",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0NDM1MjkwOC1mZjQ1LTQxNjItYTZmMS01YTUxN2VlNTA4MTciLCJpYXQiOjE3MDEyNjEwNTksImV4cCI6MTcwMTM0NzQ1OX0.9gPJrtOOjy5Vy9F1ZamnFnE0mK35G_HkFflBm3lfttFyZJo7tUoEcNHKnYPlVMM3C1jEMSVCPSv9hKDo38lv4w",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"nombre\": \"hdodgfdgfdfdsa\",\r\n    \"fecha\": \"2028-11-07\",\r\n    \"contenidos\": \"mi papa\",\r\n    \"referentes\": [\r\n        \"Ad.2\"\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/teacher/instrumento/7f017eaf-02f5-47f0-b96b-8ca620e8f54e",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"teacher",
+												"instrumento",
+												"7f017eaf-02f5-47f0-b96b-8ca620e8f54e"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "DELETE",
+							"item": [
+								{
+									"name": "http://localhost:8080/teacher/instrumento/cfa1c5e3-6130-4af6-9af9-ea0027229e0a",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI4MjZhNzZjYi0zMGYwLTQ3Y2EtODlhYy1kODljZjg4ZTc1YTYiLCJpYXQiOjE3MDEyNjk0ODgsImV4cCI6MTcwMTM1NTg4OH0.A5z6eOrL5dK1PnMOwSVKgIxQ5e2sls3BBGV4lNYWWxO7vGlPrtGZfmnRFKL1b9TxsWdtJnMQsJGaTUW9kYdu9Q",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/teacher/instrumento/cfa1c5e3-6130-4af6-9af9-ea0027229e0a",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"teacher",
+												"instrumento",
+												"cfa1c5e3-6130-4af6-9af9-ea0027229e0a"
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						}
 					]
 				},
@@ -145,10 +226,20 @@
 								{
 									"name": "GetAllReferentes",
 									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJlMmU5MzU1MC1lNGY1LTQ3OGItOTYxNC1lMjhmZWRjNWEyNDciLCJpYXQiOjE3MDEyNDYzMzMsImV4cCI6MTcwMTMzMjczM30.jvMLeTH1LxRjnr8Q9vfPAU5kixm9NXVttJEbPaz0KEZ_VK-LCtQo1XNUROMQFoGUucvmBnaA70C38WoKiB54CA",
+													"type": "string"
+												}
+											]
+										},
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://localhost:8080/teacher/asignatura/db5d861a-fc97-4df6-ba4b-fb9f5d32d398/referentes",
+											"raw": "http://localhost:8080/teacher/asignatura/a0576ae6-458b-4ab0-ad45-793e71798e7b/referentes",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -157,8 +248,39 @@
 											"path": [
 												"teacher",
 												"asignatura",
-												"db5d861a-fc97-4df6-ba4b-fb9f5d32d398",
+												"a0576ae6-458b-4ab0-ad45-793e71798e7b",
 												"referentes"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GETReferenteById",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJiNDQ3NzM3ZS0wZDQxLTQ4YTgtYTU4YS05ZGYwYWQzOTg0MjQiLCJpYXQiOjE3MDEyNDkwNzIsImV4cCI6MTcwMTMzNTQ3Mn0.4C0D_j-jqg7dGWTr2p02bDrzvOW4ORggG4oJPZYxr2DnT0JRmPJMhtFb-yekIu3S3z2rcfsPpWpxvZpKv_4jTQ",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/teacher/referente/Ad.2",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"teacher",
+												"referente",
+												"Ad.2"
 											]
 										}
 									},
@@ -195,6 +317,89 @@
 												"asignatura",
 												"ddf4591d-50dc-4626-80a5-ebeb84794e0d",
 												"referente"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "PUT",
+							"item": [
+								{
+									"name": "http://localhost:8080/teacher/asignatura/49e5ff50-6de7-4e78-8fcb-0b2d4292ce2a/referente/Ad.2",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0ZDJmNjkxYi0xZDY2LTRkYTctYjE4Yi1hMWYzNzQ0N2FhZTEiLCJpYXQiOjE3MDEyNDg3NDgsImV4cCI6MTcwMTMzNTE0OH0.DJhNd3CUTMtnTajPLkAU7ZtRXKO7RQDsVd1jycxg2fFk0LBjPmyfpq7mj448K4m1-paAoyzKduv86W_oymamBg",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"descripcion\": \"hahahaha\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/teacher/asignatura/49e5ff50-6de7-4e78-8fcb-0b2d4292ce2a/referente/Ad.2",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"teacher",
+												"asignatura",
+												"49e5ff50-6de7-4e78-8fcb-0b2d4292ce2a",
+												"referente",
+												"Ad.2"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "DELETE",
+							"item": [
+								{
+									"name": "http://localhost:8080/teacher/referente/Ad.2",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI1MTJmNDdjOC1jZGJlLTQyMTAtYjNiOC0yYzcxNzhhZDZkNTUiLCJpYXQiOjE3MDEyODc3NDcsImV4cCI6MTcwMTM3NDE0N30.eOd9oA8YwtK8_8sbDyXSQFgjVSvCK2nR1rCQEWT_ghJzcdOixqwJfXvqmAAMWJ6wHc1Hzuv8lKexxXi4kKSXmQ",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/teacher/referente/Ad.2",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"teacher",
+												"referente",
+												"Ad.2"
 											]
 										}
 									},
