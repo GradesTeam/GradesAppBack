@@ -135,4 +135,13 @@ public class ProfesorController {
         return ResponseEntity.status(HttpStatus.OK).body(teacher);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Se ha borrado correctamente", content = @Content),
+    })
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteTeacher(@PathVariable UUID id){
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

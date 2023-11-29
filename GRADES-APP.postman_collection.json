@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "6d982acf-08bd-4018-a9de-ce2a9ebfbc9a",
+		"_postman_id": "6c06b931-087c-4687-bc77-b1c0080440bd",
 		"name": "GRADES-APP",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "30052758"
+		"_exporter_id": "30574113"
 	},
 	"item": [
 		{
@@ -35,6 +35,39 @@
 									"port": "8080",
 									"path": [
 										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "REGISTER",
+					"item": [
+						{
+							"name": "New Request",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"Nonito\",\r\n    \"email\": \"nonazo@gmail.com\",\r\n    \"password\": \"123456789\",\r\n    \"repeatPassword\": \"123456789\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"register"
 									]
 								}
 							},
@@ -468,6 +501,145 @@
 												"instrumento",
 												"0635b11f-cf76-448c-9d44-16d35a19c657",
 												"calificacion"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Profesor",
+					"item": [
+						{
+							"name": "GET",
+							"item": [
+								{
+									"name": "GetAllProfesor",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmYzM3ZDVlMy1jMGY1LTQ0MjctYjI1YS1kNzhhMDJlN2YzMGMiLCJpYXQiOjE3MDEyOTI0OTcsImV4cCI6MTcwMTM3ODg5N30.9UnNGCvHEBmpnXjm9J584cn72MdgRVnMgjW392o0QvNxb6Axl9lpf7j5HETCHXkhYzj4hKqq9ELuRYxMc3M7eA",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "localhost:8080/profesor",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"profesor"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "POST",
+							"item": [
+								{
+									"name": "RegisterProfesor",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmYzM3ZDVlMy1jMGY1LTQ0MjctYjI1YS1kNzhhMDJlN2YzMGMiLCJpYXQiOjE3MDEyOTI0OTcsImV4cCI6MTcwMTM3ODg5N30.9UnNGCvHEBmpnXjm9J584cn72MdgRVnMgjW392o0QvNxb6Axl9lpf7j5HETCHXkhYzj4hKqq9ELuRYxMc3M7eA",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"username\": \"Tecatito\",\r\n    \"email\": \"teca@gmail.com\",\r\n    \"password\": \"123456789\",\r\n    \"repeatPassword\": \"123456789\",\r\n    \"nombre\": \"teca\",\r\n    \"apellidos\": \"coronilla\",\r\n    \"titulacion\": \"Futbolista\"\r\n}\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8080/profesor/register",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"profesor",
+												"register"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "PUT",
+							"item": [
+								{
+									"name": "EditProfesor",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"nombre\": \"Josema\",\r\n    \"apellidos\": \"Rodríguez\",\r\n    \"titulacion\": \"profesor\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8080/profesor/{id_profesor}/edit",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"profesor",
+												"{id_profesor}",
+												"edit"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "DELETE",
+							"item": [
+								{
+									"name": "DeleteProfesor",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "localhost:8080/profesor/{id_profesor}",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"profesor",
+												"{id_profesor}"
 											]
 										}
 									},

@@ -76,4 +76,13 @@ public class ProfesorService {
 
     }
 
+    public void delete (UUID id){
+        Optional<Profesor> aborrar = repo.findById(id);
+
+        if (aborrar.isPresent())
+            repo.deleteById(id);
+        else
+            throw new NotFoundException("Profesor");
+    }
+
 }

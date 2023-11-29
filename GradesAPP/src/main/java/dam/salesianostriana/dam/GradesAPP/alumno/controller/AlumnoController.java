@@ -1,5 +1,6 @@
 package dam.salesianostriana.dam.GradesAPP.alumno.controller;
 
+import dam.salesianostriana.dam.GradesAPP.alumno.dto.EditAlumnoDTO;
 import dam.salesianostriana.dam.GradesAPP.alumno.dto.GetAlumnoDTO;
 import dam.salesianostriana.dam.GradesAPP.alumno.dto.PostAlumnoDTO;
 import dam.salesianostriana.dam.GradesAPP.alumno.model.Alumno;
@@ -17,13 +18,12 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/alumno")
@@ -35,7 +35,7 @@ public class AlumnoController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "El Alumno se ha creado de forma correcta", content = {
                     @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = Instrumento.class)),
+                            array = @ArraySchema(schema = @Schema(implementation = Alumno.class)),
                             examples = {@ExampleObject(
                                     value = """
                                                 {
@@ -65,5 +65,65 @@ public class AlumnoController {
         return ResponseEntity
                 .created(createdUri)
                 .body(a);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<GetAlumnoDTO> obtenerPorId(@PathVariable String id){
+        GetAlumnoDTO a = service.details(UUID.fromString(id));
+        URI createdUri = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(a.id()).toUri();
+
+        return ResponseEntity
+                .created(createdUri)
+                .body(a);
+    }
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "El Alumno se ha editado de forma correcta", content = {
+                    @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Alumno.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                                {
+                                                    "id": "07bc8d93-1fa6-4438-95f4-38f1c8b63e66",
+                                                    "nombre": "Nombre del Alumno",
+                                                    "apellido": "Apellidos del Alumno",
+                                                    "fechaNacimiento": "2000-01-01",
+                                                    "telefono": "123456789",
+                                                    "email": "correo@example.com"
+                                                }
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "debe ser una dirección de correo electrónico con formato correcto",
+                    content = @Content),
+            @ApiResponse(responseCode = "404",
+                    description = "La contraseña es demasiado corta",
+                    content = @Content),
+            @ApiResponse(responseCode = "400",
+                    description = "No se han aportado los datos correctamente",
+                    content = @Content)
+    })
+    @Operation(summary = "Editar un Alumno")
+    @PutMapping("/edit/{id}")
+    public GetAlumnoDTO editarAlumno(
+            @PathVariable String id,
+            @Valid @RequestBody EditAlumnoDTO edit
+    ){
+        return service.edit(UUID.fromString(id), edit);
+    }
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204",
+                    description = "Alumno eliminado correctamente")
+    })
+    @Operation(summary = "Editar un Alumno")
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> borrarAlumno(@PathVariable String id){
+        service.delete(UUID.fromString(id));
+        return ResponseEntity.noContent().build();
     }
 }
