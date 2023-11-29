@@ -9,6 +9,7 @@ import dam.salesianostriana.dam.GradesAPP.instrumento.dto.GETInstrumentoDTO;
 import dam.salesianostriana.dam.GradesAPP.instrumento.dto.POSTInstrumentoDTO;
 import dam.salesianostriana.dam.GradesAPP.instrumento.model.Instrumento;
 import dam.salesianostriana.dam.GradesAPP.instrumento.repository.InstrumentoRepository;
+import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.DTO.ADDReferenteDTO;
 import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.model.ReferenteEvaluacion;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -64,5 +65,20 @@ public class InstrumentoService {
         if(selected.isEmpty())
             throw new NotFoundException("Instrumento");
         return GETInstrumentoDTO.ofDetails(selected.get(), repo.getReferentesfromId(id));
+    }
+
+    public GETInstrumentoDTO editInstrumento(UUID id, POSTInstrumentoDTO edited) {
+        Optional<Instrumento> selected = repo.findByIdWithReferentes(id);
+        if(selected.isEmpty())
+            throw new NotFoundException("Instrumento");
+        Instrumento toEdit = selected.get();
+        toEdit.setNombre(edited.nombre());
+        toEdit.setContenidos(edited.contenidos());
+        Set<ReferenteEvaluacion> toSave = repoAs.getAllReferentes().stream()
+                .filter(ref -> edited.referentes().contains(ref.getCodReferente()))
+                .collect(Collectors.toSet());
+        toEdit.setReferentes(toSave);
+        repo.save(toEdit);
+        return GETInstrumentoDTO.of(toEdit);
     }
 }
