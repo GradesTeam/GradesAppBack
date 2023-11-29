@@ -202,4 +202,9 @@ public class InstrumentoController {
     public GETInstrumentoDTO editInstrumento(@PathVariable UUID id, @Valid @RequestBody POSTInstrumentoDTO edited){
         return service.editInstrumento(id, edited);
     }
+    @DeleteMapping("/teacher/instrumento/{id}")
+    public ResponseEntity<?> deleteInstrumento(@PathVariable UUID id){
+        service.deleteInstrumento(id);
+        return ResponseEntity.noContent().build();
+    }
 }

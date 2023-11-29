@@ -4,6 +4,8 @@ package dam.salesianostriana.dam.GradesAPP.instrumento.service;
 import dam.salesianostriana.dam.GradesAPP.MyPage;
 import dam.salesianostriana.dam.GradesAPP.asignatura.model.Asignatura;
 import dam.salesianostriana.dam.GradesAPP.asignatura.repository.AsignaturaRepository;
+import dam.salesianostriana.dam.GradesAPP.calificacion.model.Calificacion;
+import dam.salesianostriana.dam.GradesAPP.calificacion.repository.CalificacionRepository;
 import dam.salesianostriana.dam.GradesAPP.exception.NotFoundException;
 import dam.salesianostriana.dam.GradesAPP.instrumento.dto.GETInstrumentoDTO;
 import dam.salesianostriana.dam.GradesAPP.instrumento.dto.POSTInstrumentoDTO;
@@ -16,10 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,6 +26,7 @@ import java.util.stream.Collectors;
 public class InstrumentoService {
     private final InstrumentoRepository repo;
     private final AsignaturaRepository repoAs;
+    private final CalificacionRepository repoCal;
 
     public MyPage<GETInstrumentoDTO> getAllInstrumentosFromAsignatura(UUID id, Pageable pageable){
         Optional<Asignatura> selectedAs = repoAs.findById(id);
@@ -80,5 +80,20 @@ public class InstrumentoService {
         toEdit.setReferentes(toSave);
         repo.save(toEdit);
         return GETInstrumentoDTO.of(toEdit);
+    }
+
+    public void deleteInstrumento(UUID id) {
+        Optional<Instrumento> selected = repo.findByIdWithReferentes(id);
+        if(selected.isEmpty())
+            throw new NotFoundException("Instrumento");
+        Instrumento toDelete = selected.get();
+        toDelete.getReferentes().removeAll(toDelete.getReferentes());
+        List<Calificacion> calfs = repoCal.findAllByInstrumento_Id(id);
+        if(calfs.isEmpty()){
+            repo.delete(toDelete);
+        }else{
+            calfs.forEach(repoCal::delete);
+            repo.delete(toDelete);
+        }
     }
 }
