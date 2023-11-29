@@ -77,9 +77,31 @@ public class CalificacionController {
         return service.getAllCalificacionesFromInstrumento(id, pageable);
     }
 
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "La calificacion se ha creado de forma correcta", content = {
+                    @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Calificacion.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                                {
+                                                    "id": "07bc8d93-1fa6-4438-95f4-38f1c8b63e66",
+                                                    "nombre": "Nombre del Alumno",
+                                                    "apellido": "Apellidos del Alumno",
+                                                    "fechaNacimiento": "2000-01-01",
+                                                    "telefono": "123456789",
+                                                    "email": "correo@example.com"
+                                                }
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "400",
+                    description = "No se han aportado los datos correctamente",
+                    content = @Content)
+    })
+    @Operation(summary = "Crear una nueva Calificacion")
     @PostMapping("/teacher/instrumento/{id}/calificacion")
-    public ResponseEntity<GETCalificacionDTO> createReferente(@PathVariable UUID id, @RequestBody POSTCalificacionDTO newCal){
-        GETCalificacionDTO created = service.createReferente(id, newCal);
+    public ResponseEntity<GETCalificacionDTO> createCalificacion(@PathVariable UUID id, @RequestBody POSTCalificacionDTO newCal){
+        GETCalificacionDTO created = service.createCalificacion(id, newCal);
         URI createdURI = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")

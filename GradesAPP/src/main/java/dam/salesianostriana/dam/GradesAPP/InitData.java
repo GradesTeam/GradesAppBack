@@ -4,12 +4,14 @@ import dam.salesianostriana.dam.GradesAPP.alumno.model.Alumno;
 import dam.salesianostriana.dam.GradesAPP.alumno.repository.AlumnoRepository;
 import dam.salesianostriana.dam.GradesAPP.asignatura.model.Asignatura;
 import dam.salesianostriana.dam.GradesAPP.asignatura.repository.AsignaturaRepository;
+import dam.salesianostriana.dam.GradesAPP.asignatura.service.AsignaturaService;
 import dam.salesianostriana.dam.GradesAPP.calificacion.model.Calificacion;
 import dam.salesianostriana.dam.GradesAPP.calificacion.repository.CalificacionRepository;
 import dam.salesianostriana.dam.GradesAPP.instrumento.model.Instrumento;
 import dam.salesianostriana.dam.GradesAPP.instrumento.repository.InstrumentoRepository;
 import dam.salesianostriana.dam.GradesAPP.profesor.model.Profesor;
 import dam.salesianostriana.dam.GradesAPP.profesor.repository.ProfesorRepository;
+import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.DTO.ADDReferenteDTO;
 import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.model.ReferenteEvaluacion;
 import dam.salesianostriana.dam.GradesAPP.user.model.UserRole;
 import jakarta.annotation.PostConstruct;
@@ -28,6 +30,7 @@ public class InitData {
     private final AlumnoRepository alumnoRepository;
     private final PasswordEncoder passwordEncoder;
     private final CalificacionRepository repoCalf;
+    private final AsignaturaService asService;
     @PostConstruct
     public void InitData() {
         Profesor profe= Profesor.builder()
@@ -135,29 +138,27 @@ public class InitData {
                         .nombre("Diseño Interfaces")
                         .hexColor("#77dd77")
                         .build();
-                ReferenteEvaluacion ref1 = ReferenteEvaluacion.builder()
-                        .codReferente("Ad.2")
-                        .descripcion("Hola mundo")
-                        .build();
-                ref1.setId(ref1.getId());
-                ReferenteEvaluacion ref2 = ReferenteEvaluacion.builder()
-                        .codReferente("Ad.3")
-                        .descripcion("Hola mundo")
-                        .build();
-                ref2.setId(ref2.getId());
-                as.addReferente(ref2);
-                as.addReferente(ref1);
+        ADDReferenteDTO ref1 = ADDReferenteDTO.builder()
+                .codReferente("Ad.2")
+                .descripcion("Hola mundo")
+                .build();
+        ADDReferenteDTO ref2 = ADDReferenteDTO.builder()
+                .codReferente("Ad.3")
+                .descripcion("Hola mundo")
+                .build();
                 as.addProfesor(pr);
                 repoPrf.save(pr);
                 asignaturaRepo.save(as);
+                asService.addReferente(as.getId(), ref1);
+                asService.addReferente(as.getId(), ref2);
                 Instrumento is = Instrumento.builder()
                         .nombre("Examen T1")
                         .asignatura(asignaturaRepo.getReferenceById(as.getId()))
                         .contenidos("Hola como estas")
                         .fecha(LocalDate.of(2023, 11, 3))
                         .build();
-                is.addReferente(ref1);
-                is.addReferente(ref2);
+                is.addReferente(asignaturaRepo.getReferenteById(ref1.codReferente()).get());
+                is.addReferente(asignaturaRepo.getReferenteById(ref2.codReferente()).get());
                 repoIns.save(is);
                 Instrumento is1 = Instrumento.builder()
                         .nombre("Proyecto T1")
@@ -256,7 +257,7 @@ public class InitData {
                 .alumno(a1)
                 .calificacion(9.2)
                 .instrumento(is)
-                .referente(ref1)
+                .referente(asignaturaRepo.getReferenteById(ref1.codReferente()).get())
                 .build();
         repoCalf.save(cal);
     }
