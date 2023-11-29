@@ -55,9 +55,14 @@ public class Asignatura {
         referenteEvaluacion.setAsignatura(this);
     }
 
-    public void removeReferente(ReferenteEvaluacion ref) {
-        this.referentes.remove(ref);
-        ref.setAsignatura(null);
+    public Asignatura removeReferente(ReferenteEvaluacion referenteEvaluacion) {
+        removeReferente(referenteEvaluacion.getCodReferente());
+        referenteEvaluacion.setAsignatura(null);
+        return this;
+    }
+
+    private void removeReferente(String codReferente) {
+        referentes.removeIf(referenteEvaluacion -> referenteEvaluacion.getCodReferente().equalsIgnoreCase(codReferente));
     }
 
     public void addProfesor(Profesor p){

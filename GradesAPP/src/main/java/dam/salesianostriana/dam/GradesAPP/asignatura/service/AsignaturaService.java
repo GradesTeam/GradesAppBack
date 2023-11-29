@@ -2,9 +2,16 @@ package dam.salesianostriana.dam.GradesAPP.asignatura.service;
 
 import dam.salesianostriana.dam.GradesAPP.MyPage;
 import dam.salesianostriana.dam.GradesAPP.asignatura.AsignaturaDTO.GetAsignaturaDTO;
+import dam.salesianostriana.dam.GradesAPP.asignatura.AsignaturaDTO.PostAsignaturaDTO;
 import dam.salesianostriana.dam.GradesAPP.asignatura.model.Asignatura;
 import dam.salesianostriana.dam.GradesAPP.asignatura.repository.AsignaturaRepository;
+import dam.salesianostriana.dam.GradesAPP.calificacion.model.Calificacion;
+import dam.salesianostriana.dam.GradesAPP.calificacion.repository.CalificacionRepository;
 import dam.salesianostriana.dam.GradesAPP.exception.NotFoundException;
+import dam.salesianostriana.dam.GradesAPP.instrumento.model.Instrumento;
+import dam.salesianostriana.dam.GradesAPP.instrumento.repository.InstrumentoRepository;
+import dam.salesianostriana.dam.GradesAPP.profesor.model.Profesor;
+import dam.salesianostriana.dam.GradesAPP.profesor.repository.ProfesorRepository;
 import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.DTO.ADDReferenteDTO;
 import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.DTO.GETReferenteDTO;
 import dam.salesianostriana.dam.GradesAPP.referenteEvaluacion.DTO.PUTReferenteDTO;
@@ -23,17 +30,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AsignaturaService {
     private  final AsignaturaRepository repo;
+    private final ProfesorRepository proRepo;
+    private final InstrumentoRepository repoIns;
+    private final CalificacionRepository repoCal;
 
-    /*public MyPage<GetAsignaturaDTO> findAll(Pageable pageable){
-       Page<Asignatura> subjectList= repo.findAll(pageable);
-
-        if(subjectList.isEmpty()){
-            throw new NotFoundException("Asignatura");
-        }
-        Page<GetAsignaturaDTO> AsignaturaDTO= subjectList.map(GetAsignaturaDTO::of);
-        return MyPage.of(AsignaturaDTO);
-
-    }*/
     public MyPage<GetAsignaturaDTO> findAll(Pageable pageable){
         Page<GetAsignaturaDTO> subjectList= repo.obtenerTodasConNumeroAlumnos(pageable);
         if (subjectList.isEmpty()){
@@ -42,7 +42,16 @@ public class AsignaturaService {
         return MyPage.of(subjectList);
     }
 
-
+    public GetAsignaturaDTO createAsignatura (PostAsignaturaDTO nuevoAsig){
+        UUID profesorUUID = UUID.fromString(nuevoAsig.idProfesor());
+        Optional<Profesor> profeSeleccion= proRepo.findById(profesorUUID);
+        if(profeSeleccion.isEmpty()) {
+            throw new NotFoundException("Profesor");
+        }
+        Profesor profe= profeSeleccion.get();
+        Asignatura asignaturaNueva= PostAsignaturaDTO.from(nuevoAsig, profe);
+        return GetAsignaturaDTO.of(repo.save(asignaturaNueva));
+    }
 
 
 
@@ -96,5 +105,21 @@ public class AsignaturaService {
         if(ref.isEmpty())
             throw new NotFoundException("Referente");
         return GETReferenteDTO.of(ref.get());
+    }
+
+    public void deleteReferente(String id) {
+        Optional<ReferenteEvaluacion> ref = repo.getReferenteById(id);
+        if(ref.isEmpty())
+            throw new NotFoundException("Referente");
+        List<Instrumento> insWithReferente = repoIns.getAllWithReferente(ref.get());
+        insWithReferente.forEach(ins -> {
+            ins.deleteReferente(ref.get());
+            repoIns.save(ins);
+        });
+        List<Calificacion> calWithReferente = repoCal.findAllByReferente_CodReferente(ref.get().getCodReferente());
+        repoCal.deleteAll(calWithReferente);
+        Asignatura selected = repo.findByIdWithRefrerente(ref.get().getAsignatura().getId()).orElseThrow();
+        repo.save(selected.removeReferente(ref.get()));
+        repo.deleteReferenteByCodReferente(ref.get().getCodReferente());
     }
 }
