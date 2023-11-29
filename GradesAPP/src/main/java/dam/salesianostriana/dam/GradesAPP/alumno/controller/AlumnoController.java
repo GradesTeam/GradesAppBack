@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -113,5 +114,16 @@ public class AlumnoController {
             @Valid @RequestBody EditAlumnoDTO edit
     ){
         return service.edit(UUID.fromString(id), edit);
+    }
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204",
+                    description = "Alumno eliminado correctamente")
+    })
+    @Operation(summary = "Editar un Alumno")
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> borrarAlumno(@PathVariable String id){
+        service.delete(UUID.fromString(id));
+        return ResponseEntity.noContent().build();
     }
 }

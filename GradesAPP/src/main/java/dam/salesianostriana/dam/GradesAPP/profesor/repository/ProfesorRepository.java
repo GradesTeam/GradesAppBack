@@ -1,6 +1,7 @@
 package dam.salesianostriana.dam.GradesAPP.profesor.repository;
 
 import dam.salesianostriana.dam.GradesAPP.alumno.model.Alumno;
+import dam.salesianostriana.dam.GradesAPP.asignatura.model.Asignatura;
 import dam.salesianostriana.dam.GradesAPP.profesor.model.Profesor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +19,5 @@ public interface ProfesorRepository extends JpaRepository<Profesor, UUID> {
         WHERE asignatura.profesor.id = :profesorId
     """)
     Page<Alumno> findAlumnosByProfesor(@Param("profesorId") UUID profesorId, Pageable pageable);
-
 
 }

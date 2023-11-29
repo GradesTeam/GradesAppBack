@@ -37,11 +37,19 @@ public class AsignaturaService {
 
     public MyPage<GetAsignaturaDTO> findAll(Pageable pageable){
         Page<GetAsignaturaDTO> subjectList= repo.obtenerTodasConNumeroAlumnos(pageable);
-        if (subjectList.isEmpty()){
+        if (subjectList.isEmpty())
             throw new NotFoundException("Asignatura");
-        }
+
         return MyPage.of(subjectList);
     }
+
+public MyPage<GetAsignaturaDTO> getAsignaturasByProfesor(Pageable pageable, UUID profesorId){
+        Page<GetAsignaturaDTO> asignaturaListProfe= repo.getAsignaturasByProfesor(profesorId, pageable);
+        if (asignaturaListProfe.isEmpty())
+            throw new NotFoundException("Asignatura");
+
+        return MyPage.of(asignaturaListProfe);
+}
 
     public GetAsignaturaDTO createAsignatura (PostAsignaturaDTO nuevoAsig){
         UUID profesorUUID = UUID.fromString(nuevoAsig.idProfesor());
