@@ -3,6 +3,7 @@ package dam.salesianostriana.dam.GradesAPP.asignatura.service;
 import dam.salesianostriana.dam.GradesAPP.MyPage;
 import dam.salesianostriana.dam.GradesAPP.asignatura.AsignaturaDTO.GetAsignaturaDTO;
 import dam.salesianostriana.dam.GradesAPP.asignatura.AsignaturaDTO.PostAsignaturaDTO;
+import dam.salesianostriana.dam.GradesAPP.asignatura.AsignaturaDTO.PutAsignaturaDTO;
 import dam.salesianostriana.dam.GradesAPP.asignatura.model.Asignatura;
 import dam.salesianostriana.dam.GradesAPP.asignatura.repository.AsignaturaRepository;
 import dam.salesianostriana.dam.GradesAPP.calificacion.model.Calificacion;
@@ -121,5 +122,12 @@ public class AsignaturaService {
         Asignatura selected = repo.findByIdWithRefrerente(ref.get().getAsignatura().getId()).orElseThrow();
         repo.save(selected.removeReferente(ref.get()));
         repo.deleteReferenteByCodReferente(ref.get().getCodReferente());
+    }
+    public GetAsignaturaDTO editAsignatura (UUID idAsig, PutAsignaturaDTO edit){
+        Optional<Asignatura> asignaturaObtenida= repo.findById(idAsig);
+        if (asignaturaObtenida.isEmpty())
+            throw new NotFoundException("Asignatura");
+        Asignatura asigEdit= asignaturaObtenida.get();
+        return GetAsignaturaDTO.of(PutAsignaturaDTO.from(asigEdit, edit));
     }
 }
