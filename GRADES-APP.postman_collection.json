@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "071d9b91-7d4f-4466-a165-7402b8fa78d3",
+		"_postman_id": "8167127d-ae9f-42d2-8475-195a45678710",
 		"name": "GRADES-APP",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "30376309"
+		"_exporter_id": "30052623"
 	},
 	"item": [
 		{
@@ -866,6 +866,120 @@
 												"alumno",
 												"delete",
 												"a05709d1-5ef0-46d9-9170-d84909590f3d"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Asignatura",
+					"item": [
+						{
+							"name": "GET",
+							"item": [
+								{
+									"name": "GetAllAsignaturas",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/teacher/asignatura/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"teacher",
+												"asignatura",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetAllAsignaturasByProfesor",
+									"request": {
+										"method": "GET",
+										"header": []
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "POST",
+							"item": [
+								{
+									"name": "AddAsignatura",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"nombre\": \"AE\",\r\n    \"horas\": 12,\r\n    \"idProfesor\": \"6c0b7825-ebf0-4617-af68-98d34b5c5409\",\r\n    \"descripcion\": \"guay\",\r\n    \"color\": \"#77dd77\"\r\n}\r\n\r\n",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/teacher/asignatura/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"teacher",
+												"asignatura",
+												""
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "PUT",
+							"item": [
+								{
+									"name": "EditAsignatura",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0N2Q2Zjg5Mi01NjA0LTRhYzUtYWE5MS01MzAxYWY3NWY1ZjciLCJpYXQiOjE3MDEyOTc3MDgsImV4cCI6MTcwMTM4NDEwOH0.o-ZNZQ0rHxP7Am9NYjiyAyU-YbjwE3HB9OSEYk_TJUwXpz-zOKPugX8C5l9u6rjPE0mS7_JOROhr5Q3qlQlMXA",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n   \"color\": \"#00000\"\r\n   \"descripcion\": \"HOLA\" \r\n}"
+										},
+										"url": {
+											"raw": "http://localhost:8080/teacher/asignatura/f83b0a03-3584-4fad-ac48-5df2d8408029",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"teacher",
+												"asignatura",
+												"f83b0a03-3584-4fad-ac48-5df2d8408029"
 											]
 										}
 									},
