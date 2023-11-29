@@ -23,6 +23,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.GetMapping;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -232,5 +233,22 @@ public class AsignaturaController {
     @GetMapping("/teacher/referente/{id}")
     public GETReferenteDTO getReferenteById(@PathVariable String id){
         return  service.getReferenteById(id);
+    }
+
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204",
+                    description = "El Referente y sus calificaiones se han borrado correctamente",
+                    content = @Content
+            ),
+            @ApiResponse(responseCode = "404",
+                    description = "No encontrado el Referente a borrar",
+                    content = @Content)
+    })
+    @Operation(summary = "Borrar Referente de Evaluacion", description = "Devuelve 204 no content si todo va bien ")
+    @DeleteMapping("/teacher/referente/{id}")
+    public ResponseEntity<?> deleteReferente(@PathVariable String id){
+        service.deleteReferente(id);
+        return ResponseEntity.noContent().build();
     }
 }

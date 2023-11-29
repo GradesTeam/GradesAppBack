@@ -13,4 +13,6 @@ public interface CalificacionRepository extends JpaRepository<Calificacion, UUID
 
     Page<Calificacion> findAllByInstrumento_Id(UUID id, Pageable pageable);
     List<Calificacion> findAllByInstrumento_Id(UUID id);
+
+    List<Calificacion> findAllByReferente_CodReferente(String codReferente);
 }
